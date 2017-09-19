@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import lombok.Data;
 import lombok.Setter;
 import lombok.Getter;
 
 @Entity
 @Table(name = "tax_bracket")
+@Data
 public class TaxBracket {
 
     @Id
@@ -26,28 +28,6 @@ public class TaxBracket {
 
     public TaxBracket(){
 
-    }
-
-    public TaxBracket(int number) {
-
-        this.number = number;
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
     }
 
     @OneToMany(mappedBy = "taxBracket", cascade = CascadeType.ALL)

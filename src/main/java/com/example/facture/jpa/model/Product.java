@@ -7,12 +7,14 @@ import java.util.Set;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Data;
 import lombok.Setter;
 import lombok.Getter;
 
 @Entity
-@Getter @Setter
+
 @Table(name = "product")
+@Data
 public  class Product {
 
     @Id
@@ -42,60 +44,6 @@ public  class Product {
     public Product() {
 
     }
-    /*public Product(String name) {
-        this.name = name;
-    }*/
-
-    public Product(String name, double nettoPrice, int vat, double bruttoPrice){
-        this.name = name;
-        this.nettoPrice = nettoPrice;
-        this.vat = vat;
-        this.bruttoPrice = bruttoPrice;
-    }
-
-/*
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName(){
-        return name;
-    }
-
-    public void setName(String name){
-        this.name = name;
-    }
-
-    public double getNettoPrice(){
-        return nettoPrice;
-    }
-
-    public void setNettoPrice(double nettoPrice){
-        this.nettoPrice = nettoPrice;
-    }
-
-    public double getBruttoPrice(){
-        return bruttoPrice;
-    }
-
-    public void setBruttoPrice(double bruttoPrice){
-        this.bruttoPrice = bruttoPrice;
-    }
-
-    public int getVat(){
-        return vat;
-    }
-
-    public void setVat(int vat){
-        this.vat = vat;
-    }
-
-*/
-
 
 //Invoices
 

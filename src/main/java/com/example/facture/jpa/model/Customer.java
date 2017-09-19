@@ -5,12 +5,15 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import lombok.Data;
 import lombok.Setter;
 import lombok.Getter;
 
 @Entity
-@Getter @Setter
+
 @Table(name = "customer")
+@Data
 public class Customer {
 
     @Id
@@ -47,82 +50,6 @@ public class Customer {
     public Customer(){
 
     }
-
-    /*public Customer(String name) {
-        this.name = name;
-    }*/
-
-    public Customer(String firstName, String lastName, String email, String nip, String phoneNumber, String name) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.nip = nip;
-        this.phoneNumber = phoneNumber;
-        this.name = name;
-
-    }
-
-/*
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName(){
-        return lastName;
-    }
-
-    public void setLastName(String lastName){
-        this.lastName = lastName;
-    }
-
-
-
-    public String getEmail(){
-        return email;
-    }
-
-    public void setEmail(String email){
-        this.email = email;
-    }
-
-    public String getNip(){
-        return nip;
-    }
-
-    public void setNip(String nip){
-        this.nip = nip;
-    }
-
-    public String getPhoneNumber(){
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber){
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getName(){
-        return name;
-    }
-
-    public void setName(String name){
-        this.name = name;
-    }
-
-
-*/
 
 
     @ManyToOne(cascade = CascadeType.MERGE)

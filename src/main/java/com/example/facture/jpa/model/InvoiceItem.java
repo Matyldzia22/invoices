@@ -3,12 +3,15 @@ package com.example.facture.jpa.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
+
+import lombok.Data;
 import lombok.Setter;
 import lombok.Getter;
 
 @Entity
-@Getter @Setter
+
 @Table(name = "invoiceitem")
+@Data
 public class InvoiceItem {
 
     @Id
@@ -26,31 +29,6 @@ public class InvoiceItem {
 
     }
 
-    public InvoiceItem(int number)
-    {
-        this.number = number;
-    }
-
-
-
-/*
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getNumber(){
-        return number;
-    }
-
-    public void setNumber(int number){
-        this.number = number;
-    }
-
-    */
 
     @ManyToOne
     @JoinColumn(name = "invoice_id")

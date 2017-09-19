@@ -1,5 +1,6 @@
 package com.example.facture.jpa.model;
 
+import lombok.Data;
 import org.bouncycastle.asn1.cms.TimeStampedData;
 import sun.util.calendar.LocalGregorianCalendar;
 
@@ -13,8 +14,9 @@ import lombok.Setter;
 import lombok.Getter;
 
 @Entity
-@Getter @Setter
+
 @Table(name = "invoice")
+@Data
 public class Invoice {
 
     @Id
@@ -46,67 +48,6 @@ public class Invoice {
     public Invoice() {
 
     }
-
-
-
-    public Invoice(String number, Date sellingDate, Date invoiceDate, double sum, Date confirmDate) {
-        this.number = number;
-        this.sellingDate = sellingDate;
-        this.invoiceDate = invoiceDate;
-        this.sum = sum;
-        this.confirmDate = confirmDate;
-    }
-
-    /*
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNumber(){
-        return number;
-    }
-
-    public void setNumber(String number){
-        this.number = number;
-    }
-
-    public Date getSellingDate(){
-        return sellingDate;
-    }
-
-    public void setSellingDate(Date sellingDate){
-        this.sellingDate = sellingDate;
-    }
-
-    public Date getInvoiceDate(){
-        return invoiceDate;
-    }
-
-    public void setInvoiceDate(Date invoiceDate){
-        this.invoiceDate = invoiceDate;
-    }
-
-    public double getSum(){
-        return sum;
-    }
-
-    public void setSum(double sum){
-        this.sum = sum;
-    }
-
-    public Date getConfirmDate(){
-        return confirmDate;
-    }
-
-    public void setConfirmDate(Date confirmDate){
-        this.confirmDate = confirmDate;
-    }
-
-*/
 
 
     @ManyToOne
