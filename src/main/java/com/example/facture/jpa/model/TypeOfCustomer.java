@@ -7,8 +7,11 @@ import java.util.List;
 import java.util.Set;
 import javax.persistence.Table;
 import javax.persistence.Column;
+import lombok.Setter;
+import lombok.Getter;
 
 @Entity
+@Getter @Setter
 @Table(name = "type_of_customer")
 public class TypeOfCustomer {
 
@@ -31,7 +34,7 @@ public class TypeOfCustomer {
         this.name = name;
     }
 
-
+/*
     public Long getId() {
         return id;
     }
@@ -47,6 +50,8 @@ public class TypeOfCustomer {
     public void setName(String name){
         this.name = name;
     }
+
+    */
 
     @OneToMany(mappedBy = "typeOfCustomer", cascade = CascadeType.ALL)
     private List<Customer> customers = new ArrayList<>();

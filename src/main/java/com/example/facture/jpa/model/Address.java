@@ -1,12 +1,15 @@
 package com.example.facture.jpa.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
+@Setter @Getter
 @Table(name = "address")
 public class Address {
 
@@ -38,9 +41,6 @@ public class Address {
 
     }
 
-    /*public Address(String street) {
-        this.street = street;
-    }*/
 
     public Address(String street, String number, String city, String postcode){
         this.street = street;
@@ -50,7 +50,7 @@ public class Address {
 
     }
 
-
+/*
     public Long getId() {
         return id;
     }
@@ -91,6 +91,8 @@ public class Address {
         this.postcode = postcode;
     }
 
+    */
+
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
@@ -99,11 +101,31 @@ public class Address {
     private List<Invoice> invoices = new ArrayList<>();
 
 
+    public Long getId() {
+        return this.id;
+    }
 
+    public String getStreet() {
+        return this.street;
+    }
 
+    public String getNumber() {
+        return this.number;
+    }
 
+    public String getCity() {
+        return this.city;
+    }
 
+    public String getPostcode() {
+        return this.postcode;
+    }
 
+    public Customer getCustomer() {
+        return this.customer;
+    }
 
-
+    public List<Invoice> getInvoices() {
+        return this.invoices;
+    }
 }

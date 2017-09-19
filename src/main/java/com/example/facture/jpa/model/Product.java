@@ -7,7 +7,11 @@ import java.util.Set;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Setter;
+import lombok.Getter;
+
 @Entity
+@Getter @Setter
 @Table(name = "product")
 public  class Product {
 
@@ -22,7 +26,7 @@ public  class Product {
 
     @Column(name = "netto_price")
     @NotNull
-    private double netto_price;
+    private double nettoPrice;
 
     @Column(name = "vat")
     @NotNull
@@ -30,7 +34,7 @@ public  class Product {
 
     @Column(name = "brutto_price")
     @NotNull
-    private double brutto_price;
+    private double bruttoPrice;
 
 
 
@@ -42,14 +46,14 @@ public  class Product {
         this.name = name;
     }*/
 
-    public Product(String name, double netto_price, int vat, double brutto_price){
+    public Product(String name, double nettoPrice, int vat, double bruttoPrice){
         this.name = name;
-        this.netto_price = netto_price;
+        this.nettoPrice = nettoPrice;
         this.vat = vat;
-        this.brutto_price = brutto_price;
+        this.bruttoPrice = bruttoPrice;
     }
 
-
+/*
     public Long getId() {
         return id;
     }
@@ -66,20 +70,20 @@ public  class Product {
         this.name = name;
     }
 
-    public double getNetto_price(){
-        return netto_price;
+    public double getNettoPrice(){
+        return nettoPrice;
     }
 
-    public void setNetto_price(double netto_price){
-        this.netto_price = netto_price;
+    public void setNettoPrice(double nettoPrice){
+        this.nettoPrice = nettoPrice;
     }
 
-    public double getBrutto_price(){
-        return brutto_price;
+    public double getBruttoPrice(){
+        return bruttoPrice;
     }
 
-    public void setBrutto_price(double brutto_price){
-        this.brutto_price = brutto_price;
+    public void setBruttoPrice(double bruttoPrice){
+        this.bruttoPrice = bruttoPrice;
     }
 
     public int getVat(){
@@ -90,7 +94,7 @@ public  class Product {
         this.vat = vat;
     }
 
-
+*/
 
 
 //Invoices

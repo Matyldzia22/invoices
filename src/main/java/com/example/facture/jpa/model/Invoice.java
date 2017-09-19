@@ -9,8 +9,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import lombok.Setter;
+import lombok.Getter;
 
 @Entity
+@Getter @Setter
 @Table(name = "invoice")
 public class Invoice {
 
@@ -25,11 +28,11 @@ public class Invoice {
 
     @Column(name = "sellingdate")
     @NotNull
-    private Date sellingdate;
+    private Date sellingDate;
 
     @Column(name = "invoicedate")
     @NotNull
-    private Date invoicedate;
+    private Date invoiceDate;
 
     @Column(name = "sum")
     @NotNull
@@ -37,27 +40,24 @@ public class Invoice {
 
     @Column(name = "confirmdate")
     @NotNull
-    private Date confirmdate;
+    private Date confirmDate;
 
 
     public Invoice() {
 
     }
 
-    public Invoice(String number) {
-        this.number = number;
-    }
 
-    public Invoice(String number, Date sellingdate, Date invoicedate, double sum, Date confirmdate) {
+
+    public Invoice(String number, Date sellingDate, Date invoiceDate, double sum, Date confirmDate) {
         this.number = number;
-        this.sellingdate = sellingdate;
-        this.invoicedate = invoicedate;
+        this.sellingDate = sellingDate;
+        this.invoiceDate = invoiceDate;
         this.sum = sum;
-        this.confirmdate = confirmdate;
+        this.confirmDate = confirmDate;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    /*
     public Long getId() {
         return id;
     }
@@ -74,20 +74,20 @@ public class Invoice {
         this.number = number;
     }
 
-    public Date getSellingdate(){
-        return sellingdate;
+    public Date getSellingDate(){
+        return sellingDate;
     }
 
-    public void setSellingdate(Date sellingdate){
-        this.sellingdate = sellingdate;
+    public void setSellingDate(Date sellingDate){
+        this.sellingDate = sellingDate;
     }
 
-    public Date getInvoicedate(){
-        return invoicedate;
+    public Date getInvoiceDate(){
+        return invoiceDate;
     }
 
-    public void setInvoicedate(Date invoicedate){
-        this.invoicedate = invoicedate;
+    public void setInvoiceDate(Date invoiceDate){
+        this.invoiceDate = invoiceDate;
     }
 
     public double getSum(){
@@ -98,14 +98,15 @@ public class Invoice {
         this.sum = sum;
     }
 
-    public Date getConfirmdate(){
-        return confirmdate;
+    public Date getConfirmDate(){
+        return confirmDate;
     }
 
-    public void setConfirmdate(Date confirmdate){
-        this.confirmdate = confirmdate;
+    public void setConfirmDate(Date confirmDate){
+        this.confirmDate = confirmDate;
     }
 
+*/
 
 
     @ManyToOne

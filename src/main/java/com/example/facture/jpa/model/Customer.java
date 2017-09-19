@@ -5,8 +5,11 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import lombok.Setter;
+import lombok.Getter;
 
 @Entity
+@Getter @Setter
 @Table(name = "customer")
 public class Customer {
 
@@ -59,7 +62,7 @@ public class Customer {
 
     }
 
-
+/*
     public Long getId() {
         return id;
     }
@@ -119,7 +122,7 @@ public class Customer {
     }
 
 
-
+*/
 
 
     @ManyToOne(cascade = CascadeType.MERGE)

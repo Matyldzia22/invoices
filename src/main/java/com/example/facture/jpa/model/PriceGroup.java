@@ -5,8 +5,11 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import lombok.Setter;
+import lombok.Getter;
 
 @Entity
+@Getter @Setter
 @Table(name = "price_group")
 public class PriceGroup {
 
@@ -34,7 +37,7 @@ public class PriceGroup {
         this.name = name;
     }
 
-
+/*
     public Long getId() {
         return id;
     }
@@ -58,6 +61,8 @@ public class PriceGroup {
     public void setDiscount(int discount){
         this.discount = discount;
     }
+
+    */
 
     @OneToMany(mappedBy = "priceGroup", cascade = CascadeType.ALL)
     private List<Customer> customers = new ArrayList<>();

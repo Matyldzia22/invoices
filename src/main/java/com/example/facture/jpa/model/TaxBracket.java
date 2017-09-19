@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import lombok.Setter;
+import lombok.Getter;
+
 @Entity
 @Table(name = "tax_bracket")
 public class TaxBracket {
