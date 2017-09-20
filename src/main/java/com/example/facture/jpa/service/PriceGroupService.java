@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface PriceGroupService {
 
+    void savePriceGroup(PriceGroupDTO priceGroupDTO);
+
     List<PriceGroupDTO> getAllPriceGroups();
 
     PriceGroup getPriceGroupById(Long id);

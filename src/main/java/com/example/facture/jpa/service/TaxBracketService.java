@@ -11,6 +11,7 @@ public interface TaxBracketService{
     List<TaxBracketDTO> getAllTaxBrackets();
     TaxBracket getTaxBracketById(Long id);
 
+    void saveTaxBracket(TaxBracketDTO taxBracketDTO);
     void deleteTaxBracket(TaxBracketDTO taxBracketDTO);
     void updateTaxBracket(TaxBracketDTO taxBracketDTO);
 

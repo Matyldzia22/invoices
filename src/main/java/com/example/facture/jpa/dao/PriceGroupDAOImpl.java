@@ -62,6 +62,14 @@ public class PriceGroupDAOImpl implements PriceGroupDAO {
                 .setParameter("custName", name).getSingleResult();
     }
 
+    @Override
+    @Cacheable("application-cache")
+    public PriceGroup getPriceGroupByDiscount(int discount){
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("Select a From PriceGroup a where a.discount = :custDiscount", PriceGroup.class)
+                .setParameter("custDiscount", discount).getSingleResult();
+    }
+
     //Getting Customers objects from PriceGroup object from database
     @Override
     public List<Customer> getCustomers(PriceGroup priceGroup) {

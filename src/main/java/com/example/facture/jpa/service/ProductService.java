@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface ProductService {
 
+    void saveProduct(ProductDTO productDTO);
+
     List<ProductDTO> getAllProducts();
 
     Product getProductById(Long id);

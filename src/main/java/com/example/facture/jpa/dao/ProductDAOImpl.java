@@ -65,6 +65,43 @@ public class ProductDAOImpl implements ProductDAO {
                 .setParameter("custName", name).getSingleResult();
     }
 
+    //Getting Product object from database by vat
+    @Override
+    @Cacheable("application-cache")
+    public Product getProductByVat(int vat) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("Select a From Product a where a.vat = :custVat", Product.class)
+                .setParameter("custVat", vat).getSingleResult();
+    }
+
+    //Getting Product object from database by bruttoPrice
+    @Override
+    @Cacheable("application-cache")
+    public Product getProductByBruttoPrice(double bruttoPrice) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("Select a From Product a where a.bruttoPrice = :custBruttoPrice", Product.class)
+                .setParameter("custBruttoPrice", bruttoPrice).getSingleResult();
+    }
+
+    //Getting Product object from database by nettoPrice
+    @Override
+    @Cacheable("application-cache")
+    public Product getProductByNettoPrice(double nettoPrice) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("Select a From Product a where a.nettoPrice = :custNettoPrice", Product.class)
+                .setParameter("custNettoPrice", nettoPrice).getSingleResult();
+    }
+
+    //Getting InvoiceItems objects from Product object from database
+    @Override
+    public List<InvoiceItem> getInvoiceItems(Product product) {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "FROM InvoiceItem c JOIN FETCH c.product p where p.id = :id";
+        return session.createQuery(hql, InvoiceItem.class)
+                .setParameter("id", product.getId())
+                .getResultList();
+    }
+
 
 
 

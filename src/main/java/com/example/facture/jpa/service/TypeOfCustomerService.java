@@ -11,6 +11,7 @@ public interface  TypeOfCustomerService {
     List<TypeOfCustomerDTO> getAllTypeOfCustomers();
     TypeOfCustomer getTypeOfCustomerById(Long id);
 
+    void saveTypeOfCustomer(TypeOfCustomerDTO typeOfCustomerDTO);
     void deleteTypeOfCustomer(TypeOfCustomerDTO typeOfCustomerDTO);
     void updateTypeOfCustomer(TypeOfCustomerDTO typeOfCustomerDTO);
 
