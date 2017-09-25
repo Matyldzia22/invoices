@@ -11,9 +11,10 @@ import java.util.List;
 
 public interface AddressDAO extends BaseDAO<Address, Long> {
 
-    Address getAddressByCity(String city);
-    Address getAddressByPostCode(String postCode);
-    Address getAddressByStreet(String street);
+
+    List<Address> getAddressByCity(String city);
+    List<Address> getAddressByStreet(String street);
+    List<Address> getAddressByPostCode(String postCode);
 
 
 

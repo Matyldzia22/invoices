@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface InvoiceService {
 
+    void saveInvoice(InvoiceDTO invoiceDTO);
+
     List<InvoiceDTO> getAllInvoices();
 
     Invoice getInvoiceById(Long id);
@@ -16,9 +18,11 @@ public interface InvoiceService {
 
     void updateInvoice(InvoiceDTO invoiceDTO);
     InvoiceDTO getInvoiceByNumber(String name);
-    InvoiceDTO getInvoiceByInvoiceDate(Date invoiceDate);
-    InvoiceDTO getInvoiceBySellingDate(Date sellingDate);
-    InvoiceDTO getInvoiceByConfirmDate(Date confirmDate);
+
+    List<Invoice> getInvoiceByInvoiceDate(Date invoiceDate);
+    List<Invoice> getInvoiceBySellingDate(Date sellingDate);
+    List<Invoice> getInvoiceByConfirmDate(Date confirmDate);
+
 
     void addInvoiceItem2Invoice(Invoice invoice, InvoiceItem invoiceItem);
     void deleteInvoiceItemFromInvoice(Invoice invoice, InvoiceItem invoiceItem);

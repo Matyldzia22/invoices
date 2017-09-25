@@ -69,39 +69,31 @@ public class InvoiceDAOImpl implements InvoiceDAO {
     //Getting Invoice object from database by sellingDate
     @Override
     @Cacheable("application-cache")
-    public Invoice getInvoiceBySellingDate(Date sellingDate){
+    public List<Invoice> getInvoiceBySellingDate(Date sellingDate) {
         Session session = sessionFactory.getCurrentSession();
-        return  session.createQuery("Select a From Invoice a where a.sellingDate = :custSellingDate", Invoice.class)
-                .setParameter("custSellingDate", sellingDate).getSingleResult();
+        return session.createQuery("Select a From Invoice a where a.sellingDate = :custSellingDate", Invoice.class)
+                .setParameter("custSellingDate", sellingDate).getResultList();
     }
 
     //Getting Invoice object from database by invoiceDate
     @Override
     @Cacheable("application-cache")
-    public Invoice getInvoiceByInvoiceDate(Date invoiceDate){
+    public List<Invoice> getInvoiceByInvoiceDate(Date invoiceDate) {
         Session session = sessionFactory.getCurrentSession();
-        return  session.createQuery("Select a From Invoice a where a.invoiceDate = :custInvoiceDate", Invoice.class)
-                .setParameter("custInvoiceDate", invoiceDate).getSingleResult();
+        return session.createQuery("Select a From Invoice a where a.invoiceDate = :custInvoiceDate", Invoice.class)
+                .setParameter("custInvoiceDate", invoiceDate).getResultList();
     }
 
-    //Gettting Invoice object from database by sum
 
-    @Override
-    @Cacheable("application-cache")
-    public Invoice getInvoiceBySum(double sum){
-        Session session = sessionFactory.getCurrentSession();
-        return  session.createQuery("Select a From Invoice a where a.sum = :custSum", Invoice.class)
-                .setParameter("custSum", sum).getSingleResult();
-    }
 
     //Getting Invoice object from database by confirmDate
 
     @Override
     @Cacheable("application-cache")
-    public Invoice getInvoiceByConfirmDate(Date confirmDate){
+    public List<Invoice> getInvoiceByConfirmDate(Date confirmDate) {
         Session session = sessionFactory.getCurrentSession();
-        return  session.createQuery("Select a From Invoice a where a.confirmDate = :custConfirmDate", Invoice.class)
-                .setParameter("custConfirmDate", confirmDate).getSingleResult();
+        return session.createQuery("Select a From Invoice a where a.confirmDate = :custConfirmDate", Invoice.class)
+                .setParameter("custConfirmDate", confirmDate).getResultList();
     }
 
     //Getting InvoiceItems objects from Invoice object from database

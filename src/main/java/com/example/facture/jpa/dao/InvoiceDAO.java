@@ -12,10 +12,11 @@ import java.util.List;
 public interface InvoiceDAO extends BaseDAO<Invoice, Long> {
 
     Invoice getInvoiceByNumber(String number);
-    Invoice getInvoiceBySellingDate(Date sellingDate);
-    Invoice getInvoiceByInvoiceDate(Date invoiceDate);
-    Invoice getInvoiceBySum(double sum);
-    Invoice getInvoiceByConfirmDate(Date confirmDate);
+
+
+    List<Invoice> getInvoiceByInvoiceDate(Date invoiceDate);
+    List<Invoice> getInvoiceBySellingDate(Date sellingDate);
+    List<Invoice> getInvoiceByConfirmDate(Date confirmDate);
 
     List<InvoiceItem> getInvoiceItems(Invoice invoice);
 

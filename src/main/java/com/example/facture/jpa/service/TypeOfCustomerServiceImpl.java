@@ -32,8 +32,8 @@ public class TypeOfCustomerServiceImpl implements TypeOfCustomerService {
     }
 
     @Override
-    public void updateTypeOfCustomer(TypeOfCustomerDTO typeOfCustometDTO){
-        TypeOfCustomer typeOfCustomer2 =typeOfCustomerDAO.getById(typeOfCustometDTO.getId());
+    public void updateTypeOfCustomer(TypeOfCustomerDTO typeOfCustomerDTO){
+        TypeOfCustomer typeOfCustomer2 =typeOfCustomerDAO.getById(typeOfCustomerDTO.getId());
         typeOfCustomerDAO.update(typeOfCustomer2);
     }
 

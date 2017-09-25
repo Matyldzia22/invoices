@@ -60,28 +60,28 @@ public class AddressDAOImpl implements AddressDAO {
     //Getting Address object from database by city
     @Override
     @Cacheable("application-cache")
-    public Address getAddressByCity(String city) {
+    public List<Address> getAddressByCity(String city) {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("Select a From Address a where a.city like :custCity", Address.class)
-                .setParameter("custCity", city).getSingleResult();
+                .setParameter("custCity", city).getResultList();
     }
 
     //Getting Address object from database by postcode
     @Override
     @Cacheable("application-cache")
-    public Address getAddressByPostCode(String postCode){
+    public List<Address> getAddressByPostCode(String postCode) {
         Session session = sessionFactory.getCurrentSession();
-        return  session.createQuery("Select a From Address a where a.postcode like :custPostCode", Address.class)
-                .setParameter("custPostCode", postCode).getSingleResult();
+        return session.createQuery("Select a From Address a where a.postcode like :custPostCode", Address.class)
+                .setParameter("custPostCode", postCode).getResultList();
     }
 
     //Getting Address object from database by street
     @Override
     @Cacheable("application-cache")
-    public Address getAddressByStreet(String street){
+    public List<Address> getAddressByStreet(String street) {
         Session session = sessionFactory.getCurrentSession();
-        return  session.createQuery("Select a From Address a where a.street like :custStreet", Address.class)
-                .setParameter("custStreet", street).getSingleResult();
+        return session.createQuery("Select a From Address a where a.street like :custStreet", Address.class)
+                .setParameter("custStreet", street).getResultList();
     }
 
     //Getting Invoices objects from Address object from database

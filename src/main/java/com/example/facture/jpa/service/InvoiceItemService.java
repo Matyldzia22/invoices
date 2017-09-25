@@ -8,14 +8,20 @@ import java.util.List;
 
 public interface InvoiceItemService {
 
-    List<InvoiceItemDTO> getAllInvoiceItems();
+    void saveInvoiceItem(InvoiceItemDTO invoiceItemDTO);
 
-    Invoice getInvoiceItemById(Long id);
+    List<InvoiceItem> getAllInvoiceItems();
 
-    void deleteInvoiceItem(InvoiceItemDTO invoiceItemDTO);
+    InvoiceItem getInvoiceItemById(Long id);
 
-    void updateInvoiceItem(InvoiceItemDTO invoiceItemDTO);
-    InvoiceItemDTO getInvoiceItemByNumber(int number);
+    void deleteInvoiceItem(InvoiceItem invoiceItem);
+
+    void updateInvoiceItem(InvoiceItem invoiceItem);
+
+    void addProduct2InvoiceItem(InvoiceItem invoiceItem, Product product);
+    void addInvoice2InvoiceItem(InvoiceItem invoiceItem, Invoice invoice);
+    void deleteInvoiceFromInvoiceItem(InvoiceItem invoiceItem, Invoice invoice);
+    void deleteProductFromInvoiceItem(InvoiceItem invoiceItem, Product product);
 
 
 

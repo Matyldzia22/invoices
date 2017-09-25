@@ -30,6 +30,18 @@ public class Mapper extends ConfigurableMapper {
                 .byDefault()
                 .register();
 
+        factory.classMap(Address.class, AddressDTO.class)
+                .byDefault()
+                .register();
+
+        factory.classMap(Invoice.class, InvoiceDTO.class)
+                .byDefault()
+                .register();
+
+        factory.classMap(InvoiceItem.class, InvoiceItemDTO.class)
+                .byDefault()
+                .register();
+
         factory.classMap(Customer.class, CustomerDisplayDTO.class)
                 .byDefault()
                 .register();

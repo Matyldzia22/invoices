@@ -17,7 +17,11 @@ public interface AddressService {
     void deleteAddress(AddressDTO addressDTO);
 
     void updateAddress(AddressDTO addressDTO);
-    AddressDTO getAddressByCity(String city);
+
+
+    List<Address> getAddressByCity(String city);
+    List<Address> getAddressByStreet(String street);
+    List<Address> getAddressByPostCode(String postCode);
 
     void addInvoice2Address(Address address, Invoice invoice);
     void deleteInvoiceFromAddress(Address address, Invoice invoice);
