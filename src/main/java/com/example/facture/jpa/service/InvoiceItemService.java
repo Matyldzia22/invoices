@@ -23,6 +23,10 @@ public interface InvoiceItemService {
     void deleteInvoiceFromInvoiceItem(InvoiceItem invoiceItem, Invoice invoice);
     void deleteProductFromInvoiceItem(InvoiceItem invoiceItem, Product product);
 
+    List<InvoiceItem> getInvoiceItemByIdProduct(Long idProduct);
+    List<InvoiceItem> getInvoiceItemByIdInvoice(Long idInvoice);
+    List<InvoiceItem> getInvoiceItems(long idInvoice, long idProduct);
+
 
 
 

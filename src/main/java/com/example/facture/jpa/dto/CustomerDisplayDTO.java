@@ -18,6 +18,10 @@ public @Data class CustomerDisplayDTO {
     private String phoneNumber;
     private String name;
 
+    private Long idTaxBracket;
+    private Long idPriceGroup;
+    private Long idTypeOfCustomer;
+
     private PriceGroupDTO priceGroup;
     private TaxBracketDTO taxBracket;
     private TypeOfCustomerDTO typeOfCustomer;

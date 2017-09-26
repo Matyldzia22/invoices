@@ -7,10 +7,12 @@ import java.util.List;
 import java.util.Set;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Getter;
 
 @Entity
+@NoArgsConstructor
 @Table(name = "tax_bracket")
 @Data
 public class TaxBracket {
@@ -26,9 +28,7 @@ public class TaxBracket {
 
 
 
-    public TaxBracket(){
 
-    }
 
     @OneToMany(mappedBy = "taxBracket", cascade = CascadeType.ALL)
     private List<Customer> customers = new ArrayList<>();

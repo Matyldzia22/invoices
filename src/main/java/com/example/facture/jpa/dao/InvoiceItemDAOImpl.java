@@ -66,6 +66,42 @@ public class InvoiceItemDAOImpl implements InvoiceItemDAO {
                 .setParameter("custNumber", number).getSingleResult();
     }
 
+    //Getting InvoiceItem object from database by idProduct
+    @Override
+    @Cacheable("application-cache")
+    public List<InvoiceItem> getInvoiceItemByIdProduct(Long idProduct) {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "from InvoiceItem s where s.product.id = :idprod";
+        return session.createQuery(hql, InvoiceItem.class)
+                .setParameter("idprod", idProduct)
+                .getResultList();
+    }
+
+    //Getting InvoiceItem object from database by idInvoice
+
+    @Override
+    @Cacheable("application-cache")
+    public List<InvoiceItem> getInvoiceItemByIdInvoice(Long idInvoice) {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "from InvoiceItem s where s.invoice.id = :idinv";
+        return session.createQuery(hql, InvoiceItem.class)
+                .setParameter("idinv", idInvoice)
+                .getResultList();
+    }
+
+    //Getting InvoiceItems from database by idProduct and idInvoice
+
+    @Override
+    @Cacheable("application-cache")
+    public List<InvoiceItem> getInvoiceItems(long idProduct, long idInvoice){
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "from InvoiceItem s where s.invoice.id = :idinv and s.product.id = :idprod";
+        return session.createQuery(hql, InvoiceItem.class)
+                .setParameter("idinv", idInvoice)
+                .setParameter("idprod", idProduct)
+                .getResultList();
+    }
+
 
 
 }

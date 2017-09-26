@@ -7,11 +7,12 @@ import java.util.List;
 import java.util.Set;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Getter;
 
 @Entity
-
+@NoArgsConstructor
 @Table(name = "price_group")
 @Data
 public class PriceGroup {
@@ -30,9 +31,7 @@ public class PriceGroup {
     private String name;
 
 
-    public PriceGroup(){
 
-    }
 
     @OneToMany(mappedBy = "priceGroup", cascade = CascadeType.ALL)
     private List<Customer> customers = new ArrayList<>();

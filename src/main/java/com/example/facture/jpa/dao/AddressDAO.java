@@ -16,6 +16,11 @@ public interface AddressDAO extends BaseDAO<Address, Long> {
     List<Address> getAddressByStreet(String street);
     List<Address> getAddressByPostCode(String postCode);
 
+    List<Address> getAddressByIdCustomer(Long idCustomer);
+    List<Address> getAddresses(long idCustomer);
+
+
+
 
 
     List<Invoice> getInvoices(Address address);

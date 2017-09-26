@@ -14,5 +14,6 @@ public @Data class AddressDisplayDTO {
     private String postCode;
     private List<Invoice> invoices;
     private CustomerDTO customer;
+    private Long idCustomer;
 
 }

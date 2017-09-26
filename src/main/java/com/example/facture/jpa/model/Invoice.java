@@ -1,6 +1,7 @@
 package com.example.facture.jpa.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.bouncycastle.asn1.cms.TimeStampedData;
 import sun.util.calendar.LocalGregorianCalendar;
 
@@ -14,7 +15,7 @@ import lombok.Setter;
 import lombok.Getter;
 
 @Entity
-
+@NoArgsConstructor
 @Table(name = "invoice")
 @Data
 public class Invoice {
@@ -45,9 +46,6 @@ public class Invoice {
     private Date confirmDate;
 
 
-    public Invoice() {
-
-    }
 
 
     @ManyToOne

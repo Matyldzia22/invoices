@@ -17,6 +17,8 @@ public @Data class InvoiceDisplayDTO {
     private Date invoiceDate;
     private double sum;
     private Date confirmDate;
+    private Long idAddress;
+    private Long idCustomer;
 
     private Customer customer;
     List<InvoiceItem> invoiceItems;

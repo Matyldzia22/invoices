@@ -117,6 +117,21 @@ public class InvoiceItemServiceImpl implements InvoiceItemService {
         return invoiceItemDAO.getAll();
     }
 
+    @Override
+    public List<InvoiceItem> getInvoiceItemByIdInvoice(Long idInvoice) {
+        return invoiceItemDAO.getInvoiceItemByIdInvoice(idInvoice);
+    }
+
+    @Override
+    public List<InvoiceItem> getInvoiceItemByIdProduct(Long idProduct){
+        return invoiceItemDAO.getInvoiceItemByIdProduct(idProduct);
+    }
+
+    @Override
+    public List<InvoiceItem> getInvoiceItems(long idInvoice, long idProduct) {
+        return invoiceItemDAO.getInvoiceItems(idInvoice, idProduct);
+    }
+
 
 
 

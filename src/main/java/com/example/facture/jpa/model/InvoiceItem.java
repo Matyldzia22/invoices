@@ -5,11 +5,12 @@ import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Getter;
 
 @Entity
-
+@NoArgsConstructor
 @Table(name = "invoiceitem")
 @Data
 public class InvoiceItem {
@@ -25,9 +26,7 @@ public class InvoiceItem {
 
 
 
-    public InvoiceItem() {
 
-    }
 
 
     @ManyToOne

@@ -9,11 +9,12 @@ import javax.persistence.Table;
 import javax.persistence.Column;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Getter;
 
 @Entity
-
+@NoArgsConstructor
 @Table(name = "type_of_customer")
 @Data
 public class TypeOfCustomer {
@@ -29,9 +30,7 @@ public class TypeOfCustomer {
 
 
 
-    public TypeOfCustomer(){
 
-    }
 
     @OneToMany(mappedBy = "typeOfCustomer", cascade = CascadeType.ALL)
     private List<Customer> customers = new ArrayList<>();

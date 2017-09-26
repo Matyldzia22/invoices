@@ -22,12 +22,24 @@ public class CustomerServiceImpl implements CustomerService {
     private InvoiceDAO invoiceDAO;
 
     @Autowired
+    private TaxBracketDAO taxBracketDAO;
+
+    @Autowired
+    private PriceGroupDAO priceGroupDAO;
+
+    @Autowired
+    private TypeOfCustomerDAO typeOfCustomerDAO;
+
+    @Autowired
     private MapperFacade mapperFacade;
 
     @Override
     public void saveCustomer(CustomerDTO customerDTO)  {
 
         Customer customer = mapperFacade.map(customerDTO, Customer.class);
+        addPriceGroup2Customer(customer, priceGroupDAO.getById(customerDTO.getIdPriceGroup()));
+        addTaxBracket2Customer(customer, taxBracketDAO.getById(customerDTO.getIdTaxBracket()));
+        addTypeOfCustomer2Customer(customer, typeOfCustomerDAO.getById(customerDTO.getIdTypeOfCustomer()));
 
         customerDAO.save(customer);
     }
@@ -118,6 +130,99 @@ public class CustomerServiceImpl implements CustomerService {
             customerDAO.update(customer);
         }
    }
+
+    @Override
+    public void addTaxBracket2Customer(Customer customer, TaxBracket taxBracket) {
+        if (customer.getTaxBracket() != taxBracket) {
+            customer.setTaxBracket(taxBracket);
+            customerDAO.update(customer);
+        }
+        if (!taxBracketDAO.getCustomers(taxBracket).contains(customer)) {
+            List<Customer> customers = taxBracketDAO.getCustomers(taxBracket);
+            customers.add(customer);
+            taxBracket.setCustomers(customers);
+            taxBracketDAO.update(taxBracket);
+        }
+    }
+
+    @Override
+    public void deleteTaxBracketFromCustomer(Customer customer, TaxBracket taxBracket) {
+        if (customer.getTaxBracket() == taxBracket) {
+            customer.setTaxBracket(null);
+            customerDAO.update(customer);
+        }
+        if (taxBracketDAO.getCustomers(taxBracket).contains(customer)) {
+            List<Customer> customers = taxBracketDAO.getCustomers(taxBracket);
+            customers.remove(customer);
+            taxBracket.setCustomers(customers);
+            taxBracketDAO.update(taxBracket);
+        }
+    }
+
+    @Override
+    public void addPriceGroup2Customer(Customer customer, PriceGroup priceGroup) {
+        if (customer.getPriceGroup() != priceGroup) {
+            customer.setPriceGroup(priceGroup);
+            customerDAO.update(customer);
+        }
+        if (!priceGroupDAO.getCustomers(priceGroup).contains(customer)) {
+            List<Customer> customers = priceGroupDAO.getCustomers(priceGroup);
+            customers.add(customer);
+            priceGroup.setCustomers(customers);
+            priceGroupDAO.update(priceGroup);
+        }
+    }
+
+    @Override
+    public void deletePriceGroupFromCustomer(Customer customer, PriceGroup priceGroup) {
+        if (customer.getPriceGroup() == priceGroup) {
+            customer.setPriceGroup(null);
+            customerDAO.update(customer);
+        }
+        if (priceGroupDAO.getCustomers(priceGroup).contains(customer)) {
+            List<Customer> customers = priceGroupDAO.getCustomers(priceGroup);
+            customers.remove(customer);
+            priceGroup.setCustomers(customers);
+            priceGroupDAO.update(priceGroup);
+        }
+    }
+
+    @Override
+    public void addTypeOfCustomer2Customer(Customer customer, TypeOfCustomer typeOfCustomer) {
+        if (customer.getTypeOfCustomer() != typeOfCustomer) {
+            customer.setTypeOfCustomer(typeOfCustomer);
+            customerDAO.update(customer);
+        }
+        if (!typeOfCustomerDAO.getCustomers(typeOfCustomer).contains(customer)) {
+            List<Customer> customers = typeOfCustomerDAO.getCustomers(typeOfCustomer);
+            customers.add(customer);
+            typeOfCustomer.setCustomers(customers);
+            typeOfCustomerDAO.update(typeOfCustomer);
+        }
+    }
+
+    @Override
+    public void deleteTypeOfCustomerFromCustomer(Customer customer, TypeOfCustomer typeOfCustomer) {
+        if (customer.getTypeOfCustomer() == typeOfCustomer) {
+            customer.setTypeOfCustomer(null);
+            customerDAO.update(customer);
+        }
+        if (typeOfCustomerDAO.getCustomers(typeOfCustomer).contains(customer)) {
+            List<Customer> customers = typeOfCustomerDAO.getCustomers(typeOfCustomer);
+            customers.remove(customer);
+            typeOfCustomer.setCustomers(customers);
+            typeOfCustomerDAO.update(typeOfCustomer);
+        }
+    }
+
+    @Override
+    public List<Customer> getCustomers( long idPriceGroup, long idTaxBracket,long idTypeOfCustomer) {
+        return customerDAO.getCustomers(idPriceGroup, idTaxBracket, idTypeOfCustomer);
+    }
+
+
+
+
 
 
 

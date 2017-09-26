@@ -22,12 +22,16 @@ public class AddressServiceImpl implements AddressService {
     private InvoiceDAO invoiceDAO;
 
     @Autowired
+    private CustomerDAO customerDAO;
+
+    @Autowired
     private MapperFacade mapperFacade;
 
 
     @Override
     public void saveAddress(AddressDTO addressDTO){
         Address address = mapperFacade.map(addressDTO, Address.class);
+        addCustomer2Address(address, customerDAO.getById(addressDTO.getIdCustomer()));
         addressDAO.save(address);
     }
 
@@ -103,6 +107,41 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public List<Invoice> getInvoices(Address address){
         return  addressDAO.getInvoices(address);
+    }
+
+    @Override
+    public void addCustomer2Address(Address address, Customer customer){
+        if(address.getCustomer() != customer){
+            address.setCustomer(customer);
+            addressDAO.update(address);
+
+        }
+        if (!customerDAO.getAddresses(customer).contains(address)) {
+            List<Address> addresses = customerDAO.getAddresses(customer);
+            addresses.add(address);
+            customer.setAddresses(addresses);
+            customerDAO.update(customer);
+        }
+    }
+
+    @Override
+    public void deleteCustomerFromAddress(Address address, Customer customer){
+        if(address.getCustomer() == customer){
+            address.setCustomer(null);
+            addressDAO.update(address);
+
+        }
+        if (customerDAO.getAddresses(customer).contains(address)) {
+            List<Address> addresses = customerDAO.getAddresses(customer);
+            addresses.remove(address);
+            customer.setAddresses(addresses);
+            customerDAO.update(customer);
+        }
+    }
+
+    @Override
+    public List<Address> getAddresses(long idCustomer){
+        return addressDAO.getAddresses(idCustomer);
     }
 
 }

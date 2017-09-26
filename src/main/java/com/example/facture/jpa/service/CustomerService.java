@@ -22,6 +22,14 @@ public interface CustomerService {
 
     void addInvoice2Customer(Customer customer, Invoice invoice);
     void deleteInvoiceFromCustomer(Customer customer, Invoice invoice);
+    void addTaxBracket2Customer(Customer customer, TaxBracket taxBracket);
+    void deleteTaxBracketFromCustomer(Customer customer, TaxBracket taxBracket);
+    void addTypeOfCustomer2Customer(Customer customer, TypeOfCustomer typeOfCustomer);
+    void deleteTypeOfCustomerFromCustomer(Customer customer, TypeOfCustomer typeOfCustomer);
+    void addPriceGroup2Customer(Customer customer, PriceGroup priceGroup);
+    void deletePriceGroupFromCustomer(Customer customer, PriceGroup priceGroup);
+
+    List<Customer> getCustomers(long idPriceGroup, long idTaxBracket, long idTypeOfCustomer);
     List<Invoice> getInvoices(Customer customer);
 
 

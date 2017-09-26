@@ -106,6 +106,46 @@ public class InvoiceDAOImpl implements InvoiceDAO {
                 .getResultList();
     }
 
+    //Getting Invoice object from database by idCustomer
+
+    @Override
+    @Cacheable("application-cache")
+    public List<Invoice> getInvoiceByIdCustomer(Long idCustomer) {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "from Invoice s where s.customer.id = :idcust";
+        return session.createQuery(hql, Invoice.class)
+                .setParameter("idcust", idCustomer)
+                .getResultList();
+    }
+
+    //Getting Invoice object from database by idAddress
+
+    @Override
+    @Cacheable("application-cache")
+    public List<Invoice> getInvoiceByIdAddress(Long idAddress) {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "from Invoice s where s.address.id = :idaddr";
+        return session.createQuery(hql, Invoice.class)
+                .setParameter("idaddr", idAddress)
+                .getResultList();
+    }
+
+    //Getting Invoices from database by idCustomer and idAddress
+
+    @Override
+    @Cacheable("application-cache")
+    public List<Invoice> getInvoices(long idAddress, long idCustomer){
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "from Invoice s where s.address.id = :idaddr and s.customer.id = :idcust";
+        return session.createQuery(hql, Invoice.class)
+                .setParameter("idaddr", idAddress)
+                .setParameter("idcust", idCustomer)
+                .getResultList();
+    }
+
+
+
+
 
 
 }

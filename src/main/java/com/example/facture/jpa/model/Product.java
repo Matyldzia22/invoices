@@ -8,11 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Getter;
 
 @Entity
-
+@NoArgsConstructor
 @Table(name = "product")
 @Data
 public  class Product {
@@ -41,9 +42,6 @@ public  class Product {
 
 
 
-    public Product() {
-
-    }
 
 //Invoices
 

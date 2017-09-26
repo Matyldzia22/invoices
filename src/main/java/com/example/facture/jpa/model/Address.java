@@ -2,6 +2,7 @@ package com.example.facture.jpa.model;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-
+@NoArgsConstructor
 @Table(name = "address")
 @Data
 public class Address {
@@ -39,9 +40,7 @@ public class Address {
 
 
 
-    public Address(){
 
-    }
 
 
 

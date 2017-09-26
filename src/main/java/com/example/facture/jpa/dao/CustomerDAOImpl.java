@@ -121,6 +121,60 @@ public class CustomerDAOImpl implements CustomerDAO {
                 .getResultList();
     }
 
+    //Getting Customer object from database by idPriceGroup
+
+    @Override
+    @Cacheable("application-cache")
+    public List<Customer> getCustomerByIdPriceGroup(Long idPriceGroup) {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "from Customer s where s.priceGroup.id = :idpricegr";
+        return session.createQuery(hql, Customer.class)
+                .setParameter("idpricegr", idPriceGroup)
+                .getResultList();
+    }
+
+    //Getting Customer object from database by idTaxBracket
+
+    @Override
+    @Cacheable("application-cache")
+    public List<Customer> getCustomerByIdTaxBracket(Long idTaxBracket) {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "from Customer s where s.taxBracket.id = :idtaxbr";
+        return session.createQuery(hql, Customer.class)
+                .setParameter("idtaxbr", idTaxBracket)
+                .getResultList();
+    }
+
+    //Getting Customer object from database by idTypeOfCustomer
+
+    @Override
+    @Cacheable("application-cache")
+    public List<Customer> getCustomerByIdTypeOfCustomer(Long idTypeOfCustomer){
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "from Customer s where s.typeOfCustomer.id = :idtypeofcust";
+        return session.createQuery(hql, Customer.class)
+                .setParameter("idtypeofcust", idTypeOfCustomer)
+                .getResultList();
+
+    }
+
+    //Getting Customers from database by idTaxBracket, idTypeOfCustomer, idPriceGroup
+
+    @Override
+    @Cacheable("application-cache")
+    public List<Customer> getCustomers(long idPriceGroup, long idTaxBracket, long idTypeOfCustomer){
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "from Customer s where s.priceGroup.id = :idpricegr and s.taxBracket.id = :idtaxbr and s.typeOfCustomer.id =:idtypeofcust";
+        return session.createQuery(hql, Customer.class)
+                .setParameter("idpricegr", idPriceGroup)
+                .setParameter("idtaxbr", idTaxBracket)
+                .setParameter("idtypeofcust", idTypeOfCustomer)
+                .getResultList();
+    }
+
+
+
+
 
 
 

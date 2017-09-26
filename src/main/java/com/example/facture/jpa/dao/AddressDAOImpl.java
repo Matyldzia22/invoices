@@ -94,6 +94,31 @@ public class AddressDAOImpl implements AddressDAO {
                 .getResultList();
     }
 
+    //Getting Address from database by idCustomer
+
+    @Override
+    @Cacheable("application-cache")
+    public List<Address> getAddressByIdCustomer(Long idCustomer){
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "from Address s where s.customer.id = :idcust";
+        return session.createQuery(hql, Address.class)
+                .setParameter("idcust", idCustomer)
+                .getResultList();
+
+    }
+
+    @Override
+    @Cacheable("application-cache")
+    public List<Address> getAddresses(long idCustomer){
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "from Address s where s.customer.id = :idcust";
+        return session.createQuery(hql, Address.class)
+                .setParameter("idcust", idCustomer)
+
+                .getResultList();
+    }
+
+
 
 
 

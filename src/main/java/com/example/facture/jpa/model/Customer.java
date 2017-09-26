@@ -7,11 +7,12 @@ import java.util.List;
 import java.util.Set;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Getter;
 
 @Entity
-
+@NoArgsConstructor
 @Table(name = "customer")
 @Data
 public class Customer {
@@ -47,9 +48,7 @@ public class Customer {
 
 
 
-    public Customer(){
 
-    }
 
 
     @ManyToOne(cascade = CascadeType.MERGE)

@@ -26,6 +26,15 @@ public interface InvoiceService {
 
     void addInvoiceItem2Invoice(Invoice invoice, InvoiceItem invoiceItem);
     void deleteInvoiceItemFromInvoice(Invoice invoice, InvoiceItem invoiceItem);
+    void addAddress2Invoice(Invoice invoice, Address address);
+    void addCustomer2Invoice(Invoice invoice, Customer customer);
+    void deleteAddressFromInvoice(Invoice invoice, Address address);
+    void deleteCustomerFromInvoice(Invoice invoice, Customer customer);
+
+    List<Invoice> getInvoiceByIdAddress(Long idAddress);
+    List<Invoice> getInvoiceByIdCustomer(Long idCustomer);
+    List<Invoice> getInvoices(long idAddress, long idCustomer);
+
     List<InvoiceItem> getInvoiceItems(Invoice invoice);
 
 
