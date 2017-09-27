@@ -76,6 +76,11 @@ public class InvoiceServiceImpl implements InvoiceService {
         return mapperFacade.map(invoiceDAO.getInvoiceByNumber(number), InvoiceDTO.class);
     }
 
+    @Override
+    public InvoiceDisplayDTO getInvoiceDisplayByNumber(String number){
+        return mapperFacade.map(invoiceDAO.getInvoiceByNumber(number), InvoiceDisplayDTO.class);
+    }
+
 
     @Override
     public  List<InvoiceDTO> getAllInvoices(){

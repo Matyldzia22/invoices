@@ -17,7 +17,8 @@ public interface InvoiceService {
     void deleteInvoice(InvoiceDTO invoiceDTO);
 
     void updateInvoice(InvoiceDTO invoiceDTO);
-    InvoiceDTO getInvoiceByNumber(String name);
+    InvoiceDTO getInvoiceByNumber(String number);
+    InvoiceDisplayDTO getInvoiceDisplayByNumber(String number);
 
     List<Invoice> getInvoiceByInvoiceDate(Date invoiceDate);
     List<Invoice> getInvoiceBySellingDate(Date sellingDate);

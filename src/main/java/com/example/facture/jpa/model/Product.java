@@ -3,7 +3,8 @@ package com.example.facture.jpa.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
-
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
