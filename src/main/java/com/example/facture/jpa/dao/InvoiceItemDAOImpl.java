@@ -7,10 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
-
-import javax.persistence.NoResultException;
 import javax.persistence.Query;
-
 import java.util.Date;
 import java.util.List;
 

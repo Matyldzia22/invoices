@@ -6,8 +6,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
-
-import javax.persistence.NoResultException;
 import java.util.List;
 
 
