@@ -28,6 +28,7 @@
 		<jsp.version>2.3.1</jsp.version>
 		<spring-context.version>4.3.4.RELEASE</spring-context.version>
 		<spring-context-support.version>4.3.4.RELEASE</spring-context-support.version>
+		<jstl.version>1.2</jstl.version>
 	</properties>
 	<dependencies>
 		<dependency>
