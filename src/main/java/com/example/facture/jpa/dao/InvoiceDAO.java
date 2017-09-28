@@ -15,25 +15,18 @@ public interface InvoiceDAO extends BaseDAO<Invoice, Long> {
 
 
     List<Invoice> getInvoiceByInvoiceDate(Date invoiceDate);
+
     List<Invoice> getInvoiceBySellingDate(Date sellingDate);
+
     List<Invoice> getInvoiceByConfirmDate(Date confirmDate);
 
     List<InvoiceItem> getInvoiceItems(Invoice invoice);
 
     List<Invoice> getInvoiceByIdAddress(Long idAddress);
+
     List<Invoice> getInvoiceByIdCustomer(Long idCustomer);
 
-    List<Invoice> getInvoices(long idAddress, long idCustomer );
-
-
-
-
-
-
-
-
-
-
+    List<Invoice> getInvoices(long idAddress, long idCustomer);
 
 
 }

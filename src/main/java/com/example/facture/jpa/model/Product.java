@@ -17,7 +17,7 @@ import lombok.Getter;
 @NoArgsConstructor
 @Table(name = "product")
 @Data
-public  class Product {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,11 +40,6 @@ public  class Product {
     @NotNull
     private double bruttoPrice;
 
-
-
-
-
-//Invoices
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<InvoiceItem> invoiceItems = new ArrayList<>();

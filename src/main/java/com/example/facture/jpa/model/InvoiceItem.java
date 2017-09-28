@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,10 +27,6 @@ public class InvoiceItem {
     private int number;
 
 
-
-
-
-
     @ManyToOne
     @JoinColumn(name = "invoice_id")
     private Invoice invoice;
@@ -37,7 +34,6 @@ public class InvoiceItem {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
-
 
 
 }

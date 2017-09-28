@@ -8,6 +8,7 @@ import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.*;
 
 @Service
@@ -32,7 +33,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
 
     @Override
-    public void saveInvoice(InvoiceDTO invoiceDTO){
+    public void saveInvoice(InvoiceDTO invoiceDTO) {
         Invoice invoice = mapperFacade.map(invoiceDTO, Invoice.class);
         addAddress2Invoice(invoice, addressDAO.getById(invoiceDTO.getIdAddress()));
         addCustomer2Invoice(invoice, customerDAO.getById(invoiceDTO.getIdCustomer()));
@@ -40,61 +41,61 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public void updateInvoice(InvoiceDTO invoiceDTO){
-        Invoice invoice2 =invoiceDAO.getById(invoiceDTO.getId());
+    public void updateInvoice(InvoiceDTO invoiceDTO) {
+        Invoice invoice2 = invoiceDAO.getById(invoiceDTO.getId());
         invoiceDAO.update(invoice2);
     }
 
     @Override
-    public void deleteInvoice(InvoiceDTO invoiceDTO){
+    public void deleteInvoice(InvoiceDTO invoiceDTO) {
         Invoice invoice3 = invoiceDAO.getById(invoiceDTO.getId());
         invoiceDAO.delete(invoice3);
     }
 
     @Override
-    public Invoice getInvoiceById(Long id){
+    public Invoice getInvoiceById(Long id) {
         return invoiceDAO.getById(id);
     }
 
     @Override
-    public List<Invoice> getInvoiceBySellingDate(Date sellingDate){
+    public List<Invoice> getInvoiceBySellingDate(Date sellingDate) {
         return invoiceDAO.getInvoiceBySellingDate(sellingDate);
     }
 
     @Override
-    public List<Invoice> getInvoiceByConfirmDate(Date confirmDate){
+    public List<Invoice> getInvoiceByConfirmDate(Date confirmDate) {
         return invoiceDAO.getInvoiceByConfirmDate(confirmDate);
     }
 
     @Override
-    public List<Invoice> getInvoiceByInvoiceDate(Date invoiceDate){
+    public List<Invoice> getInvoiceByInvoiceDate(Date invoiceDate) {
         return invoiceDAO.getInvoiceByInvoiceDate(invoiceDate);
     }
 
     @Override
-    public InvoiceDTO getInvoiceByNumber(String number){
+    public InvoiceDTO getInvoiceByNumber(String number) {
         return mapperFacade.map(invoiceDAO.getInvoiceByNumber(number), InvoiceDTO.class);
     }
 
     @Override
-    public InvoiceDisplayDTO getInvoiceDisplayByNumber(String number){
+    public InvoiceDisplayDTO getInvoiceDisplayByNumber(String number) {
         return mapperFacade.map(invoiceDAO.getInvoiceByNumber(number), InvoiceDisplayDTO.class);
     }
 
 
     @Override
-    public  List<InvoiceDTO> getAllInvoices(){
+    public List<InvoiceDTO> getAllInvoices() {
         List<InvoiceDTO> invoices = new ArrayList<>();
         invoiceDAO.getAll().forEach(invoice -> invoices.add(mapperFacade.map(invoice, InvoiceDTO.class)));
         return invoices;
     }
 
-    public void addInvoiceItem2Invoice(Invoice invoice, InvoiceItem invoiceItem){
-        if(invoiceItem.getInvoice() != invoice) {
+    public void addInvoiceItem2Invoice(Invoice invoice, InvoiceItem invoiceItem) {
+        if (invoiceItem.getInvoice() != invoice) {
             invoiceItem.setInvoice(invoice);
             invoiceItemDAO.update(invoiceItem);
         }
-        if (!invoiceDAO.getInvoiceItems(invoice).contains(invoiceItem)){
+        if (!invoiceDAO.getInvoiceItems(invoice).contains(invoiceItem)) {
             List<InvoiceItem> invoiceItems = invoiceDAO.getInvoiceItems(invoice);
             invoiceItems.add(invoiceItem);
             invoice.setInvoiceItems(invoiceItems);
@@ -104,13 +105,13 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public void deleteInvoiceItemFromInvoice(Invoice invoice, InvoiceItem invoiceItem){
-        if(invoiceItem.getInvoice() == invoice){
+    public void deleteInvoiceItemFromInvoice(Invoice invoice, InvoiceItem invoiceItem) {
+        if (invoiceItem.getInvoice() == invoice) {
             invoiceItem.setInvoice(null);
             invoiceItemDAO.update(invoiceItem);
 
         }
-        if(invoiceDAO.getInvoiceItems(invoice).contains(invoiceItem)){
+        if (invoiceDAO.getInvoiceItems(invoice).contains(invoiceItem)) {
 
             List<InvoiceItem> invoiceItems2 = invoiceDAO.getInvoiceItems(invoice);
             invoiceItems2.remove(invoiceItem);
@@ -120,10 +121,9 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public List<InvoiceItem> getInvoiceItems(Invoice invoice){
-        return  invoiceDAO.getInvoiceItems(invoice);
+    public List<InvoiceItem> getInvoiceItems(Invoice invoice) {
+        return invoiceDAO.getInvoiceItems(invoice);
     }
-
 
 
     @Override
@@ -132,7 +132,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public List<Invoice> getInvoiceByIdCustomer(Long idCustomer){
+    public List<Invoice> getInvoiceByIdCustomer(Long idCustomer) {
         return invoiceDAO.getInvoiceByIdCustomer(idCustomer);
     }
 
@@ -147,8 +147,8 @@ public class InvoiceServiceImpl implements InvoiceService {
             invoice.setAddress(address);
             invoiceDAO.update(invoice);
         }
-        if (!addressDAO.getInvoices(address).contains(invoice)) {
-            List<Invoice> invoices = addressDAO.getInvoices(address);
+        List<Invoice> invoices = addressDAO.getInvoices(address);
+        if (!invoices.contains(invoice)) {
             invoices.add(invoice);
             address.setInvoices(invoices);
             addressDAO.update(address);
@@ -161,8 +161,8 @@ public class InvoiceServiceImpl implements InvoiceService {
             invoice.setAddress(null);
             invoiceDAO.update(invoice);
         }
-        if (addressDAO.getInvoices(address).contains(invoice)) {
-            List<Invoice> invoices = addressDAO.getInvoices(address);
+        List<Invoice> invoices = addressDAO.getInvoices(address);
+        if (invoices.contains(invoice)) {
             invoices.remove(invoice);
             address.setInvoices(invoices);
             addressDAO.update(address);
@@ -170,13 +170,13 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public void addCustomer2Invoice(Invoice invoice, Customer customer){
-        if(invoice.getCustomer() != customer){
+    public void addCustomer2Invoice(Invoice invoice, Customer customer) {
+        if (invoice.getCustomer() != customer) {
             invoice.setCustomer(customer);
             invoiceDAO.update(invoice);
         }
-        if(!customerDAO.getInvoices(customer).contains(invoice)){
-            List<Invoice> invoices = customerDAO.getInvoices(customer);
+        List<Invoice> invoices = customerDAO.getInvoices(customer);
+        if (!invoices.contains(invoice)) {
             invoices.add(invoice);
             customer.setInvoices(invoices);
             customerDAO.update(customer);
@@ -184,26 +184,18 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public void deleteCustomerFromInvoice(Invoice invoice,Customer customer) {
+    public void deleteCustomerFromInvoice(Invoice invoice, Customer customer) {
         if (invoice.getCustomer() == customer) {
             invoice.setCustomer(null);
             invoiceDAO.update(invoice);
         }
-        if (customerDAO.getInvoices(customer).contains(invoice)) {
-            List<Invoice> invoices = customerDAO.getInvoices(customer);
+        List<Invoice> invoices = customerDAO.getInvoices(customer);
+        if (invoices.contains(invoice)) {
             invoices.remove(invoice);
             customer.setInvoices(invoices);
             customerDAO.update(customer);
         }
     }
-
-
-
-
-
-
-
-
 
 
 }

@@ -15,15 +15,21 @@ public interface ProductService {
     Product getProductById(Long id);
 
     void deleteProduct(ProductDTO productDTO);
+
     void updateProduct(ProductDTO productDTO);
 
     ProductDTO getProductByName(String name);
+
     ProductDTO getProductByVat(int vat);
+
     ProductDTO getProductByNettoPrice(double nettoPrice);
+
     ProductDTO getProductByBruttoPrice(double bruttoPrice);
 
     void addInvoiceItem2Product(Product product, InvoiceItem invoiceItem);
+
     void deleteInvoiceItemFromProduct(Product product, InvoiceItem invoiceItem);
+
     List<InvoiceItem> getInvoiceItems(Product product);
 
 }

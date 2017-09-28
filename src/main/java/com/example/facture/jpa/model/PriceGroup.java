@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,8 +31,6 @@ public class PriceGroup {
     @Column(name = "name")
     @NotNull
     private String name;
-
-
 
 
     @OneToMany(mappedBy = "priceGroup", cascade = CascadeType.ALL)

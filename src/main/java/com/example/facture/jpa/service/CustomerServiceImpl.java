@@ -8,6 +8,7 @@ import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.*;
 
 @Service
@@ -34,7 +35,7 @@ public class CustomerServiceImpl implements CustomerService {
     private MapperFacade mapperFacade;
 
     @Override
-    public void saveCustomer(CustomerDTO customerDTO)  {
+    public void saveCustomer(CustomerDTO customerDTO) {
 
         Customer customer = mapperFacade.map(customerDTO, Customer.class);
         addPriceGroup2Customer(customer, priceGroupDAO.getById(customerDTO.getIdPriceGroup()));
@@ -45,7 +46,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<CustomerDTO>getAllCustomers(){
+    public List<CustomerDTO> getAllCustomers() {
 
         List<CustomerDTO> customers = new ArrayList<>();
         customerDAO.getAll().forEach(customer -> customers.add(mapperFacade.map(customer, CustomerDTO.class)));
@@ -59,7 +60,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void deleteCustomer(CustomerDTO customerDTO){
+    public void deleteCustomer(CustomerDTO customerDTO) {
 
         Customer customer = customerDAO.getById(customerDTO.getId());
 
@@ -67,7 +68,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void updateCustomer(CustomerDTO customerDTO){
+    public void updateCustomer(CustomerDTO customerDTO) {
 
         Customer customer2 = customerDAO.getById(customerDTO.getId());
 
@@ -75,61 +76,61 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO getCustomerByName(String name){
+    public CustomerDTO getCustomerByName(String name) {
         return mapperFacade.map(customerDAO.getCustomerByName(name), CustomerDTO.class);
     }
 
     @Override
-    public CustomerDTO getCustomerByLastName(String lastName){
-        return mapperFacade.map(customerDAO.getCustomerByFirstName(lastName),CustomerDTO.class);
+    public CustomerDTO getCustomerByLastName(String lastName) {
+        return mapperFacade.map(customerDAO.getCustomerByFirstName(lastName), CustomerDTO.class);
     }
 
     @Override
-    public CustomerDTO getCustomerByEmail(String email){
+    public CustomerDTO getCustomerByEmail(String email) {
         return mapperFacade.map(customerDAO.getCustomerByEmail(email), CustomerDTO.class);
     }
 
     @Override
-    public CustomerDTO getCustomerByNip(String nip){
+    public CustomerDTO getCustomerByNip(String nip) {
         return mapperFacade.map(customerDAO.getCustomerByNip(nip), CustomerDTO.class);
     }
 
-   @Override
-    public List<Invoice> getInvoices(Customer customer){
+    @Override
+    public List<Invoice> getInvoices(Customer customer) {
 
         return customerDAO.getInvoices(customer);
-   }
+    }
 
-   @Override
-    public void addInvoice2Customer(Customer customer, Invoice invoice){
+    @Override
+    public void addInvoice2Customer(Customer customer, Invoice invoice) {
 
-       if (invoice.getCustomer() != customer) {
-           invoice.setCustomer(customer);
-           invoiceDAO.update(invoice);
-       }
-       if (!customerDAO.getInvoices(customer).contains(invoice)) {
-           List<Invoice> invoices = customerDAO.getInvoices(customer);
-           invoices.add(invoice);
-           customer.setInvoices(invoices);
-           customerDAO.update(customer);
-       }
-
-   }
-
-   @Override
-    public void deleteInvoiceFromCustomer(Customer customer, Invoice invoice){
-
-        if(invoice.getCustomer() == customer){
-            invoice.setCustomer(null);
+        if (invoice.getCustomer() != customer) {
+            invoice.setCustomer(customer);
             invoiceDAO.update(invoice);
         }
-        if(customerDAO.getInvoices(customer).contains(invoice)){
-            List<Invoice> invoices = customerDAO.getInvoices(customer);
-            invoices.remove(invoice);
+        List<Invoice> invoices = customerDAO.getInvoices(customer);
+        if (!invoices.contains(invoice)) {
+            invoices.add(invoice);
             customer.setInvoices(invoices);
             customerDAO.update(customer);
         }
-   }
+
+    }
+
+    @Override
+    public void deleteInvoiceFromCustomer(Customer customer, Invoice invoice) {
+
+        if (invoice.getCustomer() == customer) {
+            invoice.setCustomer(null);
+            invoiceDAO.update(invoice);
+        }
+        List<Invoice> invoices2 = customerDAO.getInvoices(customer);
+        if (invoices2.contains(invoice)) {
+            invoices2.remove(invoice);
+            customer.setInvoices(invoices2);
+            customerDAO.update(customer);
+        }
+    }
 
     @Override
     public void addTaxBracket2Customer(Customer customer, TaxBracket taxBracket) {
@@ -137,8 +138,8 @@ public class CustomerServiceImpl implements CustomerService {
             customer.setTaxBracket(taxBracket);
             customerDAO.update(customer);
         }
-        if (!taxBracketDAO.getCustomers(taxBracket).contains(customer)) {
-            List<Customer> customers = taxBracketDAO.getCustomers(taxBracket);
+        List<Customer> customers = taxBracketDAO.getCustomers(taxBracket);
+        if (!customers.contains(customer)) {
             customers.add(customer);
             taxBracket.setCustomers(customers);
             taxBracketDAO.update(taxBracket);
@@ -151,8 +152,8 @@ public class CustomerServiceImpl implements CustomerService {
             customer.setTaxBracket(null);
             customerDAO.update(customer);
         }
-        if (taxBracketDAO.getCustomers(taxBracket).contains(customer)) {
-            List<Customer> customers = taxBracketDAO.getCustomers(taxBracket);
+        List<Customer> customers = taxBracketDAO.getCustomers(taxBracket);
+        if (customers.contains(customer)) {
             customers.remove(customer);
             taxBracket.setCustomers(customers);
             taxBracketDAO.update(taxBracket);
@@ -165,8 +166,8 @@ public class CustomerServiceImpl implements CustomerService {
             customer.setPriceGroup(priceGroup);
             customerDAO.update(customer);
         }
-        if (!priceGroupDAO.getCustomers(priceGroup).contains(customer)) {
-            List<Customer> customers = priceGroupDAO.getCustomers(priceGroup);
+        List<Customer> customers = priceGroupDAO.getCustomers(priceGroup);
+        if (!customers.contains(customer)) {
             customers.add(customer);
             priceGroup.setCustomers(customers);
             priceGroupDAO.update(priceGroup);
@@ -179,8 +180,8 @@ public class CustomerServiceImpl implements CustomerService {
             customer.setPriceGroup(null);
             customerDAO.update(customer);
         }
-        if (priceGroupDAO.getCustomers(priceGroup).contains(customer)) {
-            List<Customer> customers = priceGroupDAO.getCustomers(priceGroup);
+        List<Customer> customers = priceGroupDAO.getCustomers(priceGroup);
+        if (customers.contains(customer)) {
             customers.remove(customer);
             priceGroup.setCustomers(customers);
             priceGroupDAO.update(priceGroup);
@@ -193,8 +194,8 @@ public class CustomerServiceImpl implements CustomerService {
             customer.setTypeOfCustomer(typeOfCustomer);
             customerDAO.update(customer);
         }
-        if (!typeOfCustomerDAO.getCustomers(typeOfCustomer).contains(customer)) {
-            List<Customer> customers = typeOfCustomerDAO.getCustomers(typeOfCustomer);
+        List<Customer> customers = typeOfCustomerDAO.getCustomers(typeOfCustomer);
+        if (!customers.contains(customer)) {
             customers.add(customer);
             typeOfCustomer.setCustomers(customers);
             typeOfCustomerDAO.update(typeOfCustomer);
@@ -207,8 +208,8 @@ public class CustomerServiceImpl implements CustomerService {
             customer.setTypeOfCustomer(null);
             customerDAO.update(customer);
         }
-        if (typeOfCustomerDAO.getCustomers(typeOfCustomer).contains(customer)) {
-            List<Customer> customers = typeOfCustomerDAO.getCustomers(typeOfCustomer);
+        List<Customer> customers = typeOfCustomerDAO.getCustomers(typeOfCustomer);
+        if (customers.contains(customer)) {
             customers.remove(customer);
             typeOfCustomer.setCustomers(customers);
             typeOfCustomerDAO.update(typeOfCustomer);
@@ -216,23 +217,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> getCustomers( long idPriceGroup, long idTaxBracket,long idTypeOfCustomer) {
+    public List<Customer> getCustomers(long idPriceGroup, long idTaxBracket, long idTypeOfCustomer) {
         return customerDAO.getCustomers(idPriceGroup, idTaxBracket, idTypeOfCustomer);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

@@ -17,12 +17,16 @@ public interface PriceGroupService {
     void deletePriceGroup(PriceGroupDTO priceGroupDTO);
 
     void updatePriceGroup(PriceGroupDTO priceGroupDTO);
+
     PriceGroupDTO getPriceGroupByName(String name);
+
     PriceGroupDTO getPriceGroupByDiscount(int discount);
 
 
     void addCustomer2PriceGroup(PriceGroup priceGroup, Customer customer);
+
     void deleteCustomerFromPriceGroup(PriceGroup priceGroup, Customer customer);
+
     List<Customer> getCustomers(PriceGroup priceGroup);
 
 

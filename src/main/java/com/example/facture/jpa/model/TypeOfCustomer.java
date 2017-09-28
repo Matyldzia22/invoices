@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,16 +31,8 @@ public class TypeOfCustomer {
     private String name;
 
 
-
-
-
     @OneToMany(mappedBy = "typeOfCustomer", cascade = CascadeType.ALL)
     private List<Customer> customers = new ArrayList<>();
-
-
-
-
-
 
 
 }

@@ -9,25 +9,12 @@ import java.util.List;
 public interface InvoiceItemDAO extends BaseDAO<InvoiceItem, Long> {
 
     InvoiceItem getInvoiceItemByNumber(int number);
+
     List<InvoiceItem> getInvoiceItemByIdProduct(Long idProduct);
-    List<InvoiceItem>  getInvoiceItemByIdInvoice(Long idInvoice);
 
-    List<InvoiceItem> getInvoiceItems(long idProduct, long idInvoice );
+    List<InvoiceItem> getInvoiceItemByIdInvoice(Long idInvoice);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    List<InvoiceItem> getInvoiceItems(long idProduct, long idInvoice);
 
 
 }

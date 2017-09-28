@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,14 +29,8 @@ public class TaxBracket {
     private int number;
 
 
-
-
-
     @OneToMany(mappedBy = "taxBracket", cascade = CascadeType.ALL)
     private List<Customer> customers = new ArrayList<>();
-
-
-
 
 
 }

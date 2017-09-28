@@ -1,71 +1,77 @@
 package com.example.facture.jpa.dao;
+
 import com.example.facture.jpa.model.*;
 
 import com.example.facture.jpa.model.InvoiceItem;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
+
 import javax.persistence.Query;
 import java.util.Date;
 import java.util.List;
 
 @Repository
+@CacheConfig(cacheNames = "application-cache")
 public class InvoiceItemDAOImpl implements InvoiceItemDAO {
 
+    private static final String SELECT_A_FROM_INVOICE_ITEM_A = "Select a From InvoiceItem a";
+    private static final String SELECT_A_FROM_INVOICE_ITEM_A_WHERE_A_NUMBER_CUST_NUMBER = "Select a From InvoiceItem a where a.number = :custNumber";
     @Autowired
     private SessionFactory sessionFactory;
 
-    //Saving InvoiceItem object to database
+
     @Override
     public void save(InvoiceItem invoiceItem) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(invoiceItem);
     }
 
-    //Deleting InvoiceItem object from database
+
     @Override
     public void delete(InvoiceItem invoiceItem) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(invoiceItem);
     }
 
-    //Updating InvoiceItem object from database
+
     @Override
     public void update(InvoiceItem invoiceItem) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(invoiceItem);
     }
 
-    //Getting InvoiceItem object from database by id
+
     @Override
-    @Cacheable("application-cache")
+    @Cacheable(key="#idInvoiceItem")
     public InvoiceItem getById(Long idInvoiceItem) {
         Session session = sessionFactory.getCurrentSession();
         return session.find(InvoiceItem.class, idInvoiceItem);
     }
 
-    //Getting all invoiceitems object from database and set to list
+
     @Override
-    @Cacheable("application-cache")
+    @Cacheable
     public List<InvoiceItem> getAll() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("Select a From InvoiceItem a", InvoiceItem.class).getResultList();
+        return session.createQuery(SELECT_A_FROM_INVOICE_ITEM_A, InvoiceItem.class).getResultList();
     }
 
-    //Getting InvoiceItem object from database by number
+
     @Override
-    @Cacheable("application-cache")
+    @Cacheable(key="#number")
     public InvoiceItem getInvoiceItemByNumber(int number) {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("Select a From InvoiceItem a where a.number = :custNumber", InvoiceItem.class)
+        return session.createQuery(SELECT_A_FROM_INVOICE_ITEM_A_WHERE_A_NUMBER_CUST_NUMBER, InvoiceItem.class)
                 .setParameter("custNumber", number).getSingleResult();
     }
 
-    //Getting InvoiceItem object from database by idProduct
+
     @Override
-    @Cacheable("application-cache")
+    @Cacheable(key="#idProduct")
     public List<InvoiceItem> getInvoiceItemByIdProduct(Long idProduct) {
         Session session = sessionFactory.getCurrentSession();
         String hql = "from InvoiceItem s where s.product.id = :idprod";
@@ -74,10 +80,9 @@ public class InvoiceItemDAOImpl implements InvoiceItemDAO {
                 .getResultList();
     }
 
-    //Getting InvoiceItem object from database by idInvoice
 
     @Override
-    @Cacheable("application-cache")
+    @Cacheable(key="#idInvoice")
     public List<InvoiceItem> getInvoiceItemByIdInvoice(Long idInvoice) {
         Session session = sessionFactory.getCurrentSession();
         String hql = "from InvoiceItem s where s.invoice.id = :idinv";
@@ -86,11 +91,10 @@ public class InvoiceItemDAOImpl implements InvoiceItemDAO {
                 .getResultList();
     }
 
-    //Getting InvoiceItems from database by idProduct and idInvoice
 
     @Override
-    @Cacheable("application-cache")
-    public List<InvoiceItem> getInvoiceItems(long idProduct, long idInvoice){
+    @Cacheable(key="{#idProduct, #idInvoice}")
+    public List<InvoiceItem> getInvoiceItems(long idProduct, long idInvoice) {
         Session session = sessionFactory.getCurrentSession();
         String hql = "from InvoiceItem s where s.invoice.id = :idinv and s.product.id = :idprod";
         return session.createQuery(hql, InvoiceItem.class)
@@ -98,7 +102,6 @@ public class InvoiceItemDAOImpl implements InvoiceItemDAO {
                 .setParameter("idprod", idProduct)
                 .getResultList();
     }
-
 
 
 }

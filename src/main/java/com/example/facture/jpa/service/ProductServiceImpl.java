@@ -8,12 +8,13 @@ import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.*;
 
 @Service
 @Transactional
 
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductDAO productDAO;
@@ -26,7 +27,7 @@ public class ProductServiceImpl implements ProductService{
 
 
     @Override
-    public void saveProduct(ProductDTO productDTO){
+    public void saveProduct(ProductDTO productDTO) {
 
         Product product = mapperFacade.map(productDTO, Product.class);
         productDAO.save(product);
@@ -34,57 +35,57 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<ProductDTO> getAllProducts(){
+    public List<ProductDTO> getAllProducts() {
         List<ProductDTO> products = new ArrayList<>();
         productDAO.getAll().forEach(product -> products.add(mapperFacade.map(product, ProductDTO.class)));
         return products;
     }
 
     @Override
-    public Product getProductById(Long id){
+    public Product getProductById(Long id) {
         return productDAO.getById(id);
     }
 
     @Override
-    public void deleteProduct(ProductDTO productDTO){
+    public void deleteProduct(ProductDTO productDTO) {
         Product product = productDAO.getById(productDTO.getId());
         productDAO.delete(product);
     }
 
     @Override
-    public void updateProduct(ProductDTO productDTO){
+    public void updateProduct(ProductDTO productDTO) {
         Product product2 = productDAO.getById(productDTO.getId());
         productDAO.update(product2);
     }
 
     @Override
-    public ProductDTO getProductByName(String name){
+    public ProductDTO getProductByName(String name) {
         return mapperFacade.map(productDAO.getProductByName(name), ProductDTO.class);
     }
 
     @Override
-    public ProductDTO getProductByVat(int vat){
+    public ProductDTO getProductByVat(int vat) {
         return mapperFacade.map(productDAO.getProductByVat(vat), ProductDTO.class);
     }
 
     @Override
-    public ProductDTO getProductByBruttoPrice(double bruttoPrice){
+    public ProductDTO getProductByBruttoPrice(double bruttoPrice) {
         return mapperFacade.map(productDAO.getProductByBruttoPrice(bruttoPrice), ProductDTO.class);
     }
 
     @Override
-    public ProductDTO getProductByNettoPrice(double nettoPrice){
+    public ProductDTO getProductByNettoPrice(double nettoPrice) {
         return mapperFacade.map(productDAO.getProductByNettoPrice(nettoPrice), ProductDTO.class);
     }
 
     @Override
-    public void addInvoiceItem2Product(Product product, InvoiceItem invoiceItem){
+    public void addInvoiceItem2Product(Product product, InvoiceItem invoiceItem) {
         if (invoiceItem.getProduct() != product) {
             invoiceItem.setProduct(product);
             invoiceItemDAO.update(invoiceItem);
         }
-        if (!productDAO.getInvoiceItems(product).contains(invoiceItem)) {
-            List<InvoiceItem> invoiceItems = productDAO.getInvoiceItems(product);
+        List<InvoiceItem> invoiceItems = productDAO.getInvoiceItems(product);
+        if (!invoiceItems.contains(invoiceItem)) {
             invoiceItems.add(invoiceItem);
             product.setInvoiceItems(invoiceItems);
             productDAO.update(product);
@@ -92,25 +93,22 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public  void deleteInvoiceItemFromProduct(Product product, InvoiceItem invoiceItem){
-        if(invoiceItem.getProduct() == product){
+    public void deleteInvoiceItemFromProduct(Product product, InvoiceItem invoiceItem) {
+        if (invoiceItem.getProduct() == product) {
             invoiceItem.setProduct(null);
             invoiceItemDAO.update(invoiceItem);
         }
-        if(productDAO.getInvoiceItems(product).contains(invoiceItem)){
-            List<InvoiceItem> invoiceItems = productDAO.getInvoiceItems(product);
+        List<InvoiceItem> invoiceItems = productDAO.getInvoiceItems(product);
+        if (invoiceItems.contains(invoiceItem)) {
             invoiceItems.remove(invoiceItem);
             product.setInvoiceItems(invoiceItems);
             productDAO.update(product);
         }
     }
 
-    public List<InvoiceItem> getInvoiceItems(Product product){
+    public List<InvoiceItem> getInvoiceItems(Product product) {
         return productDAO.getInvoiceItems(product);
     }
-
-
-
 
 
 }

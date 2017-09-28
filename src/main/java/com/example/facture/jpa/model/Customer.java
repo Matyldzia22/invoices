@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -48,10 +49,6 @@ public class Customer {
     private String name;
 
 
-
-
-
-
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "price_group_id")
     private PriceGroup priceGroup;
@@ -65,14 +62,11 @@ public class Customer {
     private TypeOfCustomer typeOfCustomer;
 
 
-
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Invoice> invoices = new ArrayList<>();
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Address> addresses = new ArrayList<>();
-
-
 
 
 }

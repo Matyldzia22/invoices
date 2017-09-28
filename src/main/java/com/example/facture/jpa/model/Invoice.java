@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bouncycastle.asn1.cms.TimeStampedData;
 import sun.util.calendar.LocalGregorianCalendar;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+
 import lombok.Setter;
 import lombok.Getter;
 
@@ -47,12 +49,9 @@ public class Invoice {
     private Date confirmDate;
 
 
-
-
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
-
 
 
     @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
@@ -61,10 +60,6 @@ public class Invoice {
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
-
-
-
-
 
 
 }

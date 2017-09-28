@@ -79,8 +79,6 @@ public class CoreApplicationContext {
     }
 
 
-
-
     @Bean
     @Autowired
     public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
@@ -88,8 +86,6 @@ public class CoreApplicationContext {
         txManager.setSessionFactory(sessionFactory);
         return txManager;
     }
-
-
 
 
 }

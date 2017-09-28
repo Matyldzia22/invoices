@@ -40,19 +40,12 @@ public class Address {
     private String postcode;
 
 
-
-
-
-
-
-
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
     private List<Invoice> invoices = new ArrayList<>();
-
 
 
 }

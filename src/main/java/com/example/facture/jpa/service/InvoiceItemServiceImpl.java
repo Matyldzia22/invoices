@@ -8,6 +8,7 @@ import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.*;
 
 @Service
@@ -25,13 +26,12 @@ public class InvoiceItemServiceImpl implements InvoiceItemService {
     private ProductDAO productDAO;
 
 
-
     @Autowired
     private MapperFacade mapperFacade;
 
 
     @Override
-    public void saveInvoiceItem(InvoiceItemDTO invoiceItemDTO){
+    public void saveInvoiceItem(InvoiceItemDTO invoiceItemDTO) {
         InvoiceItem invoiceItem = mapperFacade.map(invoiceItemDTO, InvoiceItem.class);
         addProduct2InvoiceItem(invoiceItem, productDAO.getById(invoiceItemDTO.getIdProduct()));
         addInvoice2InvoiceItem(invoiceItem, invoiceDAO.getById(invoiceItemDTO.getIdInvoice()));
@@ -40,19 +40,19 @@ public class InvoiceItemServiceImpl implements InvoiceItemService {
     }
 
     @Override
-    public void updateInvoiceItem(InvoiceItem invoiceItem){
+    public void updateInvoiceItem(InvoiceItem invoiceItem) {
 
         invoiceItemDAO.update(invoiceItem);
     }
 
     @Override
-    public void deleteInvoiceItem(InvoiceItem invoiceItem){
+    public void deleteInvoiceItem(InvoiceItem invoiceItem) {
 
         invoiceItemDAO.delete(invoiceItem);
     }
 
     @Override
-    public InvoiceItem getInvoiceItemById(Long id){
+    public InvoiceItem getInvoiceItemById(Long id) {
         return invoiceItemDAO.getById(id);
     }
 
@@ -62,8 +62,8 @@ public class InvoiceItemServiceImpl implements InvoiceItemService {
             invoiceItem.setProduct(product);
             invoiceItemDAO.update(invoiceItem);
         }
-        if (!productDAO.getInvoiceItems(product).contains(invoiceItem)) {
-            List<InvoiceItem> invoiceItems = productDAO.getInvoiceItems(product);
+        List<InvoiceItem> invoiceItems = productDAO.getInvoiceItems(product);
+        if (!invoiceItems.contains(invoiceItem)) {
             invoiceItems.add(invoiceItem);
             product.setInvoiceItems(invoiceItems);
             productDAO.update(product);
@@ -76,10 +76,10 @@ public class InvoiceItemServiceImpl implements InvoiceItemService {
             invoiceItem.setProduct(null);
             invoiceItemDAO.update(invoiceItem);
         }
-        if (productDAO.getInvoiceItems(product).contains(invoiceItem)) {
-            List<InvoiceItem> invoiceItems = productDAO.getInvoiceItems(product);
-            invoiceItems.remove(invoiceItem);
-            product.setInvoiceItems(invoiceItems);
+        List<InvoiceItem> invoiceItems2 = productDAO.getInvoiceItems(product);
+        if (invoiceItems2.contains(invoiceItem)) {
+            invoiceItems2.remove(invoiceItem);
+            product.setInvoiceItems(invoiceItems2);
             productDAO.update(product);
         }
     }
@@ -90,10 +90,10 @@ public class InvoiceItemServiceImpl implements InvoiceItemService {
             invoiceItem.setInvoice(invoice);
             invoiceItemDAO.update(invoiceItem);
         }
-        if (!invoiceDAO.getInvoiceItems(invoice).contains(invoiceItem)) {
-            List<InvoiceItem> invoiceItems = invoiceDAO.getInvoiceItems(invoice);
-            invoiceItems.add(invoiceItem);
-            invoice.setInvoiceItems(invoiceItems);
+        List<InvoiceItem> invoiceItems3 = invoiceDAO.getInvoiceItems(invoice);
+        if (!invoiceItems3.contains(invoiceItem)) {
+            invoiceItems3.add(invoiceItem);
+            invoice.setInvoiceItems(invoiceItems3);
             invoiceDAO.update(invoice);
         }
     }
@@ -104,8 +104,8 @@ public class InvoiceItemServiceImpl implements InvoiceItemService {
             invoiceItem.setInvoice(null);
             invoiceItemDAO.update(invoiceItem);
         }
-        if (invoiceDAO.getInvoiceItems(invoice).contains(invoiceItem)) {
-            List<InvoiceItem> invoiceItems = invoiceDAO.getInvoiceItems(invoice);
+        List<InvoiceItem> invoiceItems = invoiceDAO.getInvoiceItems(invoice);
+        if (invoiceItems.contains(invoiceItem)) {
             invoiceItems.remove(invoiceItem);
             invoice.setInvoiceItems(invoiceItems);
             invoiceDAO.update(invoice);
@@ -123,7 +123,7 @@ public class InvoiceItemServiceImpl implements InvoiceItemService {
     }
 
     @Override
-    public List<InvoiceItem> getInvoiceItemByIdProduct(Long idProduct){
+    public List<InvoiceItem> getInvoiceItemByIdProduct(Long idProduct) {
         return invoiceItemDAO.getInvoiceItemByIdProduct(idProduct);
     }
 
@@ -131,10 +131,6 @@ public class InvoiceItemServiceImpl implements InvoiceItemService {
     public List<InvoiceItem> getInvoiceItems(long idInvoice, long idProduct) {
         return invoiceItemDAO.getInvoiceItems(idInvoice, idProduct);
     }
-
-
-
-
 
 
 }

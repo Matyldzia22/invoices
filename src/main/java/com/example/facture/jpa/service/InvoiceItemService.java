@@ -19,15 +19,18 @@ public interface InvoiceItemService {
     void updateInvoiceItem(InvoiceItem invoiceItem);
 
     void addProduct2InvoiceItem(InvoiceItem invoiceItem, Product product);
+
     void addInvoice2InvoiceItem(InvoiceItem invoiceItem, Invoice invoice);
+
     void deleteInvoiceFromInvoiceItem(InvoiceItem invoiceItem, Invoice invoice);
+
     void deleteProductFromInvoiceItem(InvoiceItem invoiceItem, Product product);
 
     List<InvoiceItem> getInvoiceItemByIdProduct(Long idProduct);
+
     List<InvoiceItem> getInvoiceItemByIdInvoice(Long idInvoice);
+
     List<InvoiceItem> getInvoiceItems(long idInvoice, long idProduct);
-
-
 
 
 }

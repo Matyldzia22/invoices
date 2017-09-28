@@ -1,100 +1,106 @@
 package com.example.facture.jpa.dao;
+
 import com.example.facture.jpa.model.*;
 
 import com.example.facture.jpa.model.Invoice;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
+
 import javax.persistence.Query;
 
 import java.util.Date;
 import java.util.List;
 
 @Repository
+@CacheConfig(cacheNames = "application-cache")
 public class InvoiceDAOImpl implements InvoiceDAO {
 
+    private static final String SELECT_A_FROM_INVOICE_A = "Select a From Invoice a";
+    private static final String SELECT_A_FROM_INVOICE_A_WHERE_A_NUMBER_LIKE_CUST_NUMBER = "Select a From Invoice a where a.number like :custNumber";
+    private static final String SELECT_A_FROM_INVOICE_A_WHERE_A_SELLING_DATE_CUST_SELLING_DATE = "Select a From Invoice a where a.sellingDate = :custSellingDate";
+    private static final String SELECT_A_FROM_INVOICE_A_WHERE_A_INVOICE_DATE_CUST_INVOICE_DATE = "Select a From Invoice a where a.invoiceDate = :custInvoiceDate";
+    private static final String SELECT_A_FROM_INVOICE_A_WHERE_A_CONFIRM_DATE_CUST_CONFIRM_DATE = "Select a From Invoice a where a.confirmDate = :custConfirmDate";
     @Autowired
     private SessionFactory sessionFactory;
 
-    //Saving Invoice object to database
+
     @Override
     public void save(Invoice invoice) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(invoice);
     }
 
-    //Deleting Invoice object from database
+
     @Override
     public void delete(Invoice invoice) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(invoice);
     }
 
-    //Updating Invoice object from database
+
     @Override
     public void update(Invoice invoice) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(invoice);
     }
 
-    //Getting Invoice object from database by id
+
     @Override
-    @Cacheable("application-cache")
+    @Cacheable(key="#idInvoice")
     public Invoice getById(Long idInvoice) {
         Session session = sessionFactory.getCurrentSession();
         return session.find(Invoice.class, idInvoice);
     }
 
-    //Getting all invoices object from database and set to list
+
     @Override
-    @Cacheable("application-cache")
+    @Cacheable
     public List<Invoice> getAll() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("Select a From Invoice a", Invoice.class).getResultList();
+        return session.createQuery(SELECT_A_FROM_INVOICE_A, Invoice.class).getResultList();
     }
 
-    //Getting Invoice object from database by number
+
     @Override
-    @Cacheable("application-cache")
+    @Cacheable(key="#number")
     public Invoice getInvoiceByNumber(String number) {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("Select a From Invoice a where a.number like :custNumber", Invoice.class)
+        return session.createQuery(SELECT_A_FROM_INVOICE_A_WHERE_A_NUMBER_LIKE_CUST_NUMBER, Invoice.class)
                 .setParameter("custNumber", number).getSingleResult();
     }
 
-    //Getting Invoice object from database by sellingDate
+
     @Override
-    @Cacheable("application-cache")
+    @Cacheable(key="#sellingDate")
     public List<Invoice> getInvoiceBySellingDate(Date sellingDate) {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("Select a From Invoice a where a.sellingDate = :custSellingDate", Invoice.class)
+        return session.createQuery(SELECT_A_FROM_INVOICE_A_WHERE_A_SELLING_DATE_CUST_SELLING_DATE, Invoice.class)
                 .setParameter("custSellingDate", sellingDate).getResultList();
     }
 
-    //Getting Invoice object from database by invoiceDate
+
     @Override
-    @Cacheable("application-cache")
+    @Cacheable(key="#invoiceDate")
     public List<Invoice> getInvoiceByInvoiceDate(Date invoiceDate) {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("Select a From Invoice a where a.invoiceDate = :custInvoiceDate", Invoice.class)
+        return session.createQuery(SELECT_A_FROM_INVOICE_A_WHERE_A_INVOICE_DATE_CUST_INVOICE_DATE, Invoice.class)
                 .setParameter("custInvoiceDate", invoiceDate).getResultList();
     }
 
 
-
-    //Getting Invoice object from database by confirmDate
-
     @Override
-    @Cacheable("application-cache")
+    @Cacheable(key="#confirmDate")
     public List<Invoice> getInvoiceByConfirmDate(Date confirmDate) {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("Select a From Invoice a where a.confirmDate = :custConfirmDate", Invoice.class)
+        return session.createQuery(SELECT_A_FROM_INVOICE_A_WHERE_A_CONFIRM_DATE_CUST_CONFIRM_DATE, Invoice.class)
                 .setParameter("custConfirmDate", confirmDate).getResultList();
     }
 
-    //Getting InvoiceItems objects from Invoice object from database
+
     @Override
     public List<InvoiceItem> getInvoiceItems(Invoice invoice) {
         Session session = sessionFactory.getCurrentSession();
@@ -104,10 +110,9 @@ public class InvoiceDAOImpl implements InvoiceDAO {
                 .getResultList();
     }
 
-    //Getting Invoice object from database by idCustomer
 
     @Override
-    @Cacheable("application-cache")
+    @Cacheable(key="#idCustomer")
     public List<Invoice> getInvoiceByIdCustomer(Long idCustomer) {
         Session session = sessionFactory.getCurrentSession();
         String hql = "from Invoice s where s.customer.id = :idcust";
@@ -116,10 +121,9 @@ public class InvoiceDAOImpl implements InvoiceDAO {
                 .getResultList();
     }
 
-    //Getting Invoice object from database by idAddress
 
     @Override
-    @Cacheable("application-cache")
+    @Cacheable(key="#idAddress")
     public List<Invoice> getInvoiceByIdAddress(Long idAddress) {
         Session session = sessionFactory.getCurrentSession();
         String hql = "from Invoice s where s.address.id = :idaddr";
@@ -128,11 +132,10 @@ public class InvoiceDAOImpl implements InvoiceDAO {
                 .getResultList();
     }
 
-    //Getting Invoices from database by idCustomer and idAddress
 
     @Override
-    @Cacheable("application-cache")
-    public List<Invoice> getInvoices(long idAddress, long idCustomer){
+    @Cacheable(key="{#idAddress, #idCustomer}")
+    public List<Invoice> getInvoices(long idAddress, long idCustomer) {
         Session session = sessionFactory.getCurrentSession();
         String hql = "from Invoice s where s.address.id = :idaddr and s.customer.id = :idcust";
         return session.createQuery(hql, Invoice.class)
@@ -140,10 +143,6 @@ public class InvoiceDAOImpl implements InvoiceDAO {
                 .setParameter("idcust", idCustomer)
                 .getResultList();
     }
-
-
-
-
 
 
 }
