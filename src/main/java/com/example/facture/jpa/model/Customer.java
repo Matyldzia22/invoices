@@ -68,5 +68,9 @@ public class Customer {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Address> addresses = new ArrayList<>();
 
-
+    @Override
+    public String toString()
+    {
+        return String.format("Customer[%s]", name);
+    }
 }

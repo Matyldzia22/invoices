@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="<c:url value='/static/bootstrap/css/bootstrap.min.css' />">
     <link rel="stylesheet" type="text/css" href="<c:url value='/static/bootstrap/js/bootstrap.min.js' /> ">
     <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-    <title>Invoices</title>
+    <title>TaxBrackets</title>
 </head>
 
 <body>
@@ -17,28 +17,16 @@
         <tr>
             <th>id</th>
             <th>number</th>
-            <th>confirmDate</th>
-            <th>sellingDate</th>
-            <th>invoiceDate</th>
-            <th>sum</th>
-            <th>addressID</th>
-            <th>customerID</th>
         </tr>
         </thead>
         <tbody>
-    <c:forEach items="${invoices}" var="invoice">
-        <tr>
-            <td>${invoice.id}</td>
-            <td>${invoice.number}</td>
-            <td>${invoice.confirmDate}</td>
-            <td>${invoice.sellingDate}</td>
-            <td>${invoice.invoiceDate}</td>
-            <td>${invoice.sum}</td>
-            <td>${invoice.address.id}</td>
-            <td>${invoice.customer.id}</td>
-        </tr>
-    </c:forEach>
-    </tbody>
+        <c:forEach items="${taxBrackets}" var="taxBracket">
+            <tr>
+                <td>${taxBracket.id}</td>
+                <td>${taxBracket.number}</td>
+            </tr>
+        </c:forEach>
+        </tbody>
     </table>
 </div>
 </body>

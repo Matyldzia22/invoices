@@ -35,9 +35,9 @@ public class Address {
     @NotNull
     private String city;
 
-    @Column(name = "postcode")
+    @Column(name = "postCode")
     @NotNull
-    private String postcode;
+    private String postCode;
 
 
     @ManyToOne

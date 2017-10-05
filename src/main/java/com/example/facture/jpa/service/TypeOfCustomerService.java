@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface TypeOfCustomerService {
 
+    List<TypeOfCustomer> getAllTypeOfCustomerss();
+
     List<TypeOfCustomerDTO> getAllTypeOfCustomers();
 
     TypeOfCustomer getTypeOfCustomerById(Long id);

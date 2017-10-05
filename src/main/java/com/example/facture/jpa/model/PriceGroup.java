@@ -36,4 +36,10 @@ public class PriceGroup {
     @OneToMany(mappedBy = "priceGroup", cascade = CascadeType.ALL)
     private List<Customer> customers = new ArrayList<>();
 
+    @Override
+    public String toString()
+    {
+        return String.format("PriceGroup[%s]", name);
+    }
+
 }

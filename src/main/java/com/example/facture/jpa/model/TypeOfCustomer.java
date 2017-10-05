@@ -34,5 +34,11 @@ public class TypeOfCustomer {
     @OneToMany(mappedBy = "typeOfCustomer", cascade = CascadeType.ALL)
     private List<Customer> customers = new ArrayList<>();
 
+    @Override
+    public String toString()
+    {
+        return String.format("TypeOfCustomer[%s]", name);
+    }
+
 
 }

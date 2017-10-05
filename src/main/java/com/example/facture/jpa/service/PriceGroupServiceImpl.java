@@ -100,5 +100,10 @@ public class PriceGroupServiceImpl implements PriceGroupService {
         return priceGroupDAO.getCustomers(priceGroup);
     }
 
+    @Override
+    public List<PriceGroup> getAllPriceGroupss() {
+        return priceGroupDAO.getAll();
+    }
+
 
 }

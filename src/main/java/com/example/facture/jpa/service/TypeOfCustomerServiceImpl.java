@@ -95,4 +95,9 @@ public class TypeOfCustomerServiceImpl implements TypeOfCustomerService {
         return typeOfCustomerDAO.getCustomers(typeOfCustomer);
     }
 
+    @Override
+    public List<TypeOfCustomer> getAllTypeOfCustomerss() {
+        return typeOfCustomerDAO.getAll();
+    }
+
 }

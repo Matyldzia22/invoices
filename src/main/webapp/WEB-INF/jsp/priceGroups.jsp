@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="<c:url value='/static/bootstrap/css/bootstrap.min.css' />">
     <link rel="stylesheet" type="text/css" href="<c:url value='/static/bootstrap/js/bootstrap.min.js' /> ">
     <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-    <title>Addresses</title>
+    <title>PriceGroups</title>
 </head>
 
 <body>
@@ -16,25 +16,19 @@
         <thead>
         <tr>
             <th>id</th>
-            <th>city</th>
-            <th>number</th>
-            <th>postCode</th>
-            <th>street</th>
-            <th>customerID</th>
+            <th>name</th>
+            <th>discount</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${addresses}" var="address">
+        <c:forEach items="${priceGroups}" var="priceGroup">
             <tr>
-                <td>${address.id}</td>
-                <td>${address.city}</td>
-                <td>${address.number}</td>
-                <td>${address.postCode}</td>
-                <td>${address.street}</td>
-                <td>${address.customer.id}</td>
+                <td>${priceGroup.id}</td>
+                <td>${priceGroup.name}</td>
+                <td>${priceGroup.discount}</td>
+
             </tr>
         </c:forEach>
-
         </tbody>
     </table>
 </div>

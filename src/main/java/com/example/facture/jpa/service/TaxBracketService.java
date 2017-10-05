@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface TaxBracketService {
 
+    List<TaxBracket> getAllTaxBracketss();
+
     List<TaxBracketDTO> getAllTaxBrackets();
 
     TaxBracket getTaxBracketById(Long id);

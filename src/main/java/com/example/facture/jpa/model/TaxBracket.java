@@ -32,5 +32,11 @@ public class TaxBracket {
     @OneToMany(mappedBy = "taxBracket", cascade = CascadeType.ALL)
     private List<Customer> customers = new ArrayList<>();
 
+    @Override
+    public String toString()
+    {
+        return String.format("TaxBracket[%d]", number);
+    }
+
 
 }

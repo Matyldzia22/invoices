@@ -95,5 +95,10 @@ public class TaxBracketServiceImpl implements TaxBracketService {
         return taxBracketDAO.getCustomers(taxBracket);
     }
 
+    @Override
+    public List<TaxBracket> getAllTaxBracketss() {
+        return taxBracketDAO.getAll();
+    }
+
 
 }
