@@ -4,11 +4,12 @@ import com.example.facture.jpa.model.Customer;
 import com.example.facture.jpa.model.Invoice;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
-
-public @Data
-class AddressDTO {
+@Data
+@NoArgsConstructor
+public class AddressDTO {
 
     private Long id;
     private String street;
@@ -20,23 +21,7 @@ class AddressDTO {
     private CustomerDTO customer2;
     private long idCustomer;
 
-    public AddressDTO(String street, String number, String city, String postCode, CustomerDTO customer2) {
-        this.street = street;
-        this.number = number;
-        this.city = city;
-        this.postCode = postCode;
-        this.customer2 = customer2;
 
-    }
-
-    public AddressDTO(String street, String number, String city, String postCode, long idCustomer) {
-        this.street = street;
-        this.number = number;
-        this.city = city;
-        this.postCode = postCode;
-        this.idCustomer = idCustomer;
-
-    }
 
 
 }

@@ -6,36 +6,17 @@ import com.example.facture.jpa.model.Address;
 
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
 
-public @Data
-class InvoiceDTO {
+@Data
+
+public class InvoiceDTO {
 
     private Long id;
 
-    public InvoiceDTO(String number, Date sellingDate, Date invoiceDate, double sum, Date confirmDate, AddressDTO address2, CustomerDTO customer2) {
-        this.number = number;
-        this.sellingDate = sellingDate;
-        this.sum = sum;
-        this.confirmDate = confirmDate;
-        this.invoiceDate = invoiceDate;
-        this.address2 = address2;
-        this.customer2 = customer2;
-
-    }
-
-    public InvoiceDTO(String number, Date sellingDate, Date invoiceDate, double sum, Date confirmDate, long idAddress, long idCustomer) {
-        this.number = number;
-        this.idAddress = idAddress;
-        this.idCustomer = idCustomer;
-        this.sellingDate = sellingDate;
-        this.sum = sum;
-        this.confirmDate = confirmDate;
-        this.invoiceDate = invoiceDate;
-
-    }
 
     private String number;
     private Date sellingDate;
@@ -52,6 +33,7 @@ class InvoiceDTO {
 
     private AddressDTO address2;
     private CustomerDTO customer2;
+    private PriceGroupDTO priceGroup2;
 
 
 }

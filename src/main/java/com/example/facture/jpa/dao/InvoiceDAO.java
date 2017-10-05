@@ -13,7 +13,7 @@ public interface InvoiceDAO extends BaseDAO<Invoice, Long> {
 
     Invoice getInvoiceByNumber(String number);
 
-
+    List<Invoice> getAll();
     List<Invoice> getInvoiceByInvoiceDate(Date invoiceDate);
 
     List<Invoice> getInvoiceBySellingDate(Date sellingDate);

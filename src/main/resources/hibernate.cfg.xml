@@ -16,7 +16,8 @@
       <property name="show_sql">true</property>
       <property name="format_sql">true</property>
 
-    <property name="hibernate.hbm2ddl.auto">create</property>
+
+   <!-- <property name="hibernate.hbm2ddl">create-drop</property> -->
 
 
     <!-- DB schema will be updated if needed -->

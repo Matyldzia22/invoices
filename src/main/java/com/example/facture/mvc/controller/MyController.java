@@ -16,18 +16,22 @@ public class MyController extends SpringBootServletInitializer {
     private InvoiceService invoiceService;
 
     @Autowired
-    private PriceGroupService priceGroupService;
+    private AddressService addressService;
+
+    @Autowired
+    private InvoiceItemService invoiceItemService;
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(ModelMap model) {
-        model.addAttribute("priceGroups", priceGroupService.getAllPriceGroups());
+        model.addAttribute("invoices", invoiceService.getAllInvoices());
         return "index";
     }
 
-    @RequestMapping(value = "/hello", method = RequestMethod.GET)
+    @RequestMapping(value = "/address", method = RequestMethod.GET)
     public String hello(ModelMap model) {
-        model.addAttribute("message", "Hello Spring MVC Framework!");
+        model.addAttribute("addresses", addressService.getAllAddresses());
+        model.addAttribute("invoiceItems", invoiceItemService.getAllInvoiceItems());
         return "hello";
     }
 

@@ -13,6 +13,7 @@ class PriceGroupDisplayDTO {
     private Long id;
     private int discount;
     private Invoice invoice;
+    private String name;
     private List<Customer> customers;
 
 

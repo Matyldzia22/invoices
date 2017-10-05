@@ -2,12 +2,13 @@ package com.example.facture.jpa.dto;
 
 import com.example.facture.jpa.model.InvoiceItem;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-
-public @Data
-class ProductDTO {
+@Data
+@NoArgsConstructor
+public class ProductDTO {
 
     private Long id;
     private String name;

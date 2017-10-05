@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface InvoiceItemDAO extends BaseDAO<InvoiceItem, Long> {
 
+    List<InvoiceItem> getAll();
     InvoiceItem getInvoiceItemByNumber(int number);
 
     List<InvoiceItem> getInvoiceItemByIdProduct(Long idProduct);

@@ -7,11 +7,13 @@ import com.example.facture.jpa.model.TaxBracket;
 import com.example.facture.jpa.model.PriceGroup;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-public @Data
-class CustomerDTO {
+@Data
+@NoArgsConstructor
+public class CustomerDTO {
 
     private Long id;
     private String firstName;
@@ -33,32 +35,6 @@ class CustomerDTO {
     private long idTaxBracket;
 
 
-    public CustomerDTO(String firstName, String lastName, String email, String nip, String phoneNumber, String name, PriceGroupDTO priceGroup2, TypeOfCustomerDTO typeOfCustomer2, TaxBracketDTO taxBracket2) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.nip = nip;
-        this.phoneNumber = phoneNumber;
-        this.name = name;
-        this.priceGroup2 = priceGroup2;
-        this.taxBracket2 = taxBracket2;
-        this.typeOfCustomer2 = typeOfCustomer2;
-
-    }
-
-    public CustomerDTO(String firstName, String lastName, String email, String nip, String phoneNumber, String name, long idTaxBracket, long idTypeOfCustomer, long idPriceGroup) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.nip = nip;
-        this.phoneNumber = phoneNumber;
-        this.name = name;
-        this.idPriceGroup = idPriceGroup;
-        this.idTaxBracket = idTaxBracket;
-        this.idTypeOfCustomer = idTypeOfCustomer;
-
-
-    }
 
 
 }
