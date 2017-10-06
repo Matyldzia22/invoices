@@ -221,5 +221,10 @@ public class CustomerServiceImpl implements CustomerService {
         return customerDAO.getCustomers(idPriceGroup, idTaxBracket, idTypeOfCustomer);
     }
 
+    @Override
+    public List<Customer> getAllCustomerss() {
+        return customerDAO.getAll();
+    }
+
 
 }

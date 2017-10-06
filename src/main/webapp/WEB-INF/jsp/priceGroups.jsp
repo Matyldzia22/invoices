@@ -15,9 +15,9 @@
     <table class="table">
         <thead>
         <tr>
-            <th>id</th>
-            <th>name</th>
-            <th>discount</th>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>DISCOUNT</th>
         </tr>
         </thead>
         <tbody>

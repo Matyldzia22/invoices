@@ -61,6 +61,12 @@ public class Invoice {
     @JoinColumn(name = "address_id")
     private Address address;
 
+    @Override
+    public String toString()
+    {
+        return String.format("Invoice[%s]", number);
+    }
+
 
 }
 

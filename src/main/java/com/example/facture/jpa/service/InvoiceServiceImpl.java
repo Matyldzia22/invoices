@@ -197,5 +197,10 @@ public class InvoiceServiceImpl implements InvoiceService {
         }
     }
 
+    @Override
+    public List<Invoice> getAllInvoicess() {
+        return invoiceDAO.getAll();
+    }
+
 
 }

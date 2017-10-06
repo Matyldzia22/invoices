@@ -44,5 +44,11 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<InvoiceItem> invoiceItems = new ArrayList<>();
 
+    @Override
+    public String toString()
+    {
+        return String.format("Product[%s]", name);
+    }
+
 }
 

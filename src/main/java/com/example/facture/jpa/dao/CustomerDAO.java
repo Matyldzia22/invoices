@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface CustomerDAO extends BaseDAO<Customer, Long> {
 
+    List<Customer> getAll();
+
     Customer getCustomerByName(String name);
 
     Customer getCustomerByFirstName(String firstName);

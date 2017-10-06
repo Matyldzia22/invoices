@@ -13,5 +13,11 @@ class TypeOfCustomerDisplayDTO {
     private String name;
     private List<Customer> customers;
 
+    @Override
+    public String toString()
+    {
+        return String.format("TypeOfCustomerDTO[%d_%s]", id,name);
+    }
+
 
 }

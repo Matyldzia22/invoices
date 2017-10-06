@@ -15,8 +15,8 @@
     <table class="table">
         <thead>
         <tr>
-            <th>id</th>
-            <th>name</th>
+            <th>ID</th>
+            <th>NAME</th>
         </tr>
         </thead>
         <tbody>

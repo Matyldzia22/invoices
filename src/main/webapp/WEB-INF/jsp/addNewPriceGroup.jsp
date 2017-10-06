@@ -19,7 +19,8 @@
 
         <label  class="col-form-label">Discount</label>
         <form:input path="discount" class="uk-width-1-1 uk-form-large"
-                    type="text"
+                    type="number"
+                    step="0.5"
                     name='discount'
                     placeholder="discount"/>
     </div>

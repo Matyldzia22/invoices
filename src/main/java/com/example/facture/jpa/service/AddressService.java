@@ -11,6 +11,8 @@ public interface AddressService {
 
     List<AddressDTO> getAllAddresses();
 
+    List<Address> getAllAddressess();
+
     Address getAddressById(Long id);
 
     void deleteAddress(AddressDTO addressDTO);

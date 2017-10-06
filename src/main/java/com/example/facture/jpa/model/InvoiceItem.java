@@ -35,6 +35,12 @@ public class InvoiceItem {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @Override
+    public String toString()
+    {
+        return String.format("InvoiceItem[%d]", number);
+    }
+
 
 }
 

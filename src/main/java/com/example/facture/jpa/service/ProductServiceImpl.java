@@ -110,5 +110,10 @@ public class ProductServiceImpl implements ProductService {
         return productDAO.getInvoiceItems(product);
     }
 
+    @Override
+    public List<Product> getAllProductss() {
+        return productDAO.getAll();
+    }
+
 
 }

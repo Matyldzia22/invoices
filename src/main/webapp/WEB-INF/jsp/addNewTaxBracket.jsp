@@ -17,11 +17,9 @@
         <h3>Add new Tax Bracket</h3>
         <div class="form-group">
 
-            <label  class="col-form-label">Discount</label>
-            <form:input path="number" class="uk-width-1-1 uk-form-large"
-                        type="text"
-                        name='number'
-                        placeholder="number"/>
+            <label  class="col-form-label">Number</label>
+            <form:radiobutton path="number" value="18" label="18%" />
+            <form:radiobutton path="number" value="32" label="32%" />
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Save</button>

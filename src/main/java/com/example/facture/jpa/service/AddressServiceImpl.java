@@ -149,4 +149,9 @@ public class AddressServiceImpl implements AddressService {
         return addressDAO.getAddresses(idCustomer);
     }
 
+    @Override
+    public List<Address> getAllAddressess() {
+        return addressDAO.getAll();
+    }
+
 }

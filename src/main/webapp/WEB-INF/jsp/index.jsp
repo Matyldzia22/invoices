@@ -15,14 +15,18 @@
     <table class="table">
         <thead>
         <tr>
-            <th>id</th>
-            <th>number</th>
-            <th>confirmDate</th>
-            <th>sellingDate</th>
-            <th>invoiceDate</th>
-            <th>sum</th>
-            <th>addressID</th>
-            <th>customerID</th>
+            <th>ID</th>
+            <th>NUMBER</th>
+            <th>CONFIRM DATE</th>
+            <th>SELLING DATE</th>
+            <th>INVOICE DATE</th>
+            <th>SUM</th>
+            <th>CITY</th>
+            <th>NUMBER</th>
+            <th>POSTCODE</th>
+            <th>STREET</th>
+            <th>CUSTOMER NAME</th>
+            <th>CUSTOMER NIP</th>
         </tr>
         </thead>
         <tbody>
@@ -34,8 +38,12 @@
             <td>${invoice.sellingDate}</td>
             <td>${invoice.invoiceDate}</td>
             <td>${invoice.sum}</td>
-            <td>${invoice.address.id}</td>
-            <td>${invoice.customer.id}</td>
+            <td>${invoice.address.city}</td>
+            <td>${invoice.address.number}</td>
+            <td>${invoice.address.postCode}</td>
+            <td>${invoice.address.street}</td>
+            <td>${invoice.customer.name}</td>
+            <td>${invoice.customer.nip}</td>
         </tr>
     </c:forEach>
     </tbody>

@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface ProductDAO extends BaseDAO<Product, Long> {
 
+    List<Product> getAll();
+
     Product getProductByName(String name);
 
     Product getProductByVat(int vat);

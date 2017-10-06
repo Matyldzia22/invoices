@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+import static org.apache.taglibs.standard.functions.Functions.substring;
+
 @Data
 @NoArgsConstructor
 public class CustomerDTO {
@@ -33,6 +35,12 @@ public class CustomerDTO {
     private long idTypeOfCustomer;
     private long idPriceGroup;
     private long idTaxBracket;
+
+    @Override
+    public String toString()
+    {
+        return String.format("CustomerDTO[%d_%s]", id,name);
+    }
 
 
 

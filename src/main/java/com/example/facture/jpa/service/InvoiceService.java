@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface InvoiceService {
 
+    List<Invoice> getAllInvoicess();
+
     void saveInvoice(InvoiceDTO invoiceDTO);
 
     List<InvoiceDTO> getAllInvoices();

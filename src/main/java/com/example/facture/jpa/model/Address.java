@@ -47,5 +47,11 @@ public class Address {
     @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
     private List<Invoice> invoices = new ArrayList<>();
 
+    @Override
+    public String toString()
+    {
+        return String.format("Address[%s %s]", street, city);
+    }
+
 
 }

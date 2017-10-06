@@ -14,5 +14,11 @@ public class TaxBracketDTO {
     private int number;
     private List<Customer> customers;
 
+    @Override
+    public String toString()
+    {
+        return String.format("TaxBracketDTO[%d_%d]", id,number);
+    }
+
 
 }

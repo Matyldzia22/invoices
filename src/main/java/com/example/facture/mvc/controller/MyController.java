@@ -2,9 +2,7 @@ package com.example.facture.mvc.controller;
 
 import com.example.facture.FactureApplication;
 import com.example.facture.jpa.dto.*;
-import com.example.facture.jpa.model.PriceGroup;
-import com.example.facture.jpa.model.TaxBracket;
-import com.example.facture.jpa.model.TypeOfCustomer;
+import com.example.facture.jpa.model.*;
 import com.example.facture.jpa.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
@@ -40,6 +38,9 @@ public class MyController extends SpringBootServletInitializer {
     @Autowired
     private TaxBracketService taxBracketService;
 
+    @Autowired
+    private ProductService productService;
+
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -52,6 +53,18 @@ public class MyController extends SpringBootServletInitializer {
     public String priceGroups(ModelMap model) {
         model.addAttribute("priceGroups", priceGroupService.getAllPriceGroups());
         return "priceGroups";
+    }
+
+    @RequestMapping(value = "/products", method = RequestMethod.GET)
+    public String products(ModelMap model) {
+        model.addAttribute("products", productService.getAllProducts());
+        return "products";
+    }
+
+    @RequestMapping(value = "/customers", method = RequestMethod.GET)
+    public String customers(ModelMap model) {
+        model.addAttribute("customers", customerService.getAllCustomers());
+        return "customers";
     }
 
     @RequestMapping(value = "/taxBrackets", method = RequestMethod.GET)
@@ -136,12 +149,70 @@ public class MyController extends SpringBootServletInitializer {
     }
 
     @RequestMapping(value = "/addCustomer", method = RequestMethod.POST)
-    public String addCustomer(@ModelAttribute("customer")   @Valid CustomerDTO customerDTO, BindingResult bindingResult, @PathVariable("name") String name) throws IOException {
+    public String addCustomer(@ModelAttribute("customer")   @Valid CustomerDTO customerDTO, BindingResult bindingResult) throws IOException {
         if (bindingResult.hasErrors()) {
             return "addCustomer";
         }
         customerService.saveCustomer(customerDTO);
         return "redirect:/customers";
+    }
+
+    @GetMapping(value="/addAddress")
+    public String addAddress(Model model){
+        List<Customer> listOfCustomers = customerService.getAllCustomerss();
+        model.addAttribute("address", new AddressDTO());
+        model.addAttribute("listOfCustomers", listOfCustomers);
+
+
+
+        return "addAddress";
+    }
+
+    @RequestMapping(value = "/addAddress", method = RequestMethod.POST)
+    public String addAddress(@ModelAttribute("address")   @Valid AddressDTO addressDTO, BindingResult bindingResult) throws IOException {
+        if (bindingResult.hasErrors()) {
+            return "addAddress";
+        }
+        addressService.saveAddress(addressDTO);
+        return "redirect:/hello";
+    }
+
+    @GetMapping(value="/addInvoice")
+    public String addInvoice(Model model){
+        List<Customer> listOfCustomers = customerService.getAllCustomerss();
+        List<Address> listOfAddresses = addressService.getAllAddressess();
+        model.addAttribute("invoice", new InvoiceDTO());
+        model.addAttribute("listOfCustomers", listOfCustomers);
+        model.addAttribute("listOfAddresses", listOfAddresses);
+
+
+
+        return "addInvoice";
+    }
+
+    @RequestMapping(value = "/addInvoice", method = RequestMethod.POST)
+    public String addInvoice(@ModelAttribute("invoice")   @Valid InvoiceDTO invoiceDTO, BindingResult bindingResult) throws IOException {
+        if (bindingResult.hasErrors()) {
+            return "addInvoice";
+        }
+        invoiceService.saveInvoice(invoiceDTO);
+        return "redirect:/";
+    }
+
+    @GetMapping(value = "/addProduct")
+    public String addProduct(Model model) {
+
+        model.addAttribute("product", new ProductDTO());
+        return "addProduct";
+    }
+
+    @RequestMapping(value = "/addProduct", method = RequestMethod.POST)
+    public String addProduct(@ModelAttribute("product") @Valid ProductDTO productDTO, BindingResult bindingResult) throws IOException {
+        if (bindingResult.hasErrors()) {
+            return "addProduct";
+        }
+        productService.saveProduct(productDTO);
+        return "redirect:/products";
     }
 
 
