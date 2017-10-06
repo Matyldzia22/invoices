@@ -48,9 +48,9 @@
                         name='postCode'
                         placeholder="postCode"/>
         </div>
-        <form:select path="customer">
+        <form:select path="customer" id="listOfCustomers">
             <form:option value="NONE"> --SELECT--</form:option>
-            <form:options items="${listOfCustomers}"></form:options>
+            <form:options items="${listOfCustomers}" itemValue="id" path="idCustomer"></form:options>
         </form:select>
 
 

@@ -33,6 +33,7 @@ public class AddressServiceImpl implements AddressService {
     public void saveAddress(AddressDTO addressDTO) {
         Address address = mapperFacade.map(addressDTO, Address.class);
         addCustomer2Address(address, customerDAO.getById(addressDTO.getIdCustomer()));
+
         addressDAO.save(address);
     }
 

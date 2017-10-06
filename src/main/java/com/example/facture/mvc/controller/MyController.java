@@ -162,19 +162,19 @@ public class MyController extends SpringBootServletInitializer {
         List<Customer> listOfCustomers = customerService.getAllCustomerss();
         model.addAttribute("address", new AddressDTO());
         model.addAttribute("listOfCustomers", listOfCustomers);
-
-
-
         return "addAddress";
     }
 
     @RequestMapping(value = "/addAddress", method = RequestMethod.POST)
-    public String addAddress(@ModelAttribute("address")   @Valid AddressDTO addressDTO, BindingResult bindingResult) throws IOException {
-        if (bindingResult.hasErrors()) {
-            return "addAddress";
-        }
+    public String addAddress(@ModelAttribute("address")   @Valid AddressDTO addressDTO, BindingResult bindingResult, String idCustomer) throws IOException {
+        //if (bindingResult.hasErrors()) {
+          //  return "addAddress";
+        //}
+
+        
+
         addressService.saveAddress(addressDTO);
-        return "redirect:/hello";
+        return "redirect:/address";
     }
 
     @GetMapping(value="/addInvoice")

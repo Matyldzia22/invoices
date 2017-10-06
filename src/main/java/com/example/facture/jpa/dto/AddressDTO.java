@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+
 @Data
 @NoArgsConstructor
 public class AddressDTO {
@@ -18,10 +19,7 @@ public class AddressDTO {
     private String postCode;
     private List<Invoice> invoices;
     private Customer customer;
-    private CustomerDTO customer2;
     private long idCustomer;
-
-
 
 
 }

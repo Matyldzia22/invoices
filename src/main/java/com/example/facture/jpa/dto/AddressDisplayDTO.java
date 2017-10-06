@@ -3,9 +3,11 @@ package com.example.facture.jpa.dto;
 import com.example.facture.jpa.model.Customer;
 import com.example.facture.jpa.model.Invoice;
 import lombok.Data;
+
 import java.util.List;
 
-public @Data class AddressDisplayDTO {
+public @Data
+class AddressDisplayDTO {
 
     private Long id;
     private String street;

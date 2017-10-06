@@ -22,7 +22,7 @@ public class AddressDAOImpl implements AddressDAO {
 
     private static final String SELECT_A_FROM_ADDRESS_A = "Select a From Address a";
     private static final String SELECT_A_FROM_ADDRESS_A_WHERE_A_CITY_LIKE_CUST_CITY = "Select a From Address a where a.city like :custCity";
-    private static final String SELECT_A_FROM_ADDRESS_A_WHERE_A_POSTCODE_LIKE_CUST_POST_CODE = "Select a From Address a where a.postcode like :custPostCode";
+    private static final String SELECT_A_FROM_ADDRESS_A_WHERE_A_POSTCODE_LIKE_CUST_POST_CODE = "Select a From Address a where a.postCode like :custPostCode";
     private static final String SELECT_A_FROM_ADDRESS_A_WHERE_A_STREET_LIKE_CUST_STREET = "Select a From Address a where a.street like :custStreet";
 
 
