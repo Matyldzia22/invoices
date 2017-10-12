@@ -30,6 +30,9 @@
 		<spring-context-support.version>4.3.4.RELEASE</spring-context-support.version>
 		<jstl.version>1.2</jstl.version>
 		<cglib.version>2.2.2</cglib.version>
+		<sitemesh.version>2.4.2</sitemesh.version>
+
+
 	</properties>
 	<dependencies>
 		<dependency>
@@ -65,6 +68,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>opensymphony</groupId>
+			<artifactId>sitemesh</artifactId>
+			<version>${sitemesh.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>

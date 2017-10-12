@@ -39,7 +39,7 @@ public class Address {
     @NotNull
     private String postCode;
 
-    private Long idCustomer;
+
 
 
     @ManyToOne

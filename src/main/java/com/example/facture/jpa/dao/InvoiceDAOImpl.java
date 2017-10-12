@@ -104,7 +104,8 @@ public class InvoiceDAOImpl implements InvoiceDAO {
     @Override
     public List<InvoiceItem> getInvoiceItems(Invoice invoice) {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "FROM InvoiceItem c JOIN FETCH c.invoice p where p.id = :id";
+        String hql = "FROM InvoiceItem c JOIN FETCH c.product p where p.id = :id";
+
         return session.createQuery(hql, InvoiceItem.class)
                 .setParameter("id", invoice.getId())
                 .getResultList();

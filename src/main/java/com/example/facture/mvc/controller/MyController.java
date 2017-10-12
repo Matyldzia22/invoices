@@ -41,12 +41,21 @@ public class MyController extends SpringBootServletInitializer {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private InvoiceItemService invoiceItemService;
+
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(ModelMap model) {
         model.addAttribute("invoices", invoiceService.getAllInvoices());
         return "index";
+    }
+
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public String test(ModelMap model) {
+
+        return "test";
     }
 
     @RequestMapping(value = "/priceGroups", method = RequestMethod.GET)
@@ -65,6 +74,12 @@ public class MyController extends SpringBootServletInitializer {
     public String customers(ModelMap model) {
         model.addAttribute("customers", customerService.getAllCustomers());
         return "customers";
+    }
+
+    @RequestMapping(value = "/invoiceItems", method = RequestMethod.GET)
+    public String invoiceItems(ModelMap model) {
+        model.addAttribute("invoiceItems", invoiceItemService.getAllInvoiceItems());
+        return "invoiceItems";
     }
 
     @RequestMapping(value = "/taxBrackets", method = RequestMethod.GET)
@@ -157,6 +172,28 @@ public class MyController extends SpringBootServletInitializer {
         return "redirect:/customers";
     }
 
+    @GetMapping(value="/addInvoiceItem")
+    public String addInvoiceItem(Model model){
+        List<Product> listOfProducts = productService.getAllProductss();
+        List<Invoice> listOfInvoices = invoiceService.getAllInvoicess();
+        model.addAttribute("invoiceItem", new InvoiceItemDTO());
+        model.addAttribute("listOfProducts", listOfProducts);
+        model.addAttribute("listOfInvoices", listOfInvoices);
+
+
+
+        return "addInvoiceItem";
+    }
+
+    @RequestMapping(value = "/addInvoiceItem", method = RequestMethod.POST)
+    public String addInvoiceItem(@ModelAttribute("invoiceItem")   @Valid InvoiceItemDTO invoiceItemDTO, BindingResult bindingResult) throws IOException {
+        if (bindingResult.hasErrors()) {
+            return "addInvoiceItem";
+        }
+        invoiceItemService.saveInvoiceItem(invoiceItemDTO);
+        return "redirect:/invoiceItems";
+    }
+
     @GetMapping(value="/addAddress")
     public String addAddress(Model model){
         List<Customer> listOfCustomers = customerService.getAllCustomerss();
@@ -171,7 +208,7 @@ public class MyController extends SpringBootServletInitializer {
           //  return "addAddress";
         //}
 
-        
+
 
         addressService.saveAddress(addressDTO);
         return "redirect:/address";
