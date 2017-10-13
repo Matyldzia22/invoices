@@ -30,7 +30,7 @@ public class InvoiceDTO {
 
     private long idAddress;
     private long idCustomer;
-    
+
     private AddressDTO address2;
     private CustomerDTO customer2;
     private PriceGroupDTO priceGroup2;

@@ -51,6 +51,16 @@ public class MyController extends SpringBootServletInitializer {
         model.addAttribute("invoices", invoiceService.getAllInvoices());
         return "index";
     }
+    @RequestMapping(value = "/invoice/{id}", method = RequestMethod.GET)
+    public String displayInvoice(@PathVariable("id") Long id,ModelMap model) {
+
+        List<InvoiceItem> listOfInvoiceItems = invoiceService.getInvoiceItems(invoiceService.getInvoiceById(id));
+        model.addAttribute("invoices", invoiceService.getAllInvoices());
+        model.addAttribute("listOfInvoiceItems", listOfInvoiceItems);
+        model.addAttribute("invoice", invoiceService.getInvoiceById(id));
+
+        return "invoiceByNumber";
+    }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String test(ModelMap model) {
@@ -251,6 +261,7 @@ public class MyController extends SpringBootServletInitializer {
         productService.saveProduct(productDTO);
         return "redirect:/products";
     }
+
 
 
 

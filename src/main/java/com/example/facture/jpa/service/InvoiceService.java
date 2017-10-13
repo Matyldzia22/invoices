@@ -22,6 +22,8 @@ public interface InvoiceService {
 
     InvoiceDTO getInvoiceByNumber(String number);
 
+    Invoice getInvoiceByNumberrr(String number);
+
     InvoiceDisplayDTO getInvoiceDisplayByNumber(String number);
 
     List<Invoice> getInvoiceByInvoiceDate(Date invoiceDate);
@@ -29,6 +31,7 @@ public interface InvoiceService {
     List<Invoice> getInvoiceBySellingDate(Date sellingDate);
 
     List<Invoice> getInvoiceByConfirmDate(Date confirmDate);
+    List<Invoice> getInvoiceByNumberr(String number);
 
 
     void addInvoiceItem2Invoice(Invoice invoice, InvoiceItem invoiceItem);

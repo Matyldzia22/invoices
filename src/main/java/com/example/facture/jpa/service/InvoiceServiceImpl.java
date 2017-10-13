@@ -58,6 +58,12 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
+    public Invoice getInvoiceByNumberrr(String number) {
+        return invoiceDAO.getInvoiceByNumber(number);
+    }
+
+
+    @Override
     public List<Invoice> getInvoiceBySellingDate(Date sellingDate) {
         return invoiceDAO.getInvoiceBySellingDate(sellingDate);
     }
@@ -70,6 +76,11 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public List<Invoice> getInvoiceByInvoiceDate(Date invoiceDate) {
         return invoiceDAO.getInvoiceByInvoiceDate(invoiceDate);
+    }
+
+    @Override
+    public List<Invoice> getInvoiceByNumberr(String number) {
+        return invoiceDAO.getInvoiceByNumberr(number);
     }
 
     @Override

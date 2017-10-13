@@ -18,4 +18,8 @@ public interface InvoiceItemDAO extends BaseDAO<InvoiceItem, Long> {
     List<InvoiceItem> getInvoiceItems(long idProduct, long idInvoice);
 
 
+
+
+
+
 }

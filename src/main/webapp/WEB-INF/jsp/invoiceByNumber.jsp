@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="<c:url value='/static/style.css' />">
 
 
-    <title>Invoices</title>
+    <title>Invoice By number</title>
 </head>
 
 <body>
@@ -94,26 +94,43 @@
             <th>STREET</th>
             <th>CUSTOMER NAME</th>
             <th>CUSTOMER NIP</th>
-            <th>Invoice items</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${invoices}" var="invoice">
-            <tr>
-                <td>${invoice.id}</td>
-                <td>${invoice.number}</td>
-                <td>${invoice.confirmDate}</td>
-                <td>${invoice.sellingDate}</td>
-                <td>${invoice.invoiceDate}</td>
-                <td>${invoice.sum}</td>
-                <td>${invoice.address.city}</td>
-                <td>${invoice.address.number}</td>
-                <td>${invoice.address.postCode}</td>
-                <td>${invoice.address.street}</td>
-                <td>${invoice.customer.name}</td>
-                <td>${invoice.customer.nip}</td>
-                <td>${invoice.invoiceItems}</td>
-            </tr>
+        <tr>
+            <td>${invoice.id}</td>
+            <td>${invoice.number}</td>
+            <td>${invoice.confirmDate}</td>
+            <td>${invoice.sellingDate}</td>
+            <td>${invoice.invoiceDate}</td>
+            <td>${invoice.sum}</td>
+            <td>${invoice.address.city}</td>
+            <td>${invoice.address.number}</td>
+            <td>${invoice.address.postCode}</td>
+            <td>${invoice.address.street}</td>
+            <td>${invoice.customer.name}</td>
+            <td>${invoice.customer.nip}</td>
+        <thead>
+        <tr>
+            <th>product name</th>
+            <th>number</th>
+            <th>product brutto price</th>
+            <th>product netto price</th>
+            <th>product vat</th>
+        </tr>
+        </thead>
+
+        <c:forEach items="${listOfInvoiceItems}" var="invoiceItem">
+            <td>${invoiceItem.product.name}</td>
+            <td>${invoiceItem.number}</td>
+            <td>${invoiceItem.product.bruttoPrice}</td>
+            <td>${invoiceItem.product.nettoPrice}</td>
+            <td>${invoiceItem.product.vat}</td>
+        </c:forEach>
+
+        </tr>
+
         </c:forEach>
         </tbody>
     </table>

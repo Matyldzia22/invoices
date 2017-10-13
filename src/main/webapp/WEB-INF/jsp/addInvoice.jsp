@@ -80,25 +80,25 @@
 
             <label class="col-form-label">confirmDate</label>
             <form:input path="confirmDate" class="uk-width-1-1 uk-form-large"
-                        type="datetime-local"
+                        type="date"
                         name='confirmDate'
-                        placeholder="confirmDate"/>
+                        placeholder="rr-mm-dd hh-mm"/>
         </div>
         <div class="form-group">
 
             <label class="col-form-label">sellingDate</label>
             <form:input path="sellingDate" class="uk-width-1-1 uk-form-large"
-                        type="datetime-local"
+                        type="date"
                         name='sellingDate'
-                        placeholder="sellingDate"/>
+                        placeholder="rr-mm-dd hh-mm"/>
         </div>
         <div class="form-group">
 
             <label class="col-form-label">invoiceDate</label>
             <form:input path="invoiceDate" class="uk-width-1-1 uk-form-large"
-                        type="datetime-local"
+                        type="date"
                         name='invoiceDate'
-                        placeholder="invoiceDate"/>
+                        placeholder="rr-mm-dd hh-mm"/>
         </div>
         <div class="form-group">
 
@@ -116,7 +116,7 @@
             <form:option value="0"> --SELECT--</form:option>
             <form:options items="${listOfAddresses}" itemValue="id" path="address"></form:options>
         </form:select>
-        <form:select path="idCustomer" id="listOFCustomers">
+        <form:select path="idCustomer" id="listOfCustomers">
             <form:option value="0"> --SELECT--</form:option>
             <form:options items="${listOfCustomers}" itemValue="id" path="customer"></form:options>
 

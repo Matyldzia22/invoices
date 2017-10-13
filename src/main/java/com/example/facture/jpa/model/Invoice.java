@@ -64,7 +64,7 @@ public class Invoice {
     @Override
     public String toString()
     {
-        return String.format("Invoice[%s]", number);
+        return String.format("Invoice[%d, %s]", id, number);
     }
 
 

@@ -98,7 +98,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${invoices}" var="invoice">
+
             <tr>
                 <td>${invoice.id}</td>
                 <td>${invoice.number}</td>
@@ -106,15 +106,9 @@
                 <td>${invoice.sellingDate}</td>
                 <td>${invoice.invoiceDate}</td>
                 <td>${invoice.sum}</td>
-                <td>${invoice.address.city}</td>
-                <td>${invoice.address.number}</td>
-                <td>${invoice.address.postCode}</td>
-                <td>${invoice.address.street}</td>
-                <td>${invoice.customer.name}</td>
-                <td>${invoice.customer.nip}</td>
-                <td>${invoice.invoiceItems}</td>
+
             </tr>
-        </c:forEach>
+
         </tbody>
     </table>
 </div>

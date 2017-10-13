@@ -14,11 +14,14 @@ public interface InvoiceDAO extends BaseDAO<Invoice, Long> {
     Invoice getInvoiceByNumber(String number);
 
     List<Invoice> getAll();
+
     List<Invoice> getInvoiceByInvoiceDate(Date invoiceDate);
 
     List<Invoice> getInvoiceBySellingDate(Date sellingDate);
 
     List<Invoice> getInvoiceByConfirmDate(Date confirmDate);
+
+    List<Invoice> getInvoiceByNumberr(String number);
 
     List<InvoiceItem> getInvoiceItems(Invoice invoice);
 

@@ -2,6 +2,8 @@ package com.example.facture.jpa.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -31,13 +33,13 @@ public class InvoiceItem {
     @JoinColumn(name = "invoice_id")
     private Invoice invoice;
 
+
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return String.format("InvoiceItem[%d]", number);
     }
 
