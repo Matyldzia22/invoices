@@ -81,9 +81,9 @@
         <div class="form-group">
 
                 <%--<label  class="col-form-label">FirstName</label>--%>
-            <form:input path="number" class="uk-width-1-1 uk-form-large"
+            <form:input path="numberr" class="uk-width-1-1 uk-form-large"
                         type="text"
-                        name='number'
+                        name='numberr'
                         placeholder="number"/>
         </div>
         <div class="form-group">
@@ -126,79 +126,96 @@
         </div>
 
             <%--<label  class="col-form-label">price group</label> --%>
-        <form:select path="idAddress" id="listOfAddresses">
+        <form:select path="addressId" id="listOfAddresses">
             <form:option value="0"> --SELECT--</form:option>
             <form:options items="${listOfAddresses}" itemValue="id" path="address"></form:options>
         </form:select>
-        <form:select path="idCustomer" id="listOfCustomers">
+        <form:select path="customerId" id="listOfCustomers">
             <form:option value="0"> --SELECT--</form:option>
             <form:options items="${listOfCustomers}" itemValue="id" path="customer"></form:options>
 
         </form:select>
 
+       <%-- <form:input path="invoiceId" value="${invoiceId}" type="hidden"/>
+
+        <form:input path="productId" value="${productId}" type="hidden"/> --%>
+    <form:form modelAttribute="product2" method="POST" cssClass="table-bordered rounded" cssStyle="margin: 100px;">
+
+
+        <div class="form-group">
+
+            <label class="col-form-label">brutto price</label>
+            <form:input path="bruttoPrice" class="uk-width-1-1 uk-form-large"
+                        type="number"
+                        name='bruttoPrice'
+
+                        placeholder="name"/>
+        </div>
+        <div class="form-group">
+
+            <label class="col-form-label">netto price</label>
+            <form:input path="nettoPrice" class="uk-width-1-1 uk-form-large"
+                        type="number"
+                        name='nettoPrice'
+
+                        placeholder="name"/>
+        </div>
+        <div class="form-group">
+
+            <label class="col-form-label">name</label>
+            <form:input path="name" class="uk-width-1-1 uk-form-large"
+                        type="text"
+                        name='name'
+
+                        placeholder="name"/>
+        </div>
+        <div class="form-group">
+
+            <label class="col-form-label">vat</label>
+            <form:input path="vat" class="uk-width-1-1 uk-form-large"
+                        type="number"
+                        name='vat'
+
+                        placeholder="name"/>
+        </div>
+
+
+        </div>
+
+        <form:form modelAttribute="invoiceItem" method="POST" cssClass="table-bordered rounded" cssStyle="margin: 100px;">
+            <form:input path="invoiceId" value="${invoiceId}" type="hidden"/>
+            <form:input path="productId" value="${productId}" type="hidden"/>
+
+        <div class="form-group">
+
+            <label class="col-form-label">invoiceitem number</label>
+            <form:input path="number" class="uk-width-1-1 uk-form-large"
+                        type="number"
+                        name='number'
+
+                        placeholder="name"/>
+        </div>
+
+
+
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+
 
     </div>
 
-<form:form modelAttribute="invoiceItem" method="POST" cssClass="table-bordered rounded" cssStyle="margin: 100px;">
-<form:input path="idInvoice" value="${idInvoice}" type="hidden"/>
-
-<form:input path="idProduct" value="${idProduct}" type="hidden"/>
 
 
-
-
-<div class="form-group">
-
-    <label class="col-form-label">product name</label>
-    <form:input path="product.name" class="uk-width-1-1 uk-form-large"
-                type="text"
-                name='invoiceItem2.product.name'
-
-                placeholder="name"/>
-</div>
-<div class="form-group">
-
-    <label class="col-form-label">product brutto price</label>
-    <form:input path="product.bruttoPrice" class="uk-width-1-1 uk-form-large"
-                type="number"
-                min="0.00"
-                step="0.01"
-                name='invoiceItem2.product.bruttoPrice'
-
-                placeholder="bruttoPrice"/>
-</div>
-<div class="form-group">
-
-    <label class="col-form-label">product brutto price</label>
-    <form:input path="product.nettoPrice" class="uk-width-1-1 uk-form-large"
-                type="number"
-                min="0.00"
-                step="0.01"
-                name='invoiceItem2.product.nettoPrice'
-
-                placeholder="nettoPrice"/>
-</div>
-<div class="form-group">
-
-    <label class="col-form-label">product vat</label>
-    <form:input path="product.vat" class="uk-width-1-1 uk-form-large"
-                type="number"
-                name='invoiceItem2.product.vat'
-
-                placeholder="vat"/>
-</div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Save</button>
-    </div>
-</form:form>
+    </form:form>
 </form:form>
 
-
+</form:form>
 <div class="form-group" id="demo"></div>
 
 <script type="text/javascript">
     function myFunction() {
-
         document.getElementById("demo").innerHTML = '<html><body><div>Your code</div></body></html>';
     }
 </script>

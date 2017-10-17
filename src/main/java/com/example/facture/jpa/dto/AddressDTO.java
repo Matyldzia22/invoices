@@ -19,7 +19,7 @@ public class AddressDTO {
     private String postCode;
     private List<Invoice> invoices;
     private Customer customer;
-    private long idCustomer;
+    private long customerId;
 
 
 }

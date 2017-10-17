@@ -43,7 +43,7 @@ public interface CustomerService {
 
     void deletePriceGroupFromCustomer(Customer customer, PriceGroup priceGroup);
 
-    List<Customer> getCustomers(long idPriceGroup, long idTaxBracket, long idTypeOfCustomer);
+    List<Customer> getCustomers(long priceGroupId, long taxBracketId, long typeOfCustomerId);
 
     List<Invoice> getInvoices(Customer customer);
 

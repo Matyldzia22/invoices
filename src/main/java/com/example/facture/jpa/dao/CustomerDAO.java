@@ -22,13 +22,13 @@ public interface CustomerDAO extends BaseDAO<Customer, Long> {
 
     Customer getCustomerByNip(String nip);
 
-    List<Customer> getCustomerByIdPriceGroup(Long idPriceGroup);
+    List<Customer> getCustomerBypriceGroupId(Long priceGroupId);
 
-    List<Customer> getCustomerByIdTaxBracket(Long idTaxBracket);
+    List<Customer> getCustomerBytaxBracketId(Long taxBracketId);
 
-    List<Customer> getCustomerByIdTypeOfCustomer(Long idTypeOfCustomer);
+    List<Customer> getCustomerBytypeOfCustomerId(Long typeOfCustomerId);
 
-    List<Customer> getCustomers(long idPriceGroup, long idTaxBracket, long idTypeOfCustomer);
+    List<Customer> getCustomers(long priceGroupId, long taxBracketId, long typeOfCustomerId);
 
     List<Invoice> getInvoices(Customer customer);
 

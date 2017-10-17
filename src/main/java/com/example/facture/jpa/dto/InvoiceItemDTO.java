@@ -11,10 +11,11 @@ public class InvoiceItemDTO {
 
     private Long id;
     private int number;
-    private long idInvoice;
-    private long idProduct;
+    private long invoiceId;
+    private long productId;
     private InvoiceDTO invoice;
     private ProductDTO product;
+
 
 
 

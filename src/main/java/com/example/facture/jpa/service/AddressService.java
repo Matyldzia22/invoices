@@ -19,7 +19,6 @@ public interface AddressService {
 
     void updateAddress(AddressDTO addressDTO);
 
-
     List<Address> getAddressByCity(String city);
 
     List<Address> getAddressByStreet(String street);
@@ -36,7 +35,7 @@ public interface AddressService {
 
     List<Invoice> getInvoices(Address address);
 
-    List<Address> getAddresses(long idCustomer);
+    List<Address> getAddresses(long customerId);
 
 
 }

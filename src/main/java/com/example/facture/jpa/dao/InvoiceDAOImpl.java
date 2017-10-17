@@ -5,10 +5,13 @@ import com.example.facture.jpa.model.*;
 import com.example.facture.jpa.model.Invoice;
 
 
+import com.github.slugify.Slugify;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
@@ -18,20 +21,26 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
-@CacheConfig(cacheNames = "application-cache")
+@CacheConfig(cacheNames = "invoice-cache")
 public class InvoiceDAOImpl implements InvoiceDAO {
 
     private static final String SELECT_A_FROM_INVOICE_A = "Select a From Invoice a";
-    private static final String SELECT_A_FROM_INVOICE_A_WHERE_A_NUMBER_LIKE_CUST_NUMBER = "Select a From Invoice a where a.number like :custNumber";
+    private static final String SELECT_A_FROM_INVOICE_A_WHERE_A_NUMBER_LIKE_CUST_NUMBER = "Select a From Invoice a where a.numberr like :custNumber";
     private static final String SELECT_A_FROM_INVOICE_A_WHERE_A_SELLING_DATE_CUST_SELLING_DATE = "Select a From Invoice a where a.sellingDate = :custSellingDate";
     private static final String SELECT_A_FROM_INVOICE_A_WHERE_A_INVOICE_DATE_CUST_INVOICE_DATE = "Select a From Invoice a where a.invoiceDate = :custInvoiceDate";
     private static final String SELECT_A_FROM_INVOICE_A_WHERE_A_CONFIRM_DATE_CUST_CONFIRM_DATE = "Select a From Invoice a where a.confirmDate = :custConfirmDate";
+    private static final String FROM_INVOICE_S_WHERE_S_ADDRESS_ID_IDADDR_AND_S_CUSTOMER_ID_IDCUST = "from Invoice s where s.address.id = :idaddr and s.customer.id = :idcust";
+    private static final String FROM_INVOICE_S_WHERE_S_ADDRESS_ID_IDADDR = "from Invoice s where s.address.id = :idaddr";
+    private static final String FROM_INVOICE_S_WHERE_S_CUSTOMER_ID_IDCUST = "from Invoice s where s.customer.id = :idcust";
+    private static final String FROM_INVOICE_ITEM_E_JOIN_FETCH_E_INVOICE_U_WHERE_U_ID_ID = "FROM InvoiceItem e JOIN FETCH e.invoice u where u.id = :id";
+    private static final String SELECT_ID_FROM_INVOICE_WHERE_ID_SELECT_MAX_ID_FROM_INVOICE = "SELECT(id) FROM Invoice WHERE id = ( SELECT MAX(id) FROM Invoice)";
 
     @Autowired
     private SessionFactory sessionFactory;
 
 
     @Override
+    @CachePut
     public void save(Invoice invoice) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(invoice);
@@ -39,6 +48,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 
 
     @Override
+    @CacheEvict
     public void delete(Invoice invoice) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(invoice);
@@ -46,6 +56,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 
 
     @Override
+    @CachePut
     public void update(Invoice invoice) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(invoice);
@@ -53,10 +64,10 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 
 
     @Override
-    @Cacheable(key = "#idInvoice")
-    public Invoice getById(Long idInvoice) {
+    @Cacheable
+    public Invoice getById(Long invoiceId) {
         Session session = sessionFactory.getCurrentSession();
-        return session.find(Invoice.class, idInvoice);
+        return session.find(Invoice.class, invoiceId);
     }
 
 
@@ -69,15 +80,15 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 
     @Override
     @Cacheable
-    public  long getInId() {
+    public long getInId() {
         Session session = sessionFactory.getCurrentSession();
-        Query q = session.createQuery("SELECT(id) FROM Invoice WHERE id = ( SELECT MAX(id) FROM Invoice)");
+        Query q = session.createQuery(SELECT_ID_FROM_INVOICE_WHERE_ID_SELECT_MAX_ID_FROM_INVOICE);
         return (long) q.getSingleResult();
     }
 
 
     @Override
-    @Cacheable(key = "#number")
+    @Cacheable
     public Invoice getInvoiceByNumber(String number) {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery(SELECT_A_FROM_INVOICE_A_WHERE_A_NUMBER_LIKE_CUST_NUMBER, Invoice.class)
@@ -86,7 +97,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 
 
     @Override
-    @Cacheable(key = "#sellingDate")
+    @Cacheable
     public List<Invoice> getInvoiceBySellingDate(Date sellingDate) {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery(SELECT_A_FROM_INVOICE_A_WHERE_A_SELLING_DATE_CUST_SELLING_DATE, Invoice.class)
@@ -95,7 +106,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 
 
     @Override
-    @Cacheable(key = "#invoiceDate")
+    @Cacheable
     public List<Invoice> getInvoiceByInvoiceDate(Date invoiceDate) {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery(SELECT_A_FROM_INVOICE_A_WHERE_A_INVOICE_DATE_CUST_INVOICE_DATE, Invoice.class)
@@ -104,7 +115,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 
 
     @Override
-    @Cacheable(key = "#confirmDate")
+    @Cacheable
     public List<Invoice> getInvoiceByConfirmDate(Date confirmDate) {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery(SELECT_A_FROM_INVOICE_A_WHERE_A_CONFIRM_DATE_CUST_CONFIRM_DATE, Invoice.class)
@@ -112,7 +123,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
     }
 
     @Override
-    @Cacheable(key = "#number")
+    @Cacheable
     public List<Invoice> getInvoiceByNumberr(String number) {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery(SELECT_A_FROM_INVOICE_A_WHERE_A_NUMBER_LIKE_CUST_NUMBER, Invoice.class).setParameter("custNumber", number).getResultList();
@@ -121,43 +132,39 @@ public class InvoiceDAOImpl implements InvoiceDAO {
     @Override
     public List<InvoiceItem> getInvoiceItems(Invoice invoice) {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "FROM InvoiceItem e JOIN FETCH e.invoice u where u.id = :id";
-        return session.createQuery(hql, InvoiceItem.class)
+        return session.createQuery(FROM_INVOICE_ITEM_E_JOIN_FETCH_E_INVOICE_U_WHERE_U_ID_ID, InvoiceItem.class)
                 .setParameter("id", invoice.getId())
                 .getResultList();
     }
 
 
     @Override
-    @Cacheable(key = "#idCustomer")
-    public List<Invoice> getInvoiceByIdCustomer(Long idCustomer) {
+    @Cacheable
+    public List<Invoice> getInvoiceBycustomerId(Long customerId) {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "from Invoice s where s.customer.id = :idcust";
-        return session.createQuery(hql, Invoice.class)
-                .setParameter("idcust", idCustomer)
+        return session.createQuery(FROM_INVOICE_S_WHERE_S_CUSTOMER_ID_IDCUST, Invoice.class)
+                .setParameter("idcust", customerId)
                 .getResultList();
     }
 
 
     @Override
-    @Cacheable(key = "#idAddress")
-    public List<Invoice> getInvoiceByIdAddress(Long idAddress) {
+    @Cacheable
+    public List<Invoice> getInvoiceByaddressId(Long addressId) {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "from Invoice s where s.address.id = :idaddr";
-        return session.createQuery(hql, Invoice.class)
-                .setParameter("idaddr", idAddress)
+        return session.createQuery(FROM_INVOICE_S_WHERE_S_ADDRESS_ID_IDADDR, Invoice.class)
+                .setParameter("idaddr", addressId)
                 .getResultList();
     }
 
 
     @Override
-    @Cacheable(key = "{#idAddress, #idCustomer}")
-    public List<Invoice> getInvoices(long idAddress, long idCustomer) {
+    @Cacheable
+    public List<Invoice> getInvoices(long addressId, long customerId) {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "from Invoice s where s.address.id = :idaddr and s.customer.id = :idcust";
-        return session.createQuery(hql, Invoice.class)
-                .setParameter("idaddr", idAddress)
-                .setParameter("idcust", idCustomer)
+        return session.createQuery(FROM_INVOICE_S_WHERE_S_ADDRESS_ID_IDADDR_AND_S_CUSTOMER_ID_IDCUST, Invoice.class)
+                .setParameter("idaddr", addressId)
+                .setParameter("idcust", customerId)
                 .getResultList();
     }
 

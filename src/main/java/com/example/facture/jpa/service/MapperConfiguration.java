@@ -7,7 +7,7 @@ import ma.glasnost.orika.impl.ConfigurableMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Mapper extends ConfigurableMapper {
+public class MapperConfiguration extends ConfigurableMapper {
 
     protected void configure(MapperFactory factory) {
         factory.classMap(Address.class, AddressDTO.class)

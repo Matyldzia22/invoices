@@ -32,9 +32,9 @@ public class CustomerDTO {
     private TypeOfCustomerDTO typeOfCustomer2;
     private List<Invoice> invoices;
     private List<Address> addresses;
-    private long idTypeOfCustomer;
-    private long idPriceGroup;
-    private long idTaxBracket;
+    private long typeOfCustomerId;
+    private long priceGroupId;
+    private long taxBracketId;
 
     @Override
     public String toString()

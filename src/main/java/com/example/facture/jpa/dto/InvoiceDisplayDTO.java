@@ -19,8 +19,8 @@ class InvoiceDisplayDTO {
     private Date invoiceDate;
     private double sum;
     private Date confirmDate;
-    private Long idAddress;
-    private Long idCustomer;
+    private Long addressId;
+    private Long customerId;
     private Customer customer;
     private Address address;
     private List<InvoiceItem> invoiceItems;

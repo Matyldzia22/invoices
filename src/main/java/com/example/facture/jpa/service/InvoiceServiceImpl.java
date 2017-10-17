@@ -3,7 +3,6 @@ package com.example.facture.jpa.service;
 import com.example.facture.jpa.dao.*;
 import com.example.facture.jpa.dto.*;
 import com.example.facture.jpa.model.*;
-import com.example.facture.jpa.service.Mapper;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,9 +34,9 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public void saveInvoice(InvoiceDTO invoiceDTO) {
         Invoice invoice = mapperFacade.map(invoiceDTO, Invoice.class);
-        addAddress2Invoice(invoice, addressDAO.getById(invoiceDTO.getIdAddress()));
-        addCustomer2Invoice(invoice, customerDAO.getById(invoiceDTO.getIdCustomer()));
-        addInvoiceItem2Invoice(invoice, invoiceItemDAO.getById(invoiceDTO.getIdInvoiceItem()));
+        addAddress2Invoice(invoice, addressDAO.getById(invoiceDTO.getAddressId()));
+        addCustomer2Invoice(invoice, customerDAO.getById(invoiceDTO.getCustomerId()));
+        addInvoiceItem2Invoice(invoice, invoiceItemDAO.getById(invoiceDTO.getInvoiceItemId()));
 
         invoiceDAO.save(invoice);
     }
@@ -140,18 +139,18 @@ public class InvoiceServiceImpl implements InvoiceService {
 
 
     @Override
-    public List<Invoice> getInvoiceByIdAddress(Long idAddress) {
-        return invoiceDAO.getInvoiceByIdAddress(idAddress);
+    public List<Invoice> getInvoiceByaddressId(Long addressId) {
+        return invoiceDAO.getInvoiceByaddressId(addressId);
     }
 
     @Override
-    public List<Invoice> getInvoiceByIdCustomer(Long idCustomer) {
-        return invoiceDAO.getInvoiceByIdCustomer(idCustomer);
+    public List<Invoice> getInvoiceBycustomerId(Long customerId) {
+        return invoiceDAO.getInvoiceBycustomerId(customerId);
     }
 
     @Override
-    public List<Invoice> getInvoices(long idAddress, long idCustomer) {
-        return invoiceDAO.getInvoices(idAddress, idCustomer);
+    public List<Invoice> getInvoices(long addressId, long customerId) {
+        return invoiceDAO.getInvoices(addressId, customerId);
     }
 
     @Override

@@ -26,21 +26,21 @@ public class InvoiceItem {
 
     @Column(name = "number")
     @NotNull
-    private int numberr;
+    private int number;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "invoice_id")
     private Invoice invoice;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "product_id")
     private Product product;
 
     @Override
     public String toString() {
-        return String.format("InvoiceItem[%d]", id);
+        return String.format("InvoiceItem[%d, %d]", id, number);
     }
 
 

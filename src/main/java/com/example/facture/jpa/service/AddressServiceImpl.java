@@ -3,7 +3,6 @@ package com.example.facture.jpa.service;
 import com.example.facture.jpa.dao.*;
 import com.example.facture.jpa.dto.*;
 import com.example.facture.jpa.model.*;
-import com.example.facture.jpa.service.Mapper;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +31,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public void saveAddress(AddressDTO addressDTO) {
         Address address = mapperFacade.map(addressDTO, Address.class);
-        addCustomer2Address(address, customerDAO.getById(addressDTO.getIdCustomer()));
+        addCustomer2Address(address, customerDAO.getById(addressDTO.getCustomerId()));
 
         addressDAO.save(address);
     }
@@ -146,8 +145,8 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public List<Address> getAddresses(long idCustomer) {
-        return addressDAO.getAddresses(idCustomer);
+    public List<Address> getAddresses(long customerId) {
+        return addressDAO.getAddresses(customerId);
     }
 
     @Override

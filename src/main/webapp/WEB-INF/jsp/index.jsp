@@ -98,7 +98,7 @@
             <tr>
                 <td><a href="/invoice/${invoice.id}">invoice details</a></td>
                 <td>${invoice.id}</td>
-                <td>${invoice.number}</td>
+                <td>${invoice.numberr}</td>
                 <td>${invoice.confirmDate}</td>
                 <td>${invoice.sellingDate}</td>
                 <td>${invoice.invoiceDate}</td>

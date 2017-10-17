@@ -20,9 +20,9 @@ class CustomerDisplayDTO {
     private String nip;
     private String phoneNumber;
     private String name;
-    private Long idTaxBracket;
-    private Long idPriceGroup;
-    private Long idTypeOfCustomer;
+    private Long taxBracketId;
+    private Long priceGroupId;
+    private Long typeOfCustomerId;
     private PriceGroupDTO priceGroup;
     private TaxBracketDTO taxBracket;
     private TypeOfCustomerDTO typeOfCustomer;

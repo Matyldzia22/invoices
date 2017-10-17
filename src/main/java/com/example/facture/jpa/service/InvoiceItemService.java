@@ -28,11 +28,11 @@ public interface InvoiceItemService {
 
     void deleteProductFromInvoiceItem(InvoiceItem invoiceItem, Product product);
 
-    List<InvoiceItem> getInvoiceItemByIdProduct(Long idProduct);
+    List<InvoiceItem> getInvoiceItemByproductId(Long productId);
 
-    List<InvoiceItem> getInvoiceItemByIdInvoice(Long idInvoice);
+    List<InvoiceItem> getInvoiceItemByinvoiceId(Long invoiceId);
 
-    List<InvoiceItem> getInvoiceItems(long idInvoice, long idProduct);
+    List<InvoiceItem> getInvoiceItems(long invoiceId, long productId);
 
 
 }

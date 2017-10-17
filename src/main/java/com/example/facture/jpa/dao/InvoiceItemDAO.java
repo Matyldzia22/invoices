@@ -12,17 +12,13 @@ public interface InvoiceItemDAO extends BaseDAO<InvoiceItem, Long> {
 
     InvoiceItem getInvoiceItemByNumber(int number);
 
-    List<InvoiceItem> getInvoiceItemByIdProduct(Long idProduct);
+    List<InvoiceItem> getInvoiceItemByproductId(Long productId);
 
-    List<InvoiceItem> getInvoiceItemByIdInvoice(Long idInvoice);
+    List<InvoiceItem> getInvoiceItemByinvoiceId(Long invoiceId);
 
-    List<InvoiceItem> getInvoiceItems(long idProduct, long idInvoice);
+    List<InvoiceItem> getInvoiceItems(long productId, long invoiceId);
 
     long getInvId();
-
-
-
-
 
 
 }

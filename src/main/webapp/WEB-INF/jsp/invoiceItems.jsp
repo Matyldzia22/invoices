@@ -94,7 +94,7 @@
                 <td>${invoiceItem.product.nettoPrice}</td>
                 <td>${invoiceItem.product.vat}</td>
                 <td>${invoiceItem.number}</td>
-                <td>${invoiceItem.invoice.number}</td>
+                <td>${invoiceItem.invoice.numberr}</td>
             </tr>
         </c:forEach>
         </tbody>

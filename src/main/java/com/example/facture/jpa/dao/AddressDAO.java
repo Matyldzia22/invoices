@@ -19,9 +19,7 @@ public interface AddressDAO extends BaseDAO<Address, Long> {
 
     List<Address> getAddressByPostCode(String postCode);
 
-    List<Address> getAddressByIdCustomer(Long idCustomer);
-
-    List<Address> getAddresses(long idCustomer);
+    List<Address> getAddresses(long customerId);
 
     List<Invoice> getInvoices(Address address);
 

@@ -118,15 +118,15 @@
         </div>
 
             <%--<label  class="col-form-label">price group</label> --%>
-        <form:select path="idPriceGroup" id="listOfGroups">
+        <form:select path="priceGroupId" id="listOfGroups">
             <form:option value="0"> --SELECT--</form:option>
             <form:options items="${listOfGroups}" itemValue="id" path="priceGroup"></form:options>
         </form:select>
-        <form:select path="idTaxBracket" id="listOfTaxBrackets">
+        <form:select path="taxBracketId" id="listOfTaxBrackets">
             <form:option value="0"> --SELECT--</form:option>
             <form:options items="${listOfBrackets}" itemValue="id" path="taxBracket"></form:options>
         </form:select>
-        <form:select path="idTypeOfCustomer" id="listOfTypes">
+        <form:select path="typeOfCustomerId" id="listOfTypes">
             <form:option value="0"> --SELECT--</form:option>
             <form:options items="${listOfTypes}" itemValue="id" path="typeOfCustomer"></form:options>
 

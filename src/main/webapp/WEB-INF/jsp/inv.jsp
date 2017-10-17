@@ -99,7 +99,7 @@
         </thead>
         <tbody>
 
-            <tr>
+            <tr modelAttribute="invoice">
                 <td>${invoice.id}</td>
                 <td>${invoice.number}</td>
                 <td>${invoice.confirmDate}</td>

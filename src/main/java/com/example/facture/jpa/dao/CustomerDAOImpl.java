@@ -7,6 +7,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +17,7 @@ import javax.persistence.Query;
 import java.util.List;
 
 @Repository
-@CacheConfig(cacheNames = "application-cache")
+@CacheConfig(cacheNames = "customer-cache")
 public class CustomerDAOImpl implements CustomerDAO {
 
     private static final String SELECT_A_FROM_CUSTOMER_A = "Select a From Customer a";
@@ -24,12 +26,19 @@ public class CustomerDAOImpl implements CustomerDAO {
     private static final String SELECT_A_FROM_CUSTOMER_A_WHERE_A_LAST_NAME_LIKE_CUST_LAST_NAME = "Select a From Customer a where a.lastName like :custLastName";
     private static final String SELECT_A_FROM_CUSTOMER_A_WHERE_A_NIP_LIKE_CUST_NIP = "Select a From Customer a where a.nip like :custNip";
     private static final String SELECT_A_FROM_CUSTOMER_A_WHERE_A_EMAIL_LIKE_CUST_EMAIL = "Select a From Customer a where a.email like :custEmail";
+    private static final String FROM_CUSTOMER_S_WHERE_S_PRICE_GROUP_ID_IDPRICEGR_AND_S_TAX_BRACKET_ID_IDTAXBR_AND_S_TYPE_OF_CUSTOMER_ID_IDTYPEOFCUST = "from Customer s where s.priceGroup.id = :idpricegr and s.taxBracket.id = :idtaxbr and s.typeOfCustomer.id =:idtypeofcust";
+    private static final String FROM_CUSTOMER_S_WHERE_S_TYPE_OF_CUSTOMER_ID_IDTYPEOFCUST = "from Customer s where s.typeOfCustomer.id = :idtypeofcust";
+    private static final String FROM_CUSTOMER_S_WHERE_S_TAX_BRACKET_ID_IDTAXBR = "from Customer s where s.taxBracket.id = :idtaxbr";
+    private static final String FROM_CUSTOMER_S_WHERE_S_PRICE_GROUP_ID_IDPRICEGR = "from Customer s where s.priceGroup.id = :idpricegr";
+    private static final String FROM_ADDRESS_C_JOIN_FETCH_C_CUSTOMER_P_WHERE_P_ID_ID = "FROM Address c JOIN FETCH c.customer p where p.id = :id";
+    private static final String FROM_INVOICE_C_JOIN_FETCH_C_CUSTOMER_P_WHERE_P_ID_ID = "FROM Invoice c JOIN FETCH c.customer p where p.id = :id";
 
     @Autowired
     private SessionFactory sessionFactory;
 
 
     @Override
+    @CachePut
     public void save(Customer customer) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(customer);
@@ -37,6 +46,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 
     @Override
+    @CacheEvict
     public void delete(Customer customer) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(customer);
@@ -44,6 +54,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 
     @Override
+    @CachePut
     public void update(Customer customer) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(customer);
@@ -52,9 +63,9 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     @Cacheable
-    public Customer getById(Long idCustomer) {
+    public Customer getById(Long customerId) {
         Session session = sessionFactory.getCurrentSession();
-        return session.find(Customer.class, idCustomer);
+        return session.find(Customer.class, customerId);
     }
 
 
@@ -67,7 +78,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 
     @Override
-    @Cacheable(key="#name")
+    @Cacheable
     public Customer getCustomerByName(String name) {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery(SELECT_A_FROM_CUSTOMER_A_WHERE_A_NAME_LIKE_CUST_NAME, Customer.class)
@@ -76,7 +87,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 
     @Override
-    @Cacheable(key="#firstName")
+    @Cacheable
     public Customer getCustomerByFirstName(String firstName) {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery(SELECT_A_FROM_CUSTOMER_A_WHERE_A_FIRST_NAME_LIKE_CUST_FIRST_NAME, Customer.class)
@@ -85,7 +96,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 
     @Override
-    @Cacheable(key="#lastName")
+    @Cacheable
     public Customer getCustomerByLastName(String lastName) {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery(SELECT_A_FROM_CUSTOMER_A_WHERE_A_LAST_NAME_LIKE_CUST_LAST_NAME, Customer.class)
@@ -94,7 +105,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 
     @Override
-    @Cacheable(key="#nip")
+    @Cacheable
     public Customer getCustomerByNip(String nip) {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery(SELECT_A_FROM_CUSTOMER_A_WHERE_A_NIP_LIKE_CUST_NIP, Customer.class)
@@ -103,7 +114,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 
     @Override
-    @Cacheable(key="#email")
+    @Cacheable
     public Customer getCustomerByEmail(String email) {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery(SELECT_A_FROM_CUSTOMER_A_WHERE_A_EMAIL_LIKE_CUST_EMAIL, Customer.class)
@@ -114,8 +125,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     @Override
     public List<Invoice> getInvoices(Customer customer) {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "FROM Invoice c JOIN FETCH c.customer p where p.id = :id";
-        return session.createQuery(hql, Invoice.class)
+        return session.createQuery(FROM_INVOICE_C_JOIN_FETCH_C_CUSTOMER_P_WHERE_P_ID_ID, Invoice.class)
                 .setParameter("id", customer.getId())
                 .getResultList();
     }
@@ -124,56 +134,51 @@ public class CustomerDAOImpl implements CustomerDAO {
     @Override
     public List<Address> getAddresses(Customer customer) {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "FROM Address c JOIN FETCH c.customer p where p.id = :id";
-        return session.createQuery(hql, Address.class)
+        return session.createQuery(FROM_ADDRESS_C_JOIN_FETCH_C_CUSTOMER_P_WHERE_P_ID_ID, Address.class)
                 .setParameter("id", customer.getId())
                 .getResultList();
     }
 
 
     @Override
-    @Cacheable(key="#idPriceGroup")
-    public List<Customer> getCustomerByIdPriceGroup(Long idPriceGroup) {
+    @Cacheable
+    public List<Customer> getCustomerBypriceGroupId(Long priceGroupId) {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "from Customer s where s.priceGroup.id = :idpricegr";
-        return session.createQuery(hql, Customer.class)
-                .setParameter("idpricegr", idPriceGroup)
+        return session.createQuery(FROM_CUSTOMER_S_WHERE_S_PRICE_GROUP_ID_IDPRICEGR, Customer.class)
+                .setParameter("idpricegr", priceGroupId)
                 .getResultList();
     }
 
 
     @Override
-    @Cacheable(key="#idTaxBracket")
-    public List<Customer> getCustomerByIdTaxBracket(Long idTaxBracket) {
+    @Cacheable
+    public List<Customer> getCustomerBytaxBracketId(Long taxBracketId) {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "from Customer s where s.taxBracket.id = :idtaxbr";
-        return session.createQuery(hql, Customer.class)
-                .setParameter("idtaxbr", idTaxBracket)
+        return session.createQuery(FROM_CUSTOMER_S_WHERE_S_TAX_BRACKET_ID_IDTAXBR, Customer.class)
+                .setParameter("idtaxbr", taxBracketId)
                 .getResultList();
     }
 
 
     @Override
-    @Cacheable(key="#idTypeOfCustomer")
-    public List<Customer> getCustomerByIdTypeOfCustomer(Long idTypeOfCustomer) {
+    @Cacheable
+    public List<Customer> getCustomerBytypeOfCustomerId(Long typeOfCustomerId) {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "from Customer s where s.typeOfCustomer.id = :idtypeofcust";
-        return session.createQuery(hql, Customer.class)
-                .setParameter("idtypeofcust", idTypeOfCustomer)
+        return session.createQuery(FROM_CUSTOMER_S_WHERE_S_TYPE_OF_CUSTOMER_ID_IDTYPEOFCUST, Customer.class)
+                .setParameter("idtypeofcust", typeOfCustomerId)
                 .getResultList();
 
     }
 
 
     @Override
-    @Cacheable(key="{#idPriceGroup, #idTaxBracket, #idTypeOfCustomer}")
-    public List<Customer> getCustomers(long idPriceGroup, long idTaxBracket, long idTypeOfCustomer) {
+    @Cacheable
+    public List<Customer> getCustomers(long priceGroupId, long taxBracketId, long typeOfCustomerId) {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "from Customer s where s.priceGroup.id = :idpricegr and s.taxBracket.id = :idtaxbr and s.typeOfCustomer.id =:idtypeofcust";
-        return session.createQuery(hql, Customer.class)
-                .setParameter("idpricegr", idPriceGroup)
-                .setParameter("idtaxbr", idTaxBracket)
-                .setParameter("idtypeofcust", idTypeOfCustomer)
+        return session.createQuery(FROM_CUSTOMER_S_WHERE_S_PRICE_GROUP_ID_IDPRICEGR_AND_S_TAX_BRACKET_ID_IDTAXBR_AND_S_TYPE_OF_CUSTOMER_ID_IDTYPEOFCUST, Customer.class)
+                .setParameter("idpricegr", priceGroupId)
+                .setParameter("idtaxbr", taxBracketId)
+                .setParameter("idtypeofcust", typeOfCustomerId)
                 .getResultList();
     }
 

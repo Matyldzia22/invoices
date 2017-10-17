@@ -191,10 +191,14 @@ public class MyController extends SpringBootServletInitializer {
     public String addInvoiceItem(Model model) {
         List<Product> listOfProducts = productService.getAllProductss();
         List<Invoice> listOfInvoices = invoiceService.getAllInvoicess();
+        List<Customer> listOfCustomers = customerService.getAllCustomerss();
+        List<Address> listOfAddresses = addressService.getAllAddressess();
         model.addAttribute("invoiceItem", new InvoiceItemDTO());
         model.addAttribute("listOfProducts", listOfProducts);
         model.addAttribute("listOfInvoices", listOfInvoices);
-
+        model.addAttribute("invoice", new InvoiceDTO());
+        model.addAttribute("listOfCustomers", listOfCustomers);
+        model.addAttribute("listOfAddresses", listOfAddresses);
 
         return "addInvoiceItem";
     }
@@ -217,7 +221,7 @@ public class MyController extends SpringBootServletInitializer {
     }
 
     @RequestMapping(value = "/addAddress", method = RequestMethod.POST)
-    public String addAddress(@ModelAttribute("address") @Valid AddressDTO addressDTO, BindingResult bindingResult, String idCustomer) throws IOException {
+    public String addAddress(@ModelAttribute("address") @Valid AddressDTO addressDTO, BindingResult bindingResult, String customerId) throws IOException {
         //if (bindingResult.hasErrors()) {
         //  return "addAddress";
         //}
@@ -239,12 +243,12 @@ public class MyController extends SpringBootServletInitializer {
         model.addAttribute("invoice", new InvoiceDTO());
         model.addAttribute("listOfCustomers", listOfCustomers);
         model.addAttribute("listOfAddresses", listOfAddresses);
-        model.addAttribute("idInvoiceItem", invoiceItemService.getInvId()+1);
-        model.addAttribute("idProduct", productService.getProdId()+1);
-        model.addAttribute("idInvoice", invoiceService.getInId()+1);
+        model.addAttribute("invoiceItemId", invoiceItemService.getInvId() + 1);
+        model.addAttribute("productId", productService.getProdId() + 1);
+        model.addAttribute("invoiceId", invoiceService.getInId() + 1);
 
 
-        //model.addAttribute("idInvoiceItem", idInvoiceItem);
+        //model.addAttribute("invoiceItemId", invoiceItemId);
         model.addAttribute("invoiceItem", new InvoiceItemDTO());
         model.addAttribute("product2", new ProductDTO());
 

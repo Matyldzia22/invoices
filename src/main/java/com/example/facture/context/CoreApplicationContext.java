@@ -25,10 +25,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@EnableAsync
-@EnableScheduling
 @ComponentScan(basePackageClasses = CorePackageMarker.class)
-@Import(AspectConfiguration.class)
 @PropertySource("classpath:/hibernate.properties")
 public class CoreApplicationContext {
 

@@ -10,8 +10,8 @@ class InvoiceItemDisplayDTO {
 
     private Long id;
     private String number;
-    private Long idInvoice;
-    private Long idProduct;
+    private Long invoiceId;
+    private Long productId;
     private Invoice invoice;
     private Product product;
 

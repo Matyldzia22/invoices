@@ -31,7 +31,7 @@ public class Invoice {
 
     @Column(name = "number")
     @NotNull
-    private String number;
+    private String numberr;
 
     @Column(name = "sellingdate")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
@@ -56,7 +56,7 @@ public class Invoice {
     private Date confirmDate;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
@@ -64,14 +64,14 @@ public class Invoice {
     @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
     private List<InvoiceItem> invoiceItems = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "address_id")
     private Address address;
 
     @Override
     public String toString()
     {
-        return String.format("Invoice[%d, %s]", id, number);
+        return String.format("Invoice[%d, %s]", id, numberr);
     }
 
 

@@ -3,7 +3,6 @@ package com.example.facture.jpa.service;
 import com.example.facture.jpa.dao.*;
 import com.example.facture.jpa.dto.*;
 import com.example.facture.jpa.model.*;
-import com.example.facture.jpa.service.Mapper;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,8 +32,8 @@ public class InvoiceItemServiceImpl implements InvoiceItemService {
     @Override
     public void saveInvoiceItem(InvoiceItemDTO invoiceItemDTO) {
         InvoiceItem invoiceItem = mapperFacade.map(invoiceItemDTO, InvoiceItem.class);
-        addProduct2InvoiceItem(invoiceItem, productDAO.getById(invoiceItemDTO.getIdProduct()));
-        addInvoice2InvoiceItem(invoiceItem, invoiceDAO.getById(invoiceItemDTO.getIdInvoice()));
+        addProduct2InvoiceItem(invoiceItem, productDAO.getById(invoiceItemDTO.getProductId()));
+        addInvoice2InvoiceItem(invoiceItem, invoiceDAO.getById(invoiceItemDTO.getInvoiceId()));
 
 
         invoiceItemDAO.save(invoiceItem);
@@ -125,18 +124,18 @@ public class InvoiceItemServiceImpl implements InvoiceItemService {
 
 
     @Override
-    public List<InvoiceItem> getInvoiceItemByIdInvoice(Long idInvoice) {
-        return invoiceItemDAO.getInvoiceItemByIdInvoice(idInvoice);
+    public List<InvoiceItem> getInvoiceItemByinvoiceId(Long invoiceId) {
+        return invoiceItemDAO.getInvoiceItemByinvoiceId(invoiceId);
     }
 
     @Override
-    public List<InvoiceItem> getInvoiceItemByIdProduct(Long idProduct) {
-        return invoiceItemDAO.getInvoiceItemByIdProduct(idProduct);
+    public List<InvoiceItem> getInvoiceItemByproductId(Long productId) {
+        return invoiceItemDAO.getInvoiceItemByproductId(productId);
     }
 
     @Override
-    public List<InvoiceItem> getInvoiceItems(long idInvoice, long idProduct) {
-        return invoiceItemDAO.getInvoiceItems(idInvoice, idProduct);
+    public List<InvoiceItem> getInvoiceItems(long invoiceId, long productId) {
+        return invoiceItemDAO.getInvoiceItems(invoiceId, productId);
     }
 
 

@@ -7,6 +7,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +17,7 @@ import javax.persistence.Query;
 import java.util.List;
 
 @Repository
-@CacheConfig(cacheNames = "application-cache")
+@CacheConfig(cacheNames = "product-cache")
 public class ProductDAOImpl implements ProductDAO {
 
     private static final String SELECT_A_FROM_PRODUCT_A = "Select a From Product a";
@@ -23,12 +25,15 @@ public class ProductDAOImpl implements ProductDAO {
     private static final String SELECT_A_FROM_PRODUCT_A_WHERE_A_VAT_CUST_VAT = "Select a From Product a where a.vat = :custVat";
     private static final String SELECT_A_FROM_PRODUCT_A_WHERE_A_BRUTTO_PRICE_CUST_BRUTTO_PRICE = "Select a From Product a where a.bruttoPrice = :custBruttoPrice";
     private static final String SELECT_A_FROM_PRODUCT_A_WHERE_A_NETTO_PRICE_CUST_NETTO_PRICE = "Select a From Product a where a.nettoPrice = :custNettoPrice";
+    private static final String FROM_INVOICE_ITEM_C_JOIN_FETCH_C_PRODUCT_P_WHERE_P_ID_ID = "FROM InvoiceItem c JOIN FETCH c.product p where p.id = :id";
+    private static final String SELECT_ID_FROM_PRODUCT_WHERE_ID_SELECT_MAX_ID_FROM_PRODUCT = "SELECT(id) FROM Product WHERE id = ( SELECT MAX(id) FROM Product)";
 
     @Autowired
     private SessionFactory sessionFactory;
 
 
     @Override
+    @CachePut
     public void save(Product product) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(product);
@@ -36,6 +41,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 
     @Override
+    @CacheEvict
     public void delete(Product product) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(product);
@@ -43,6 +49,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 
     @Override
+    @CachePut
     public void update(Product product) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(product);
@@ -50,10 +57,10 @@ public class ProductDAOImpl implements ProductDAO {
 
 
     @Override
-    @Cacheable(key="#idProduct")
-    public Product getById(Long idProduct) {
+    @Cacheable
+    public Product getById(Long productId) {
         Session session = sessionFactory.getCurrentSession();
-        return session.find(Product.class, idProduct);
+        return session.find(Product.class, productId);
     }
 
 
@@ -66,15 +73,15 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     @Cacheable
-    public  long getProdId() {
+    public long getProdId() {
         Session session = sessionFactory.getCurrentSession();
-        Query q = session.createQuery("SELECT(id) FROM Product WHERE id = ( SELECT MAX(id) FROM Product)");
+        Query q = session.createQuery(SELECT_ID_FROM_PRODUCT_WHERE_ID_SELECT_MAX_ID_FROM_PRODUCT);
         return (long) q.getSingleResult();
     }
 
 
     @Override
-    @Cacheable(key="#name")
+    @Cacheable
     public Product getProductByName(String name) {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery(SELECT_A_FROM_PRODUCT_A_WHERE_A_NAME_LIKE_CUST_NAME, Product.class)
@@ -83,7 +90,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 
     @Override
-    @Cacheable(key="#vat")
+    @Cacheable
     public Product getProductByVat(int vat) {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery(SELECT_A_FROM_PRODUCT_A_WHERE_A_VAT_CUST_VAT, Product.class)
@@ -92,7 +99,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 
     @Override
-    @Cacheable(key="#bruttoPrice")
+    @Cacheable
     public Product getProductByBruttoPrice(double bruttoPrice) {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery(SELECT_A_FROM_PRODUCT_A_WHERE_A_BRUTTO_PRICE_CUST_BRUTTO_PRICE, Product.class)
@@ -101,7 +108,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 
     @Override
-    @Cacheable(key="#nettoPrice")
+    @Cacheable
     public Product getProductByNettoPrice(double nettoPrice) {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery(SELECT_A_FROM_PRODUCT_A_WHERE_A_NETTO_PRICE_CUST_NETTO_PRICE, Product.class)
@@ -112,8 +119,7 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     public List<InvoiceItem> getInvoiceItems(Product product) {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "FROM InvoiceItem c JOIN FETCH c.product p where p.id = :id";
-        return session.createQuery(hql, InvoiceItem.class)
+        return session.createQuery(FROM_INVOICE_ITEM_C_JOIN_FETCH_C_PRODUCT_P_WHERE_P_ID_ID, InvoiceItem.class)
                 .setParameter("id", product.getId())
                 .getResultList();
     }

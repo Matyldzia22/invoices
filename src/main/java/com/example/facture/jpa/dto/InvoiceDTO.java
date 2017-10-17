@@ -20,7 +20,7 @@ public class InvoiceDTO {
     private Long id;
 
 
-    private String number;
+    private String numberr;
     private Date sellingDate;
     private Date invoiceDate;
     private double sum;
@@ -30,16 +30,17 @@ public class InvoiceDTO {
     List<InvoiceItem> invoiceItems;
     private Address address;
 
-    private long idAddress;
-    private long idCustomer;
+    private long addressId;
+    private long customerId;
 
     private AddressDTO address2;
     private CustomerDTO customer2;
     private PriceGroupDTO priceGroup2;
 
     private ProductDTO product2;
-    private long idInvoiceItem;
-    private long idProduct;
-    private long idInvoice;
+    private long invoiceItemId;
+    private long productId;
+    //private long invoiceId;
+    private InvoiceItemDTO invoiceItem;
 
 }

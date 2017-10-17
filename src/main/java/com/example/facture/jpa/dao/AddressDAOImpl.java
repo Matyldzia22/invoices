@@ -7,6 +7,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
@@ -17,13 +19,15 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
-@CacheConfig(cacheNames = "application-cache")
+@CacheConfig(cacheNames = "address-cache")
 public class AddressDAOImpl implements AddressDAO {
 
     private static final String SELECT_A_FROM_ADDRESS_A = "Select a From Address a";
     private static final String SELECT_A_FROM_ADDRESS_A_WHERE_A_CITY_LIKE_CUST_CITY = "Select a From Address a where a.city like :custCity";
     private static final String SELECT_A_FROM_ADDRESS_A_WHERE_A_POSTCODE_LIKE_CUST_POST_CODE = "Select a From Address a where a.postCode like :custPostCode";
     private static final String SELECT_A_FROM_ADDRESS_A_WHERE_A_STREET_LIKE_CUST_STREET = "Select a From Address a where a.street like :custStreet";
+    private static final String FROM_ADDRESS_S_WHERE_S_CUSTOMER_ID_IDCUST = "from Address s where s.customer.id = :idcust";
+    private static final String FROM_INVOICE_C_JOIN_FETCH_C_ADDRESS_P_WHERE_P_ID_ID = "FROM Invoice c JOIN FETCH c.address p where p.id = :id";
 
 
     @Autowired
@@ -31,6 +35,7 @@ public class AddressDAOImpl implements AddressDAO {
 
 
     @Override
+    @CachePut
     public void save(Address address) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(address);
@@ -38,6 +43,7 @@ public class AddressDAOImpl implements AddressDAO {
 
 
     @Override
+    @CacheEvict
     public void delete(Address address) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(address);
@@ -45,6 +51,7 @@ public class AddressDAOImpl implements AddressDAO {
 
 
     @Override
+    @CachePut
     public void update(Address address) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(address);
@@ -52,10 +59,10 @@ public class AddressDAOImpl implements AddressDAO {
 
 
     @Override
-    @Cacheable(key="#idAddress")
-    public Address getById(Long idAddress) {
+    @Cacheable
+    public Address getById(Long addressId) {
         Session session = sessionFactory.getCurrentSession();
-        return session.find(Address.class, idAddress);
+        return session.find(Address.class, addressId);
     }
 
 
@@ -97,31 +104,18 @@ public class AddressDAOImpl implements AddressDAO {
     @Override
     public List<Invoice> getInvoices(Address address) {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "FROM Invoice c JOIN FETCH c.address p where p.id = :id";
-        return session.createQuery(hql, Invoice.class)
+        return session.createQuery(FROM_INVOICE_C_JOIN_FETCH_C_ADDRESS_P_WHERE_P_ID_ID, Invoice.class)
                 .setParameter("id", address.getId())
                 .getResultList();
     }
 
 
     @Override
-    @Cacheable(key="#idCustomer")
-    public List<Address> getAddressByIdCustomer(Long idCustomer) {
-        Session session = sessionFactory.getCurrentSession();
-        String hql = "from Address s where s.customer.id = :idcust";
-        return session.createQuery(hql, Address.class)
-                .setParameter("idcust", idCustomer)
-                .getResultList();
-
-    }
-
-    @Override
     @Cacheable
-    public List<Address> getAddresses(long idCustomer) {
+    public List<Address> getAddresses(long customerId) {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "from Address s where s.customer.id = :idcust";
-        return session.createQuery(hql, Address.class)
-                .setParameter("idcust", idCustomer)
+        return session.createQuery(FROM_ADDRESS_S_WHERE_S_CUSTOMER_ID_IDCUST, Address.class)
+                .setParameter("idcust", customerId)
 
                 .getResultList();
     }

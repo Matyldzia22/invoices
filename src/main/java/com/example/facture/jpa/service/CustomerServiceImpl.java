@@ -3,7 +3,6 @@ package com.example.facture.jpa.service;
 import com.example.facture.jpa.dao.*;
 import com.example.facture.jpa.dto.*;
 import com.example.facture.jpa.model.*;
-import com.example.facture.jpa.service.Mapper;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,9 +37,9 @@ public class CustomerServiceImpl implements CustomerService {
     public void saveCustomer(CustomerDTO customerDTO) {
 
         Customer customer = mapperFacade.map(customerDTO, Customer.class);
-        addPriceGroup2Customer(customer, priceGroupDAO.getById(customerDTO.getIdPriceGroup()));
-        addTaxBracket2Customer(customer, taxBracketDAO.getById(customerDTO.getIdTaxBracket()));
-        addTypeOfCustomer2Customer(customer, typeOfCustomerDAO.getById(customerDTO.getIdTypeOfCustomer()));
+        addPriceGroup2Customer(customer, priceGroupDAO.getById(customerDTO.getPriceGroupId()));
+        addTaxBracket2Customer(customer, taxBracketDAO.getById(customerDTO.getTaxBracketId()));
+        addTypeOfCustomer2Customer(customer, typeOfCustomerDAO.getById(customerDTO.getTypeOfCustomerId()));
 
         customerDAO.save(customer);
     }
@@ -217,8 +216,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> getCustomers(long idPriceGroup, long idTaxBracket, long idTypeOfCustomer) {
-        return customerDAO.getCustomers(idPriceGroup, idTaxBracket, idTypeOfCustomer);
+    public List<Customer> getCustomers(long priceGroupId, long taxBracketId, long typeOfCustomerId) {
+        return customerDAO.getCustomers(priceGroupId, taxBracketId, typeOfCustomerId);
     }
 
     @Override

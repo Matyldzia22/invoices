@@ -86,11 +86,11 @@
         </div>
 
             <%--<label  class="col-form-label">price group</label> --%>
-        <form:select path="idProduct" id="listOfProducts">
+        <form:select path="productId" id="listOfProducts">
             <form:option value="0"> --SELECT--</form:option>
             <form:options items="${listOfProducts}" itemValue="id" path="product"></form:options>
         </form:select>
-        <form:select path="idInvoice" id="listOfInvoices">
+        <form:select path="invoiceId" id="listOfInvoices">
             <form:option value="0"> --SELECT--</form:option>
             <form:options items="${listOfInvoices}" itemValue="id" path="invoice"></form:options>
         </form:select>
@@ -104,7 +104,6 @@
 
 <script type="text/javascript">
     function myFunction() {
-
         document.getElementById("demo").innerHTML = '<html><body><div>Your code</div></body></html>';
     }
 </script>

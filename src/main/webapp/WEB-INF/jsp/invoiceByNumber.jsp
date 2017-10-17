@@ -96,7 +96,7 @@
         <tr modelAttribute="invoice">
             <td> </td>
             <td>${invoice.id}</td>
-            <td>${invoice.number}</td>
+            <td>${invoice.numberr}</td>
             <td>${invoice.confirmDate}</td>
             <td>${invoice.sellingDate}</td>
             <td>${invoice.invoiceDate}</td>

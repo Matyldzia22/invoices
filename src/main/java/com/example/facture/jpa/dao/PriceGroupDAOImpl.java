@@ -5,6 +5,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
@@ -12,18 +14,20 @@ import java.util.List;
 
 
 @Repository
-@CacheConfig(cacheNames = "application-cache")
+@CacheConfig(cacheNames = "priceGroup-cache")
 public class PriceGroupDAOImpl implements PriceGroupDAO {
 
     private static final String SELECT_A_FROM_PRICE_GROUP_A = "Select a From PriceGroup a";
     private static final String SELECT_A_FROM_PRICE_GROUP_A_WHERE_A_NAME_LIKE_CUST_NAME = "Select a From PriceGroup a where a.name like :custName";
     private static final String SELECT_A_FROM_PRICE_GROUP_A_WHERE_A_DISCOUNT_CUST_DISCOUNT = "Select a From PriceGroup a where a.discount = :custDiscount";
+    private static final String FROM_CUSTOMER_C_JOIN_FETCH_C_PRICE_GROUP_P_WHERE_P_ID_ID = "FROM Customer c JOIN FETCH c.priceGroup p where p.id = :id";
 
     @Autowired
     private SessionFactory sessionFactory;
 
 
     @Override
+    @CachePut
     public void save(PriceGroup priceGroup) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(priceGroup);
@@ -31,6 +35,7 @@ public class PriceGroupDAOImpl implements PriceGroupDAO {
 
 
     @Override
+    @CacheEvict
     public void delete(PriceGroup priceGroup) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(priceGroup);
@@ -38,6 +43,7 @@ public class PriceGroupDAOImpl implements PriceGroupDAO {
 
 
     @Override
+    @CachePut
     public void update(PriceGroup priceGroup) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(priceGroup);
@@ -45,10 +51,10 @@ public class PriceGroupDAOImpl implements PriceGroupDAO {
 
 
     @Override
-    @Cacheable(key="#idPriceGroup")
-    public PriceGroup getById(Long idPriceGroup) {
+    @Cacheable
+    public PriceGroup getById(Long priceGroupId) {
         Session session = sessionFactory.getCurrentSession();
-        return session.find(PriceGroup.class, idPriceGroup);
+        return session.find(PriceGroup.class, priceGroupId);
     }
 
     @Override
@@ -59,7 +65,7 @@ public class PriceGroupDAOImpl implements PriceGroupDAO {
     }
 
     @Override
-    @Cacheable(key="#name")
+    @Cacheable
     public PriceGroup getPriceGroupByName(String name) {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery(SELECT_A_FROM_PRICE_GROUP_A_WHERE_A_NAME_LIKE_CUST_NAME, PriceGroup.class)
@@ -67,7 +73,7 @@ public class PriceGroupDAOImpl implements PriceGroupDAO {
     }
 
     @Override
-    @Cacheable(key="#discount")
+    @Cacheable
     public PriceGroup getPriceGroupByDiscount(int discount) {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery(SELECT_A_FROM_PRICE_GROUP_A_WHERE_A_DISCOUNT_CUST_DISCOUNT, PriceGroup.class)
@@ -78,8 +84,7 @@ public class PriceGroupDAOImpl implements PriceGroupDAO {
     @Override
     public List<Customer> getCustomers(PriceGroup priceGroup) {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "FROM Customer c JOIN FETCH c.priceGroup p where p.id = :id";
-        return session.createQuery(hql, Customer.class)
+        return session.createQuery(FROM_CUSTOMER_C_JOIN_FETCH_C_PRICE_GROUP_P_WHERE_P_ID_ID, Customer.class)
                 .setParameter("id", priceGroup.getId())
                 .getResultList();
     }
