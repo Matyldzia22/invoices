@@ -83,6 +83,7 @@
         <thead>
         <tr>
             <th>DETAILS</th>
+            <th>ITEMS</th>
             <th>ID</th>
             <th>NUMBER</th>
             <th>CONFIRM DATE</th>
@@ -97,6 +98,7 @@
         <c:forEach items="${invoices}" var="invoice">
             <tr>
                 <td><a href="/invoice/${invoice.id}">invoice details</a></td>
+                <td><a href="/${invoice.numberr}/invoiceItems/add">add items</a></td>
                 <td>${invoice.id}</td>
                 <td>${invoice.numberr}</td>
                 <td>${invoice.confirmDate}</td>

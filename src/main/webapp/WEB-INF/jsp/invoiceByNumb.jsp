@@ -1,26 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-<%@ page import="java.sql.*" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <link rel="stylesheet" type="text/css" href="<c:url value='/static/style.css' />">
 
-    <title>New invoice</title>
+
+    <title>Invoice By numberr</title>
 </head>
 
 <body>
+
+
 <nav class="navbar navbar-default" style="background-color: firebrick">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="/">Invoices</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="/addInvoice">Add invoice</a></li>
+            <li><a href="/addInvoice">Add invoice</a></li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Invoice Items<span
                     class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -73,84 +77,90 @@
         </ul>
     </div>
 </nav>
-<form:form modelAttribute="invoice" method="POST" cssClass="table-bordered rounded" cssStyle="margin: 100px;">
 
-    <div class="form-row" align="center">
-        <h3>Add new invoice</h3>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>INVOICE</th>
+            <th>id</th>
+            <th>number</th>
+            <th>confirm date</th>
+            <th>selling date</th>
+            <th>invoice date</th>
+            <th>sum</th>
+        </tr>
+        </thead>
+        <tbody>
 
-        <div class="form-group">
+        <tr modelAttribute="invoice">
+            <td> </td>
+            <td>${invoice.id}</td>
+            <td>${invoice.numberr}</td>
+            <td>${invoice.confirmDate}</td>
+            <td>${invoice.sellingDate}</td>
+            <td>${invoice.invoiceDate}</td>
+            <td>${invoice.sum}</td>
+        <thead>
+        <tr>
+            <th>PRODUCT</th>
+            <th>name</th>
+            <th>number</th>
+            <th>brutto price</th>
+            <th>netto price</th>
+            <th>vat</th>
+        </tr>
+        </thead>
 
-                <%--<label  class="col-form-label">FirstName</label>--%>
-            <form:input path="numberr" class="uk-width-1-1 uk-form-large"
-                        type="text"
-                        name='numberr'
-                        placeholder="number"/>
-        </div>
-        <div class="form-group">
+        <c:forEach items="${listOfInvoiceItems}" var="invoiceItem">
+            <td> </td>
+            <td>${invoiceItem.product.name}</td>
+            <td>${invoiceItem.number}</td>
+            <td>${invoiceItem.product.bruttoPrice}</td>
+            <td>${invoiceItem.product.nettoPrice}</td>
+            <td>${invoiceItem.product.vat}%</td>
+        </c:forEach>
+        <thead>
+        <tr>
+            <th>CUSTOMER</th>
+            <th>name</th>
+            <th>firstName</th>
+            <th>lastName</th>
+            <th>email</th>
+            <th>nip</th>
+            <th>phoneNumber</th>
+            <th>city</th>
+            <th>street</th>
+            <th>number</th>
+            <th>postcode</th>
+            <th>price group</th>
+            <th>tax bracket</th>
+            <th>type of customer</th>
+        </tr>
+        </thead>
 
-            <label class="col-form-label">confirmDate</label>
-            <form:input path="confirmDate" class="uk-width-1-1 uk-form-large"
-                        type="text"
-                        name='confirmDate'
-                        placeholder="rr-mm-dd hh-mm"
-            />
-        </div>
-        <div class="form-group">
-
-            <label class="col-form-label">sellingDate</label>
-            <form:input path="sellingDate" class="uk-width-1-1 uk-form-large"
-                        type="text"
-                        name='sellingDate'
-                        placeholder="rr-mm-dd hh-mm"
-            />
-        </div>
-
-        <div class="form-group">
-
-            <label class="col-form-label">invoiceDate</label>
-            <form:input path="invoiceDate" class="uk-width-1-1 uk-form-large"
-                        type="text"
-                        name='invoiceDate'
-                        placeholder="rr-mm-dd hh-mm"
-            />
-        </div>
-        <div class="form-group">
-
-            <label class="col-form-label">sum</label>
-            <form:input path="sum" class="uk-width-1-1 uk-form-large"
-                        type="number"
-                        min="0.00"
-                        step="0.01"
-                        name='sum'
-                        placeholder="sum"/>
-        </div>
-
-            <%--<label  class="col-form-label">price group</label> --%>
-        <form:select path="addressId" id="listOfAddresses">
-            <form:option value="0"> --SELECT--</form:option>
-            <form:options items="${listOfAddresses}" itemValue="id" path="address"></form:options>
-        </form:select>
-        <form:select path="customerId" id="listOfCustomers">
-            <form:option value="0"> --SELECT--</form:option>
-            <form:options items="${listOfCustomers}" itemValue="id" path="customer"></form:options>
-
-        </form:select>
-
-
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Save</button>
-        </div>
-    </div>
-</form:form>
+        <tr modelAttribute="invoice">
+            <td> </td>
+            <td>${invoice.customer.name}</td>
+            <td>${invoice.customer.firstName}</td>
+            <td>${invoice.customer.lastName}</td>
+            <td>${invoice.customer.email}</td>
+            <td>${invoice.customer.nip}</td>
+            <td>${invoice.customer.phoneNumber}</td>
+            <td>${invoice.address.city}</td>
+            <td>${invoice.address.street}</td>
+            <td>${invoice.address.number}</td>
+            <td>${invoice.address.postCode}</td>
+            <td>${invoice.customer.priceGroup.name}</td>
+            <td>${invoice.customer.taxBracket.number}%</td>
+            <td>${invoice.customer.typeOfCustomer.name}</td>
 
 
-<div class="form-group" id="demo"></div>
+        </tr>
 
-<script type="text/javascript">
-    function myFunction() {
-        document.getElementById("demo").innerHTML = '<html><body><div>Your code</div></body></html>';
-    }
-</script>
 
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

@@ -67,6 +67,17 @@ public class MyController extends SpringBootServletInitializer {
         return "invoiceByNumber";
     }
 
+    @RequestMapping(value = "/invoice/number/{numberr}", method = RequestMethod.GET)
+    public String displayInvoiceByNumber(@PathVariable("numberr") String numberr, ModelMap model) {
+
+        List<InvoiceItem> listOfInvoiceItems = invoiceService.getInvoiceItems(invoiceService.getInvoiceByNumberrr(numberr));
+        model.addAttribute("listOfInvoiceItems", listOfInvoiceItems);
+        model.addAttribute("invoice", invoiceService.getInvoiceByNumber(numberr));
+
+
+        return "invoiceByNumb";
+    }
+
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String test(ModelMap model) {
 
@@ -234,7 +245,7 @@ public class MyController extends SpringBootServletInitializer {
     @GetMapping(value = "/addInvoice")
     public String addInvoice(Model model) {
 
-        List<InvoiceItem> inv = invoiceItemService.getAllInvoiceItems();
+
         List<Product> pr = productService.getAllProductss();
         List<Invoice> in = invoiceService.getAllInvoicess();
 
@@ -243,15 +254,6 @@ public class MyController extends SpringBootServletInitializer {
         model.addAttribute("invoice", new InvoiceDTO());
         model.addAttribute("listOfCustomers", listOfCustomers);
         model.addAttribute("listOfAddresses", listOfAddresses);
-        model.addAttribute("invoiceItemId", invoiceItemService.getInvId() + 1);
-        model.addAttribute("productId", productService.getProdId() + 1);
-        model.addAttribute("invoiceId", invoiceService.getInId() + 1);
-
-
-        //model.addAttribute("invoiceItemId", invoiceItemId);
-        model.addAttribute("invoiceItem", new InvoiceItemDTO());
-        model.addAttribute("product2", new ProductDTO());
-
 
         return "addInvoice";
     }
@@ -263,6 +265,37 @@ public class MyController extends SpringBootServletInitializer {
         }
         invoiceService.saveInvoice(invoiceDTO);
         return "redirect:/";
+    }
+    @GetMapping("/{numberr}/invoiceItems/add")
+    public String displayAddInvoiceItemsInvoice(@PathVariable("numberr") String numberr, Model model) {
+
+        InvoiceDTO inv = invoiceService.getInvoiceByNumber(numberr);
+        long id = inv.getId();
+
+        List<Product> listOfProducts = productService.getAllProductss();
+        List<Invoice> listOfInvoices = invoiceService.getAllInvoicess();
+        List<Customer> listOfCustomers = customerService.getAllCustomerss();
+        List<Address> listOfAddresses = addressService.getAllAddressess();
+        model.addAttribute("invoiceItem", new InvoiceItemDTO());
+        model.addAttribute("listOfProducts", listOfProducts);
+        model.addAttribute("listOfInvoices", listOfInvoices);
+
+
+        model.addAttribute("invoiceItem", new InvoiceItemDTO());
+        model.addAttribute("idInvoice", id);
+
+        return "addInvoiceItem";
+    }
+
+    @RequestMapping(value = "/{numberr}/invoiceItems/add", method = RequestMethod.POST)
+
+    public String postAddTvShowEpisode(@ModelAttribute("invoiceItem") @Valid InvoiceItemDTO invoiceItemDTO,
+                                       BindingResult bindingResult, @PathVariable("numberr") String numberr) {
+        if (bindingResult.hasErrors()) {
+            return "addInvoiceItem";
+        }
+        invoiceItemService.saveInvoiceItem(invoiceItemDTO);
+        return String.format("redirect:/invoice/number/%s", numberr);
     }
 
     @InitBinder

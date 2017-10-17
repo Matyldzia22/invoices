@@ -90,10 +90,14 @@
             <form:option value="0"> --SELECT--</form:option>
             <form:options items="${listOfProducts}" itemValue="id" path="product"></form:options>
         </form:select>
-        <form:select path="invoiceId" id="listOfInvoices">
+       <%-- <form:select path="invoiceId" id="listOfInvoices">
             <form:option value="0"> --SELECT--</form:option>
             <form:options items="${listOfInvoices}" itemValue="id" path="invoice"></form:options>
-        </form:select>
+        </form:select> --%>
+
+        <form:input path="invoiceId" value="${idInvoice}" type="hidden"/>
+
+
 
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Save</button>

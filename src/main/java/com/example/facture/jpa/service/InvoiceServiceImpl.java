@@ -36,7 +36,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         Invoice invoice = mapperFacade.map(invoiceDTO, Invoice.class);
         addAddress2Invoice(invoice, addressDAO.getById(invoiceDTO.getAddressId()));
         addCustomer2Invoice(invoice, customerDAO.getById(invoiceDTO.getCustomerId()));
-        addInvoiceItem2Invoice(invoice, invoiceItemDAO.getById(invoiceDTO.getInvoiceItemId()));
+        //addInvoiceItem2Invoice(invoice, invoiceItemDAO.getById(invoiceDTO.getInvoiceItemId()));
 
         invoiceDAO.save(invoice);
     }
