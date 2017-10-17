@@ -64,6 +64,14 @@ public class ProductDAOImpl implements ProductDAO {
         return session.createQuery(SELECT_A_FROM_PRODUCT_A, Product.class).getResultList();
     }
 
+    @Override
+    @Cacheable
+    public  long getProdId() {
+        Session session = sessionFactory.getCurrentSession();
+        Query q = session.createQuery("SELECT(id) FROM Product WHERE id = ( SELECT MAX(id) FROM Product)");
+        return (long) q.getSingleResult();
+    }
+
 
     @Override
     @Cacheable(key="#name")

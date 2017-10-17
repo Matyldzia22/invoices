@@ -82,37 +82,30 @@
     <table class="table">
         <thead>
         <tr>
+            <th>DETAILS</th>
             <th>ID</th>
             <th>NUMBER</th>
             <th>CONFIRM DATE</th>
             <th>SELLING DATE</th>
             <th>INVOICE DATE</th>
             <th>SUM</th>
-            <th>CITY</th>
-            <th>NUMBER</th>
-            <th>POSTCODE</th>
-            <th>STREET</th>
             <th>CUSTOMER NAME</th>
             <th>CUSTOMER NIP</th>
-            <th>Invoice items</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${invoices}" var="invoice">
             <tr>
+                <td><a href="/invoice/${invoice.id}">invoice details</a></td>
                 <td>${invoice.id}</td>
                 <td>${invoice.number}</td>
                 <td>${invoice.confirmDate}</td>
                 <td>${invoice.sellingDate}</td>
                 <td>${invoice.invoiceDate}</td>
                 <td>${invoice.sum}</td>
-                <td>${invoice.address.city}</td>
-                <td>${invoice.address.number}</td>
-                <td>${invoice.address.postCode}</td>
-                <td>${invoice.address.street}</td>
                 <td>${invoice.customer.name}</td>
                 <td>${invoice.customer.nip}</td>
-                <td>${invoice.invoiceItems}</td>
+
             </tr>
         </c:forEach>
         </tbody>

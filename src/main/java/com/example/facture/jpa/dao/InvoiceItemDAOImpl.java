@@ -19,6 +19,7 @@ import java.util.List;
 public class InvoiceItemDAOImpl implements InvoiceItemDAO {
 
     private static final String SELECT_A_FROM_INVOICE_ITEM_A = "Select a From InvoiceItem a";
+
     private static final String SELECT_A_FROM_INVOICE_ITEM_A_WHERE_A_NUMBER_CUST_NUMBER = "Select a From InvoiceItem a where a.number = :custNumber";
     @Autowired
     private SessionFactory sessionFactory;
@@ -58,6 +59,14 @@ public class InvoiceItemDAOImpl implements InvoiceItemDAO {
     public List<InvoiceItem> getAll() {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery(SELECT_A_FROM_INVOICE_ITEM_A, InvoiceItem.class).getResultList();
+    }
+
+    @Override
+    @Cacheable
+    public  long getInvId() {
+        Session session = sessionFactory.getCurrentSession();
+        Query q = session.createQuery("SELECT(id) FROM InvoiceItem WHERE id = ( SELECT MAX(id) FROM InvoiceItem)");
+        return (long) q.getSingleResult();
     }
 
 

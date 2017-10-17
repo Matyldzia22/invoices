@@ -26,7 +26,7 @@ public class InvoiceItem {
 
     @Column(name = "number")
     @NotNull
-    private int number;
+    private int numberr;
 
 
     @ManyToOne
@@ -40,7 +40,7 @@ public class InvoiceItem {
 
     @Override
     public String toString() {
-        return String.format("InvoiceItem[%d]", number);
+        return String.format("InvoiceItem[%d]", id);
     }
 
 

@@ -31,5 +31,7 @@ public interface InvoiceDAO extends BaseDAO<Invoice, Long> {
 
     List<Invoice> getInvoices(long idAddress, long idCustomer);
 
+    long getInId();
+
 
 }

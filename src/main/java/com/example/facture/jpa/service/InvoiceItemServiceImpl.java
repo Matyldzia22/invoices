@@ -36,6 +36,7 @@ public class InvoiceItemServiceImpl implements InvoiceItemService {
         addProduct2InvoiceItem(invoiceItem, productDAO.getById(invoiceItemDTO.getIdProduct()));
         addInvoice2InvoiceItem(invoiceItem, invoiceDAO.getById(invoiceItemDTO.getIdInvoice()));
 
+
         invoiceItemDAO.save(invoiceItem);
     }
 
@@ -116,6 +117,12 @@ public class InvoiceItemServiceImpl implements InvoiceItemService {
     public List<InvoiceItem> getAllInvoiceItems() {
         return invoiceItemDAO.getAll();
     }
+
+    @Override
+    public long getInvId() {
+        return invoiceItemDAO.getInvId();
+    }
+
 
     @Override
     public List<InvoiceItem> getInvoiceItemByIdInvoice(Long idInvoice) {

@@ -67,6 +67,14 @@ public class InvoiceDAOImpl implements InvoiceDAO {
         return session.createQuery(SELECT_A_FROM_INVOICE_A, Invoice.class).getResultList();
     }
 
+    @Override
+    @Cacheable
+    public  long getInId() {
+        Session session = sessionFactory.getCurrentSession();
+        Query q = session.createQuery("SELECT(id) FROM Invoice WHERE id = ( SELECT MAX(id) FROM Invoice)");
+        return (long) q.getSingleResult();
+    }
+
 
     @Override
     @Cacheable(key = "#number")

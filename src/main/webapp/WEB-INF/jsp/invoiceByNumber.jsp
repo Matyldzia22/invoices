@@ -82,56 +82,83 @@
     <table class="table">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>NUMBER</th>
-            <th>CONFIRM DATE</th>
-            <th>SELLING DATE</th>
-            <th>INVOICE DATE</th>
-            <th>SUM</th>
-            <th>CITY</th>
-            <th>NUMBER</th>
-            <th>POSTCODE</th>
-            <th>STREET</th>
-            <th>CUSTOMER NAME</th>
-            <th>CUSTOMER NIP</th>
+            <th>INVOICE</th>
+            <th>id</th>
+            <th>number</th>
+            <th>confirm date</th>
+            <th>selling date</th>
+            <th>invoice date</th>
+            <th>sum</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${invoices}" var="invoice">
-        <tr>
+
+        <tr modelAttribute="invoice">
+            <td> </td>
             <td>${invoice.id}</td>
             <td>${invoice.number}</td>
             <td>${invoice.confirmDate}</td>
             <td>${invoice.sellingDate}</td>
             <td>${invoice.invoiceDate}</td>
             <td>${invoice.sum}</td>
-            <td>${invoice.address.city}</td>
-            <td>${invoice.address.number}</td>
-            <td>${invoice.address.postCode}</td>
-            <td>${invoice.address.street}</td>
-            <td>${invoice.customer.name}</td>
-            <td>${invoice.customer.nip}</td>
         <thead>
         <tr>
-            <th>product name</th>
+            <th>PRODUCT</th>
+            <th>name</th>
             <th>number</th>
-            <th>product brutto price</th>
-            <th>product netto price</th>
-            <th>product vat</th>
+            <th>brutto price</th>
+            <th>netto price</th>
+            <th>vat</th>
         </tr>
         </thead>
 
         <c:forEach items="${listOfInvoiceItems}" var="invoiceItem">
+            <td> </td>
             <td>${invoiceItem.product.name}</td>
             <td>${invoiceItem.number}</td>
             <td>${invoiceItem.product.bruttoPrice}</td>
             <td>${invoiceItem.product.nettoPrice}</td>
-            <td>${invoiceItem.product.vat}</td>
+            <td>${invoiceItem.product.vat}%</td>
         </c:forEach>
+        <thead>
+        <tr>
+            <th>CUSTOMER</th>
+            <th>name</th>
+            <th>firstName</th>
+            <th>lastName</th>
+            <th>email</th>
+            <th>nip</th>
+            <th>phoneNumber</th>
+            <th>city</th>
+            <th>street</th>
+            <th>number</th>
+            <th>postcode</th>
+            <th>price group</th>
+            <th>tax bracket</th>
+            <th>type of customer</th>
+        </tr>
+        </thead>
+
+        <tr modelAttribute="invoice">
+            <td> </td>
+            <td>${invoice.customer.name}</td>
+            <td>${invoice.customer.firstName}</td>
+            <td>${invoice.customer.lastName}</td>
+            <td>${invoice.customer.email}</td>
+            <td>${invoice.customer.nip}</td>
+            <td>${invoice.customer.phoneNumber}</td>
+            <td>${invoice.address.city}</td>
+            <td>${invoice.address.street}</td>
+            <td>${invoice.address.number}</td>
+            <td>${invoice.address.postCode}</td>
+            <td>${invoice.customer.priceGroup.name}</td>
+            <td>${invoice.customer.taxBracket.number}%</td>
+            <td>${invoice.customer.typeOfCustomer.name}</td>
+
 
         </tr>
 
-        </c:forEach>
+
         </tbody>
     </table>
 </div>

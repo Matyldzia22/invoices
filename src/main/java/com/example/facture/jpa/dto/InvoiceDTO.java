@@ -8,6 +8,8 @@ import com.example.facture.jpa.model.Address;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigInteger;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -34,5 +36,10 @@ public class InvoiceDTO {
     private AddressDTO address2;
     private CustomerDTO customer2;
     private PriceGroupDTO priceGroup2;
+
+    private ProductDTO product2;
+    private long idInvoiceItem;
+    private long idProduct;
+    private long idInvoice;
 
 }

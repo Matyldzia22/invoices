@@ -19,5 +19,7 @@ public interface ProductDAO extends BaseDAO<Product, Long> {
 
     List<InvoiceItem> getInvoiceItems(Product product);
 
+    long getProdId();
+
 
 }

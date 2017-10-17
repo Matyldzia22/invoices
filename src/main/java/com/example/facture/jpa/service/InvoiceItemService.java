@@ -12,6 +12,8 @@ public interface InvoiceItemService {
 
     List<InvoiceItem> getAllInvoiceItems();
 
+    long getInvId();
+
     InvoiceItem getInvoiceItemById(Long id);
 
     void deleteInvoiceItem(InvoiceItem invoiceItem);

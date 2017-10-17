@@ -37,6 +37,8 @@ public class InvoiceServiceImpl implements InvoiceService {
         Invoice invoice = mapperFacade.map(invoiceDTO, Invoice.class);
         addAddress2Invoice(invoice, addressDAO.getById(invoiceDTO.getIdAddress()));
         addCustomer2Invoice(invoice, customerDAO.getById(invoiceDTO.getIdCustomer()));
+        addInvoiceItem2Invoice(invoice, invoiceItemDAO.getById(invoiceDTO.getIdInvoiceItem()));
+
         invoiceDAO.save(invoice);
     }
 
@@ -211,6 +213,11 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public List<Invoice> getAllInvoicess() {
         return invoiceDAO.getAll();
+    }
+
+    @Override
+    public long getInId() {
+        return invoiceDAO.getInId();
     }
 
 

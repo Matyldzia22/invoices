@@ -3,6 +3,7 @@ package com.example.facture.jpa.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bouncycastle.asn1.cms.TimeStampedData;
+import org.springframework.format.annotation.DateTimeFormat;
 import sun.util.calendar.LocalGregorianCalendar;
 
 import javax.persistence.Entity;
@@ -33,10 +34,14 @@ public class Invoice {
     private String number;
 
     @Column(name = "sellingdate")
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern="yyyy-MM-dd hh:mm")
     @NotNull
     private Date sellingDate;
 
     @Column(name = "invoicedate")
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern="yyyy-MM-dd hh:mm")
     @NotNull
     private Date invoiceDate;
 
@@ -45,6 +50,8 @@ public class Invoice {
     private double sum;
 
     @Column(name = "confirmdate")
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern="yyyy-MM-dd hh:mm")
     @NotNull
     private Date confirmDate;
 

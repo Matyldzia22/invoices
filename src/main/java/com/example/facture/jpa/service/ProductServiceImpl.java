@@ -115,5 +115,10 @@ public class ProductServiceImpl implements ProductService {
         return productDAO.getAll();
     }
 
+    @Override
+    public long getProdId() {
+        return productDAO.getProdId();
+    }
+
 
 }

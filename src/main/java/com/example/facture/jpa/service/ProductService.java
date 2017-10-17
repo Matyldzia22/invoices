@@ -34,4 +34,6 @@ public interface ProductService {
 
     List<InvoiceItem> getInvoiceItems(Product product);
 
+    long getProdId();
+
 }
