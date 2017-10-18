@@ -20,12 +20,6 @@
         </div>
         <ul class="nav navbar-nav">
             <li><a href="/addInvoice">Add invoice</a></li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Invoice Items<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="/addInvoiceItem">Add invoice item</a></li>
-                    <li><a href="/invoiceItems">Show all invoice items</a></li>
-                </ul>
-            </li>
             <li class="dropdown active"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Customers<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/addCustomer">Add new customer</a></li>
@@ -34,7 +28,6 @@
             </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Address<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/addAddress">Add new address</a></li>
                     <li><a href="/address">Show all addresses</a></li>
                 </ul>
             </li>
@@ -70,6 +63,9 @@
     <table class="table">
         <thead>
         <tr>
+            <th>DETAILS</th>
+            <th>ADD ADDRESS</th>
+            <th>ADD INVOICE</th>
             <th>ID</th>
             <th>NAME</th>
             <th>FIRST NAME</th>
@@ -85,6 +81,9 @@
         <tbody>
         <c:forEach items="${customers}" var="customer">
             <tr>
+                <td><a href="/customer/name/${customer.name}">customer details</a></td>
+                <td><a href="/${customer.name}/address/add">add address</a></td>
+                <td><a href="/${customer.name}/invoice/add">add invoice</a></td>
                 <td>${customer.id}</td>
                 <td>${customer.name}</td>
                 <td>${customer.firstName}</td>

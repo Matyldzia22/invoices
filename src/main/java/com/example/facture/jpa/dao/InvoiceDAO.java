@@ -33,5 +33,7 @@ public interface InvoiceDAO extends BaseDAO<Invoice, Long> {
 
     long getInId();
 
+    double getSum();
+
 
 }

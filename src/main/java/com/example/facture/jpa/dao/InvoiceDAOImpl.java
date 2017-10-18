@@ -86,6 +86,14 @@ public class InvoiceDAOImpl implements InvoiceDAO {
         return (long) q.getSingleResult();
     }
 
+    @Override
+    @Cacheable
+    public double getSum() {
+        Session session = sessionFactory.getCurrentSession();
+        Query q = session.createQuery("SELECT (sum) FROM Invoice JOIN InvoiceItem WHERE sum =(SELECT SUM(bruttoPrice) FROM InvoiceItem )");
+        return (long) q.getSingleResult();
+    }
+
 
     @Override
     @Cacheable

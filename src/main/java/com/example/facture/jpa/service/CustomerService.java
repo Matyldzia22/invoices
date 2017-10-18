@@ -47,5 +47,9 @@ public interface CustomerService {
 
     List<Invoice> getInvoices(Customer customer);
 
+    List<Address> getAddresses(Customer customer);
+
+    Customer getCustomerByNamee(String name);
+
 
 }

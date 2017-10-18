@@ -102,6 +102,13 @@ public class InvoiceServiceImpl implements InvoiceService {
         return invoices;
     }
 
+    @Override
+    public List<InvoiceItemDTO> getAllInvoiceItemss() {
+        List<InvoiceItemDTO> invoiceItemss = new ArrayList<>();
+        invoiceItemDAO.getAll().forEach(invoiceItem -> invoiceItemss.add(mapperFacade.map(invoiceItem, InvoiceItemDTO.class)));
+        return invoiceItemss;
+    }
+
     public void addInvoiceItem2Invoice(Invoice invoice, InvoiceItem invoiceItem) {
         if (invoiceItem.getInvoice() != invoice) {
             invoiceItem.setInvoice(invoice);

@@ -78,6 +78,19 @@ public class MyController extends SpringBootServletInitializer {
         return "invoiceByNumb";
     }
 
+    @RequestMapping(value = "/customer/name/{name}", method = RequestMethod.GET)
+    public String displayCustomerByName(@PathVariable("name") String name, ModelMap model) {
+
+        List<Address> addresses = customerService.getAddresses(customerService.getCustomerByNamee(name));
+        List<Invoice> invoices = customerService.getInvoices(customerService.getCustomerByNamee(name));
+
+        model.addAttribute("addresses", addresses);
+        model.addAttribute("customer", customerService.getCustomerByName(name));
+        model.addAttribute("invoices", invoices);
+
+        return "customerByName";
+    }
+
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String test(ModelMap model) {
 
@@ -198,6 +211,55 @@ public class MyController extends SpringBootServletInitializer {
         return "redirect:/customers";
     }
 
+    @GetMapping("/{name}/address/add")
+    public String displayAddAddressCustomer(@PathVariable("name") String name, Model model) {
+
+        CustomerDTO cust = customerService.getCustomerByName(name);
+        long id = cust.getId();
+
+        model.addAttribute("address", new AddressDTO());
+
+        model.addAttribute("idCustomer", id);
+
+        return "addAddress";
+    }
+
+    @RequestMapping(value = "/{name}/address/add", method = RequestMethod.POST)
+
+    public String postAddCustomerAddress(@ModelAttribute("address") @Valid AddressDTO addressDTO,
+                                         BindingResult bindingResult, @PathVariable("name") String name) {
+        if (bindingResult.hasErrors()) {
+            return "addAddress";
+        }
+        addressService.saveAddress(addressDTO);
+        return String.format("redirect:/customer/name/%s", name);
+    }
+
+    @GetMapping("/{name}/invoice/add")
+    public String displayAddInvoiceCustomer(@PathVariable("name") String name, Model model) {
+
+        CustomerDTO cust = customerService.getCustomerByName(name);
+        long id = cust.getId();
+        List<Address> addresses = customerService.getAddresses(customerService.getCustomerByNamee(name));
+        model.addAttribute("invoice", new InvoiceDTO());
+        model.addAttribute("listOfAddresses", addresses);
+        model.addAttribute("idCustomer", id);
+
+        return "addCustomerInvoice";
+    }
+
+    @RequestMapping(value = "/{name}/invoice/add", method = RequestMethod.POST)
+
+    public String postAddCustomerInvoice(@ModelAttribute("invoice") @Valid InvoiceDTO invoiceDTO,
+                                         BindingResult bindingResult, @PathVariable("name") String name) {
+        if (bindingResult.hasErrors()) {
+            return "addCustomerInvoice";
+        }
+        invoiceService.saveInvoice(invoiceDTO);
+        return String.format("redirect:/customer/name/%s", name);
+    }
+
+
     @GetMapping(value = "/addInvoiceItem")
     public String addInvoiceItem(Model model) {
         List<Product> listOfProducts = productService.getAllProductss();
@@ -266,6 +328,7 @@ public class MyController extends SpringBootServletInitializer {
         invoiceService.saveInvoice(invoiceDTO);
         return "redirect:/";
     }
+
     @GetMapping("/{numberr}/invoiceItems/add")
     public String displayAddInvoiceItemsInvoice(@PathVariable("numberr") String numberr, Model model) {
 
@@ -289,8 +352,8 @@ public class MyController extends SpringBootServletInitializer {
 
     @RequestMapping(value = "/{numberr}/invoiceItems/add", method = RequestMethod.POST)
 
-    public String postAddTvShowEpisode(@ModelAttribute("invoiceItem") @Valid InvoiceItemDTO invoiceItemDTO,
-                                       BindingResult bindingResult, @PathVariable("numberr") String numberr) {
+    public String postAddInvoiceItemsInvoice(@ModelAttribute("invoiceItem") @Valid InvoiceItemDTO invoiceItemDTO,
+                                             BindingResult bindingResult, @PathVariable("numberr") String numberr) {
         if (bindingResult.hasErrors()) {
             return "addInvoiceItem";
         }

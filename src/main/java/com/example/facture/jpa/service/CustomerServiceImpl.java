@@ -59,6 +59,16 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public Customer getCustomerByNamee(String name) {
+        return customerDAO.getCustomerByName(name);
+    }
+
+    @Override
+    public List<Address> getAddresses(Customer customer) {
+        return customerDAO.getAddresses(customer);
+    }
+
+    @Override
     public void deleteCustomer(CustomerDTO customerDTO) {
 
         Customer customer = customerDAO.getById(customerDTO.getId());

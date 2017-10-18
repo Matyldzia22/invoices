@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ page import="java.sql.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,7 +10,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 
-    <title>New invoiceItem</title>
+    <title>New customer invoice</title>
 </head>
 
 <body>
@@ -18,14 +20,7 @@
             <a class="navbar-brand" href="/">Invoices</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a href="/addInvoice">Add invoice</a></li>
-            <li class="dropdown active"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Invoice Items<span
-                    class="caret"></span></a>
-                <ul class="dropdown-menu">
-
-                    <li><a href="/invoiceItems">Show all invoice items</a></li>
-                </ul>
-            </li>
+            <li class="active"><a href="/addInvoice">Add invoice</a></li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Customers<span
                     class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -71,32 +66,62 @@
         </ul>
     </div>
 </nav>
-<form:form modelAttribute="invoiceItem" method="POST" cssClass="table-bordered rounded" cssStyle="margin: 100px;">
+<form:form modelAttribute="invoice" method="POST" cssClass="table-bordered rounded" cssStyle="margin: 100px;">
 
     <div class="form-row" align="center">
-        <h3>Add new invoiceItem</h3>
+        <h3>Add new invoice</h3>
+
         <div class="form-group">
 
                 <%--<label  class="col-form-label">FirstName</label>--%>
-            <form:input path="number" class="uk-width-1-1 uk-form-large"
-                        type="number"
-                        step="1.0"
-                        name='number'
+            <form:input path="numberr" class="uk-width-1-1 uk-form-large"
+                        type="text"
+                        name='numberr'
                         placeholder="number"/>
+        </div>
+        <div class="form-group">
+
+            <label class="col-form-label">confirmDate</label>
+            <form:input path="confirmDate" class="uk-width-1-1 uk-form-large"
+                        type="text"
+                        name='confirmDate'
+                        placeholder="rr-mm-dd hh-mm"
+            />
+        </div>
+        <div class="form-group">
+
+            <label class="col-form-label">sellingDate</label>
+            <form:input path="sellingDate" class="uk-width-1-1 uk-form-large"
+                        type="text"
+                        name='sellingDate'
+                        placeholder="rr-mm-dd hh-mm"
+            />
+        </div>
+
+        <div class="form-group">
+
+            <label class="col-form-label">invoiceDate</label>
+            <form:input path="invoiceDate" class="uk-width-1-1 uk-form-large"
+                        type="text"
+                        name='invoiceDate'
+                        placeholder="rr-mm-dd hh-mm"
+            />
+        </div>
+        <div class="form-group">
+
+            <form:input path="sum" class="uk-width-1-1 uk-form-large"
+                        type="hidden"
+                        value="0"
+                        name='sum'
+            />
         </div>
 
             <%--<label  class="col-form-label">price group</label> --%>
-        <form:select path="productId" id="listOfProducts">
+        <form:select path="addressId" id="listOfAddresses">
             <form:option value="0"> --SELECT--</form:option>
-            <form:options items="${listOfProducts}" itemValue="id" path="product"></form:options>
+            <form:options items="${listOfAddresses}" itemValue="id" path="address"></form:options>
         </form:select>
-       <%-- <form:select path="invoiceId" id="listOfInvoices">
-            <form:option value="0"> --SELECT--</form:option>
-            <form:options items="${listOfInvoices}" itemValue="id" path="invoice"></form:options>
-        </form:select> --%>
-
-        <form:input path="invoiceId" value="${idInvoice}" type="hidden"/>
-
+        <form:input path="customerId" value="${idCustomer}" type="hidden"/>
 
 
         <div class="form-group">
@@ -104,6 +129,8 @@
         </div>
     </div>
 </form:form>
+
+
 <div class="form-group" id="demo"></div>
 
 <script type="text/javascript">

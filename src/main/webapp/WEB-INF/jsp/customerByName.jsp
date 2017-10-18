@@ -12,12 +12,10 @@
     <link rel="stylesheet" type="text/css" href="<c:url value='/static/style.css' />">
 
 
-    <title>Invoice By numberr</title>
+    <title>Customer by Name</title>
 </head>
 
 <body>
-
-
 <nav class="navbar navbar-default" style="background-color: firebrick">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -69,93 +67,77 @@
         </ul>
     </div>
 </nav>
-
 <div class="container">
     <table class="table">
         <thead>
         <tr>
-            <th>INVOICE</th>
-            <th>id</th>
-            <th>number</th>
-            <th>confirm date</th>
-            <th>selling date</th>
-            <th>invoice date</th>
-            <th>sum</th>
+            <th>CUSTOMER</th>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>FIRST NAME</th>
+            <th>LAST NAME</th>
+            <th>NIP</th>
+            <th>PHONE NUMBER</th>
+            <th>EMAIL</th>
+            <th>PRICE GROUP</th>
+            <th>TAX BRACKET(%)</th>
+            <th>TYPE OF CUSTOMER</th>
         </tr>
         </thead>
         <tbody>
-
-        <tr modelAttribute="invoice">
-            <td> </td>
-            <td>${invoice.id}</td>
-            <td>${invoice.numberr}</td>
-            <td>${invoice.confirmDate}</td>
-            <td>${invoice.sellingDate}</td>
-            <td>${invoice.invoiceDate}</td>
-            <td>${invoice.sum}</td>
+        <tr modelAttribute="customer">
+            <td></td>
+            <td>${customer.id}</td>
+            <td>${customer.name}</td>
+            <td>${customer.firstName}</td>
+            <td>${customer.lastName}</td>
+            <td>${customer.nip}</td>
+            <td>${customer.phoneNumber}</td>
+            <td>${customer.email}</td>
+            <td>${customer.priceGroup.name}</td>
+            <td>${customer.taxBracket.number}</td>
+            <td>${customer.typeOfCustomer.name}</td>
         <thead>
         <tr>
-            <th>PRODUCT</th>
-            <th>name</th>
+            <th>ADDRESS</th>
             <th>number</th>
-            <th>brutto price</th>
-            <th>netto price</th>
-            <th>vat</th>
+            <th>street</th>
+            <th>postCode</th>
+            <th>city</th>
         </tr>
         </thead>
-
-        <c:forEach items="${listOfInvoiceItems}" var="invoiceItem">
+        <c:forEach items="${addresses}" var="address">
             <tr>
-            <td> </td>
-            <td>${invoiceItem.product.name}</td>
-            <td>${invoiceItem.number}</td>
-            <td>${invoiceItem.product.bruttoPrice}</td>
-            <td>${invoiceItem.product.nettoPrice}</td>
-            <td>${invoiceItem.product.vat}%</td>
+                <td></td>
+                <td>${address.number}</td>
+                <td>${address.street}</td>
+                <td>${address.postCode}</td>
+                <td>${address.city}</td>
             </tr>
         </c:forEach>
         <thead>
         <tr>
-            <th>CUSTOMER</th>
-            <th>name</th>
-            <th>firstName</th>
-            <th>lastName</th>
-            <th>email</th>
-            <th>nip</th>
-            <th>phoneNumber</th>
-            <th>city</th>
-            <th>street</th>
+            <th>INVOICE</th>
             <th>number</th>
-            <th>postcode</th>
-            <th>price group</th>
-            <th>tax bracket</th>
-            <th>type of customer</th>
+            <th>confirmDate</th>
+            <th>invoiceDate</th>
+            <th>sellingDate</th>
+            <th>sum</th>
         </tr>
         </thead>
-
-        <tr modelAttribute="invoice">
-            <td> </td>
-            <td>${invoice.customer.name}</td>
-            <td>${invoice.customer.firstName}</td>
-            <td>${invoice.customer.lastName}</td>
-            <td>${invoice.customer.email}</td>
-            <td>${invoice.customer.nip}</td>
-            <td>${invoice.customer.phoneNumber}</td>
-            <td>${invoice.address.city}</td>
-            <td>${invoice.address.street}</td>
-            <td>${invoice.address.number}</td>
-            <td>${invoice.address.postCode}</td>
-            <td>${invoice.customer.priceGroup.name}</td>
-            <td>${invoice.customer.taxBracket.number}%</td>
-            <td>${invoice.customer.typeOfCustomer.name}</td>
-
-
-        </tr>
-
-
+        <c:forEach items="${invoices}" var="invoice">
+            <tr>
+                <td><a href="/invoice/${invoice.id}">invoice details</a></td>
+                <td>${invoice.numberr}</td>
+                <td>${invoice.confirmDate}</td>
+                <td>${invoice.invoiceDate}</td>
+                <td>${invoice.sellingDate}</td>
+                <td>${invoice.sum}</td>
+            </tr>
+        </c:forEach>
         </tbody>
     </table>
-    <input type="button" class="btn btn-info" value="Back" onclick="window.location.href='/'" />
+    <input type="button" class="btn btn-info" value="Back" onclick="window.location.href='/customers'" />
 </div>
 </body>
 </html>

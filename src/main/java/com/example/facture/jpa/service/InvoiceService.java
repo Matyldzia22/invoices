@@ -14,6 +14,8 @@ public interface InvoiceService {
 
     List<InvoiceDTO> getAllInvoices();
 
+    List<InvoiceItemDTO> getAllInvoiceItemss();
+
     Invoice getInvoiceById(Long id);
 
     void deleteInvoice(InvoiceDTO invoiceDTO);

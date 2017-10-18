@@ -18,12 +18,6 @@
         </div>
         <ul class="nav navbar-nav">
             <li><a href="/addInvoice">Add invoice</a></li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Invoice Items<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="/addInvoiceItem">Add invoice item</a></li>
-                    <li><a href="/invoiceItems">Show all invoice items</a></li>
-                </ul>
-            </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Customers<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/addCustomer">Add new customer</a></li>
@@ -32,7 +26,6 @@
             </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Address<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/addAddress">Add new address</a></li>
                     <li><a href="/address">Show all addresses</a></li>
                 </ul>
             </li>
