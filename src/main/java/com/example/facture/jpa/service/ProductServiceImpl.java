@@ -58,6 +58,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public void updateProductAuto(ProductDTO productDTO) {
+        Product prod = productDAO.getById(productDTO.getId());
+        prod.setNettoPrice(productDAO.getNettoPrice(productDTO.getId()));
+
+        productDAO.update(prod);
+    }
+
+    @Override
     public ProductDTO getProductByName(String name) {
         return mapperFacade.map(productDAO.getProductByName(name), ProductDTO.class);
     }
@@ -117,6 +125,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public long getProdId() {
         return productDAO.getProdId();
+    }
+
+    @Override
+    public double getNettoPrice(Long id) {
+        return productDAO.getNettoPrice(id);
     }
 
 

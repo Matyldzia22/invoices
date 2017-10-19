@@ -124,5 +124,16 @@ public class ProductDAOImpl implements ProductDAO {
                 .getResultList();
     }
 
+    @Override
+    @Cacheable
+    public double getNettoPrice(long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Query q =  session.createQuery("SELECT ((c.bruttoPrice - ((c.bruttoPrice * c.vat))/100)) AS netto FROM Product c WHERE c.id =:id");
+        q.setParameter("id", id);
+
+
+        return(double) q.getSingleResult();
+    }
+
 
 }

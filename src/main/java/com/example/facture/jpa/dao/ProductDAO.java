@@ -21,5 +21,7 @@ public interface ProductDAO extends BaseDAO<Product, Long> {
 
     long getProdId();
 
+    double getNettoPrice(long id);
+
 
 }

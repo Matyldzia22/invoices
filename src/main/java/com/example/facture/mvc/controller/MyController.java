@@ -57,24 +57,37 @@ public class MyController extends SpringBootServletInitializer {
     }
 
     @RequestMapping(value = "/invoice/{id}", method = RequestMethod.GET)
-    public String displayInvoice(@PathVariable("id") Long id, ModelMap model) {
+    public String displayInvoice(@PathVariable("id") Long id, @Valid InvoiceDTO invoiceDTO, ModelMap model) {
 
         List<InvoiceItem> listOfInvoiceItems = invoiceService.getInvoiceItems(invoiceService.getInvoiceById(id));
+
         model.addAttribute("listOfInvoiceItems", listOfInvoiceItems);
         model.addAttribute("invoice", invoiceService.getInvoiceById(id));
 
 
+        if (listOfInvoiceItems.size() >0) {
+
+            model.addAttribute("sum", invoiceService.getSum(id));
+
+            invoiceService.updateInvoiceFrom(invoiceDTO);
+        }
         return "invoiceByNumber";
+
     }
 
     @RequestMapping(value = "/invoice/number/{numberr}", method = RequestMethod.GET)
-    public String displayInvoiceByNumber(@PathVariable("numberr") String numberr, ModelMap model) {
+    public String displayInvoiceByNumber(@PathVariable("numberr") String numberr, @Valid InvoiceDTO invoiceDTO, ModelMap model) {
 
         List<InvoiceItem> listOfInvoiceItems = invoiceService.getInvoiceItems(invoiceService.getInvoiceByNumberrr(numberr));
         model.addAttribute("listOfInvoiceItems", listOfInvoiceItems);
         model.addAttribute("invoice", invoiceService.getInvoiceByNumber(numberr));
 
+        if (listOfInvoiceItems.size() > 0) {
+            model.addAttribute("sum", invoiceService.getSuma(numberr));
 
+
+            invoiceService.updateInvoiceFromNumber(invoiceDTO);
+        }
         return "invoiceByNumb";
     }
 
@@ -106,6 +119,7 @@ public class MyController extends SpringBootServletInitializer {
     @RequestMapping(value = "/products", method = RequestMethod.GET)
     public String products(ModelMap model) {
         model.addAttribute("products", productService.getAllProducts());
+        model.addAttribute("netto", productService.getNettoPrice(productService.getProdId()));
         return "products";
     }
 
@@ -381,7 +395,10 @@ public class MyController extends SpringBootServletInitializer {
         if (bindingResult.hasErrors()) {
             return "addProduct";
         }
+
+
         productService.saveProduct(productDTO);
+
         return "redirect:/products";
     }
 

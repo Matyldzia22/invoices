@@ -76,7 +76,7 @@
                 <td>${product.id}</td>
                 <td>${product.name}</td>
                 <td>${product.bruttoPrice}</td>
-                <td>${product.nettoPrice}</td>
+                <td>${netto}</td>
                 <td>${product.vat}%</td>
 
             </tr>

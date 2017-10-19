@@ -92,7 +92,7 @@
             <td>${invoice.confirmDate}</td>
             <td>${invoice.sellingDate}</td>
             <td>${invoice.invoiceDate}</td>
-            <td>${invoice.sum}</td>
+            <td>${sum}</td>
         <thead>
         <tr>
             <th>PRODUCT</th>
@@ -105,13 +105,13 @@
         </thead>
         <c:set var="sum" value="${0}"/>
         <c:forEach items="${listOfInvoiceItems}" var="invoiceItem">
-            <c:set var="sum" value="${sum + invoiceItem.product.nettoPrice}"/>
+            <c:set var="sum" value="${sum + (invoiceItem.product.nettoPrice * invoiceItem.number)}"/>
             <tr>
                 <td></td>
                 <td>${invoiceItem.product.name}</td>
                 <td>${invoiceItem.number}</td>
                 <td>${invoiceItem.product.bruttoPrice}</td>
-                <td>${invoiceItem.product.nettoPrice}</td>
+                <td>${netto}</td>
                 <td>${invoiceItem.product.vat}%</td>
             </tr>
         </c:forEach>

@@ -75,21 +75,22 @@
                         name='bruttoPrice'
                         placeholder="bruttoPrice"/>
         </div>
-        <div class="form-group">
-            <label  class="col-form-label">netto price</label>
-            <form:input path="nettoPrice" class="uk-width-1-1 uk-form-large"
-                        type="number"
-                        min="0.00"
-                        step="0.01"
-                        name='bruttoPrice'
-                        placeholder="bruttoPrice"/>
-        </div>
+
         <div class="form-group">
             <label  class="col-form-label">vat</label>
             <form:input path="vat" class="uk-width-1-1 uk-form-large"
                         type="numeric"
                         name='vat'
                         placeholder="vat"/>
+        </div>
+
+        <div class="form-group">
+
+            <form:input path="nettoPrice" class="uk-width-1-1 uk-form-large"
+                        type="hidden"
+                        value="0"
+                        name='nettoPrice'
+            />
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Save</button>

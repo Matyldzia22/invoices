@@ -48,6 +48,23 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
+    public void updateInvoiceFrom(InvoiceDTO invoiceDTO) {
+        Invoice inv = invoiceDAO.getById(invoiceDTO.getId());
+        inv.setSum(invoiceDAO.getSum(invoiceDTO.getId()));
+
+        invoiceDAO.update(inv);
+    }
+
+    @Override
+    public void updateInvoiceFromNumber(InvoiceDTO invoiceDTO) {
+        Invoice inv = invoiceDAO.getInvoiceByNumber(invoiceDTO.getNumberr());
+        inv.setSum(invoiceDAO.getSuma(invoiceDTO.getNumberr()));
+
+        invoiceDAO.update(inv);
+    }
+
+
+    @Override
     public void deleteInvoice(InvoiceDTO invoiceDTO) {
         Invoice invoice3 = invoiceDAO.getById(invoiceDTO.getId());
         invoiceDAO.delete(invoice3);
@@ -225,6 +242,18 @@ public class InvoiceServiceImpl implements InvoiceService {
     public long getInId() {
         return invoiceDAO.getInId();
     }
+
+
+    @Override
+    public double getSum(Long id) {
+        return invoiceDAO.getSum(id);
+    }
+
+    @Override
+    public double getSuma(String numberr) {
+        return invoiceDAO.getSuma(numberr);
+    }
+
 
 
 }

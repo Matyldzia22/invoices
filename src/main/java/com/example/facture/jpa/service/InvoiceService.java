@@ -58,5 +58,13 @@ public interface InvoiceService {
 
     long getInId();
 
+    double getSum(Long id);
+
+    double getSuma(String numberr);
+
+    void updateInvoiceFrom(InvoiceDTO invoiceDTO);
+
+    void updateInvoiceFromNumber(InvoiceDTO invoiceDTO);
+
 
 }

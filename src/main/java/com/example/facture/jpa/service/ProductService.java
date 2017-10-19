@@ -36,4 +36,8 @@ public interface ProductService {
 
     long getProdId();
 
+    double getNettoPrice(Long id);
+
+    void updateProductAuto(ProductDTO productDTO);
+
 }

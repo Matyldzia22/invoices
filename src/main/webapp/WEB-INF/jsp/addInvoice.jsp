@@ -109,13 +109,11 @@
         </div>
         <div class="form-group">
 
-            <label class="col-form-label">sum</label>
             <form:input path="sum" class="uk-width-1-1 uk-form-large"
-                        type="number"
-                        min="0.00"
-                        step="0.01"
+                        type="hidden"
+                        value="0"
                         name='sum'
-                        placeholder="sum"/>
+            />
         </div>
 
             <%--<label  class="col-form-label">price group</label> --%>

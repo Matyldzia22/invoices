@@ -81,18 +81,20 @@
             <th>selling date</th>
             <th>invoice date</th>
             <th>sum</th>
+
         </tr>
         </thead>
         <tbody>
 
         <tr modelAttribute="invoice">
-            <td> </td>
+            <td></td>
             <td>${invoice.id}</td>
             <td>${invoice.numberr}</td>
             <td>${invoice.confirmDate}</td>
             <td>${invoice.sellingDate}</td>
             <td>${invoice.invoiceDate}</td>
-            <td>${invoice.sum}</td>
+            <td>${sum}</td>
+
         <thead>
         <tr>
             <th>PRODUCT</th>
@@ -103,17 +105,19 @@
             <th>vat</th>
         </tr>
         </thead>
-
+        <c:set var="sum" value="${0}"/>
         <c:forEach items="${listOfInvoiceItems}" var="invoiceItem">
+            <c:set var="sum" value="${sum + (invoiceItem.product.nettoPrice * invoiceItem.number)}"/>
             <tr>
-            <td> </td>
-            <td>${invoiceItem.product.name}</td>
-            <td>${invoiceItem.number}</td>
-            <td>${invoiceItem.product.bruttoPrice}</td>
-            <td>${invoiceItem.product.nettoPrice}</td>
-            <td>${invoiceItem.product.vat}%</td>
+                <td></td>
+                <td>${invoiceItem.product.name}</td>
+                <td>${invoiceItem.number}</td>
+                <td>${invoiceItem.product.bruttoPrice}</td>
+                <td>${invoiceItem.product.nettoPrice}</td>
+                <td>${invoiceItem.product.vat}%</td>
             </tr>
         </c:forEach>
+        <td>${sum}</td>
         <thead>
         <tr>
             <th>CUSTOMER</th>
@@ -134,7 +138,7 @@
         </thead>
 
         <tr modelAttribute="invoice">
-            <td> </td>
+            <td></td>
             <td>${invoice.customer.name}</td>
             <td>${invoice.customer.firstName}</td>
             <td>${invoice.customer.lastName}</td>
@@ -155,7 +159,7 @@
 
         </tbody>
     </table>
-    <input type="button" class="btn btn-info" value="Back" onclick="window.location.href='/'" />
+    <input type="button" class="btn btn-info" value="Back" onclick="window.location.href='/'"/>
 </div>
 </body>
 </html>
