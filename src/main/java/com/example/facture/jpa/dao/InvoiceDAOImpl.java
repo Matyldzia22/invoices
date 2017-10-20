@@ -24,7 +24,7 @@ import java.util.List;
 @CacheConfig(cacheNames = "invoice-cache")
 public class InvoiceDAOImpl implements InvoiceDAO {
 
-    private static final String SELECT_A_FROM_INVOICE_A = "Select a From Invoice a";
+    private static final String SELECT_A_FROM_INVOICE_A = "Select a From Invoice a ORDER BY a.id";
     private static final String SELECT_A_FROM_INVOICE_A_WHERE_A_NUMBER_LIKE_CUST_NUMBER = "Select a From Invoice a where a.numberr like :custNumber";
     private static final String SELECT_A_FROM_INVOICE_A_WHERE_A_SELLING_DATE_CUST_SELLING_DATE = "Select a From Invoice a where a.sellingDate = :custSellingDate";
     private static final String SELECT_A_FROM_INVOICE_A_WHERE_A_INVOICE_DATE_CUST_INVOICE_DATE = "Select a From Invoice a where a.invoiceDate = :custInvoiceDate";

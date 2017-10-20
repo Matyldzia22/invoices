@@ -76,7 +76,8 @@
                 <td>${product.id}</td>
                 <td>${product.name}</td>
                 <td>${product.bruttoPrice}</td>
-                <td>${netto}</td>
+                <%--<td>${(product.bruttoPrice - ((product.bruttoPrice * product.vat))/100)}</td> --%>
+                <td>${product.nettoPrice}</td>
                 <td>${product.vat}%</td>
 
             </tr>

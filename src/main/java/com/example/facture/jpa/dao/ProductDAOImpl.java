@@ -1,5 +1,6 @@
 package com.example.facture.jpa.dao;
 
+import com.example.facture.jpa.dto.ProductDTO;
 import com.example.facture.jpa.model.*;
 
 import com.example.facture.jpa.model.Product;
@@ -36,6 +37,7 @@ public class ProductDAOImpl implements ProductDAO {
     @CachePut
     public void save(Product product) {
         Session session = sessionFactory.getCurrentSession();
+        product.setNettoPrice((product.getBruttoPrice() - ((product.getBruttoPrice() * product.getVat()))/100));
         session.persist(product);
     }
 
@@ -54,6 +56,8 @@ public class ProductDAOImpl implements ProductDAO {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(product);
     }
+
+
 
 
     @Override
@@ -78,6 +82,8 @@ public class ProductDAOImpl implements ProductDAO {
         Query q = session.createQuery(SELECT_ID_FROM_PRODUCT_WHERE_ID_SELECT_MAX_ID_FROM_PRODUCT);
         return (long) q.getSingleResult();
     }
+
+
 
 
     @Override

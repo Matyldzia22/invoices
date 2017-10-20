@@ -40,4 +40,6 @@ public interface ProductService {
 
     void updateProductAuto(ProductDTO productDTO);
 
+
+
 }

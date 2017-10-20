@@ -15,6 +15,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import org.springframework.web.servlet.view.ResourceBundleViewResolver;
 
 @Configuration
 @EnableWebMvc
@@ -32,6 +33,16 @@ public class MVCApplicationContext extends WebMvcConfigurerAdapter {
         resolver.setViewClass(JstlView.class);
         return resolver;
     }
+
+    @Bean
+    public ResourceBundleViewResolver getResourceBundleViewResolver(){
+        ResourceBundleViewResolver resolverr = new ResourceBundleViewResolver();
+        resolverr.setBasename("views");
+        resolverr.setOrder(1);
+        return resolverr;
+    }
+
+
 
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {

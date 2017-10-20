@@ -14,10 +14,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -65,13 +67,26 @@ public class MyController extends SpringBootServletInitializer {
         model.addAttribute("invoice", invoiceService.getInvoiceById(id));
 
 
-        if (listOfInvoiceItems.size() >0) {
+        if (listOfInvoiceItems.size() > 0) {
 
             model.addAttribute("sum", invoiceService.getSum(id));
 
             invoiceService.updateInvoiceFrom(invoiceDTO);
         }
         return "invoiceByNumber";
+
+    }
+
+    @RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
+    public String displayProduct(@PathVariable("id") Long id, @Valid ProductDTO productDTO, ModelMap model) {
+
+
+        model.addAttribute("product", productService.getProductById(id));
+        model.addAttribute("netto", productService.getNettoPrice(id));
+
+        productService.updateProductAuto(productDTO);
+
+        return "productById";
 
     }
 
@@ -118,8 +133,9 @@ public class MyController extends SpringBootServletInitializer {
 
     @RequestMapping(value = "/products", method = RequestMethod.GET)
     public String products(ModelMap model) {
+        List<ProductDTO> productss = productService.getAllProducts();
         model.addAttribute("products", productService.getAllProducts());
-        model.addAttribute("netto", productService.getNettoPrice(productService.getProdId()));
+
         return "products";
     }
 
@@ -387,23 +403,37 @@ public class MyController extends SpringBootServletInitializer {
     public String addProduct(Model model) {
 
         model.addAttribute("product", new ProductDTO());
+
         return "addProduct";
     }
 
     @RequestMapping(value = "/addProduct", method = RequestMethod.POST)
     public String addProduct(@ModelAttribute("product") @Valid ProductDTO productDTO, BindingResult bindingResult) throws IOException {
+
         if (bindingResult.hasErrors()) {
             return "addProduct";
         }
 
-
         productService.saveProduct(productDTO);
-
         return "redirect:/products";
     }
 
+    @RequestMapping(value = "/downloadPDF/{id}", method = RequestMethod.GET)
+    public ModelAndView downloadExcel(@PathVariable("id") Long id, Model model) {
 
-}
+        List<InvoiceItem> listOfInvoiceItems = invoiceService.getInvoiceItems(invoiceService.getInvoiceById(id));
+
+
+        model.addAttribute("listOfInvoiceItems", listOfInvoiceItems);
+        model.addAttribute("listInvoices", invoiceService.getInvoiceById(id));
+
+
+
+        return new ModelAndView("pdfView", "listInvoices", invoiceService.getInvoiceById(id));
+
+    }
+
+    }
 
 
 

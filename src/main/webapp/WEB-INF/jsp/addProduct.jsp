@@ -84,14 +84,9 @@
                         placeholder="vat"/>
         </div>
 
-        <div class="form-group">
 
-            <form:input path="nettoPrice" class="uk-width-1-1 uk-form-large"
-                        type="hidden"
-                        value="0"
-                        name='nettoPrice'
-            />
-        </div>
+
+
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Save</button>
         </div>
