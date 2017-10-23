@@ -14,5 +14,4 @@ public class TypeOfCustomerDTO {
     private String name;
     private List<Customer> customers;
 
-
 }

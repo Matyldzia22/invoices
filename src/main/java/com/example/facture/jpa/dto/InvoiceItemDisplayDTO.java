@@ -15,5 +15,4 @@ class InvoiceItemDisplayDTO {
     private Invoice invoice;
     private Product product;
 
-
 }

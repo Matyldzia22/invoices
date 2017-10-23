@@ -74,6 +74,7 @@
     <table class="table">
         <thead>
         <tr>
+            <th>DELETE</th>
             <th>DETAILS</th>
             <th>ITEMS</th>
             <th>ID</th>
@@ -89,6 +90,8 @@
         <tbody>
         <c:forEach items="${invoices}" var="invoice">
             <tr>
+
+                <td><a href="/delete/invoice/${invoice.id}" class="btn btn-danger active" role="button" aria-pressed="true">DELETE</a></td>
                 <td><a href="/invoice/${invoice.id}">invoice details</a></td>
                 <td><a href="/${invoice.numberr}/invoiceItems/add">add items</a></td>
                 <td>${invoice.id}</td>

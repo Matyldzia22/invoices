@@ -35,13 +35,12 @@ public class MVCApplicationContext extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public ResourceBundleViewResolver getResourceBundleViewResolver(){
+    public ResourceBundleViewResolver getResourceBundleViewResolver() {
         ResourceBundleViewResolver resolverr = new ResourceBundleViewResolver();
         resolverr.setBasename("views");
         resolverr.setOrder(1);
         return resolverr;
     }
-
 
 
     @Override
@@ -55,7 +54,6 @@ public class MVCApplicationContext extends WebMvcConfigurerAdapter {
     }
 
 
-
     @Bean(name = "messageSource")
     public ReloadableResourceBundleMessageSource getMessageSource() {
         ReloadableResourceBundleMessageSource resource = new ReloadableResourceBundleMessageSource();
@@ -63,9 +61,6 @@ public class MVCApplicationContext extends WebMvcConfigurerAdapter {
         resource.setDefaultEncoding("UTF-8");
         return resource;
     }
-
-
-
 
 
 }

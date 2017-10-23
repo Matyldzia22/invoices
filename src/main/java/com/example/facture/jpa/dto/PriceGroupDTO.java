@@ -17,5 +17,4 @@ public class PriceGroupDTO {
     private String name;
     private List<Customer> customers;
 
-
 }

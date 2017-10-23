@@ -42,7 +42,7 @@ public class Address {
 
 
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "customer_id")
     private Customer customer;
 

@@ -13,5 +13,4 @@ class TaxBracketDisplayDTO {
     private int number;
     private List<Customer> customers;
 
-
 }

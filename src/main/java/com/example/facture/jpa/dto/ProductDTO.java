@@ -17,5 +17,4 @@ public class ProductDTO {
     private double bruttoPrice;
     private List<InvoiceItem> invoiceItems;
 
-
 }

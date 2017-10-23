@@ -88,7 +88,7 @@
 
         <tr modelAttribute="invoice">
             <td></td>
-            <td><a href="/downloadPDF/${invoice.id}">PDF</a></td>
+            <td><a href="/downloadPDF/${invoice.id}"class="btn btn-primary active" role="button" aria-pressed="true">PDF</a></td>
             <td>${invoice.id}</td>
             <td>${invoice.numberr}</td>
             <td>${invoice.confirmDate}</td>

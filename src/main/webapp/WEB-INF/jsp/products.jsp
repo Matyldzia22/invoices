@@ -63,6 +63,7 @@
     <table class="table">
         <thead>
         <tr>
+            <th>DELETE</th>
             <th>ID</th>
             <th>NAME</th>
             <th>BRUTTO PRICE</th>
@@ -73,10 +74,10 @@
         <tbody>
         <c:forEach items="${products}" var="product">
             <tr>
+                <td><a href="/delete/product/${product.id}" class="btn btn-danger active" role="button" aria-pressed="true">DELETE</a></td>
                 <td>${product.id}</td>
                 <td>${product.name}</td>
                 <td>${product.bruttoPrice}</td>
-                <%--<td>${(product.bruttoPrice - ((product.bruttoPrice * product.vat))/100)}</td> --%>
                 <td>${product.nettoPrice}</td>
                 <td>${product.vat}%</td>
 

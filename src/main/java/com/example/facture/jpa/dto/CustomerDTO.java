@@ -24,6 +24,9 @@ public class CustomerDTO {
     private String nip;
     private String phoneNumber;
     private String name;
+    private long typeOfCustomerId;
+    private long priceGroupId;
+    private long taxBracketId;
     private PriceGroup priceGroup;
     private TaxBracket taxBracket;
     private TypeOfCustomer typeOfCustomer;
@@ -32,17 +35,11 @@ public class CustomerDTO {
     private TypeOfCustomerDTO typeOfCustomer2;
     private List<Invoice> invoices;
     private List<Address> addresses;
-    private long typeOfCustomerId;
-    private long priceGroupId;
-    private long taxBracketId;
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return String.format("CustomerDTO[%d]", id);
     }
-
-
 
 
 }

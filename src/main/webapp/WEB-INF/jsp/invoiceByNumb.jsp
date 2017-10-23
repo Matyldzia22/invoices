@@ -80,7 +80,7 @@
             <th>confirm date</th>
             <th>selling date</th>
             <th>invoice date</th>
-            <th>sum</th>
+            <th>sum - price group discount</th>
 
         </tr>
         </thead>
@@ -160,6 +160,8 @@
         </tbody>
     </table>
     <input type="button" class="btn btn-info" value="Back" onclick="window.location.href='/'"/>
+
+
 </div>
 </body>
 </html>

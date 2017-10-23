@@ -18,29 +18,22 @@ import java.util.List;
 public class InvoiceDTO {
 
     private Long id;
-
-
     private String numberr;
     private Date sellingDate;
     private Date invoiceDate;
     private double sum;
     private Date confirmDate;
-
     private Customer customer;
-    List<InvoiceItem> invoiceItems;
     private Address address;
-
     private long addressId;
     private long customerId;
-
     private AddressDTO address2;
     private CustomerDTO customer2;
     private PriceGroupDTO priceGroup2;
-
     private ProductDTO product2;
     private long invoiceItemId;
     private long productId;
-    //private long invoiceId;
     private InvoiceItemDTO invoiceItem;
+    List<InvoiceItem> invoiceItems;
 
 }

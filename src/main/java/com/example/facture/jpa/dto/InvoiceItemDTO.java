@@ -16,7 +16,4 @@ public class InvoiceItemDTO {
     private InvoiceDTO invoice;
     private ProductDTO product;
 
-
-
-
 }

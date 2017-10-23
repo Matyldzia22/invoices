@@ -29,12 +29,12 @@ public class InvoiceItem {
     private int number;
 
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "invoice_id")
     private Invoice invoice;
 
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "product_id")
     private Product product;
 
@@ -45,4 +45,3 @@ public class InvoiceItem {
 
 
 }
-

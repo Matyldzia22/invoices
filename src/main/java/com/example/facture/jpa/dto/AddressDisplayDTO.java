@@ -14,8 +14,8 @@ class AddressDisplayDTO {
     private String number;
     private String city;
     private String postCode;
+    private Long customerId;
     private List<Invoice> invoices;
     private CustomerDTO customer;
-    private Long customerId;
 
 }
