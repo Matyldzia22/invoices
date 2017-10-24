@@ -15,17 +15,19 @@ import java.util.*;
 
 public class AddressServiceImpl implements AddressService {
 
-    @Autowired
+
     private AddressDAO addressDAO;
-
-    @Autowired
     private InvoiceDAO invoiceDAO;
-
-    @Autowired
     private CustomerDAO customerDAO;
+    private MapperFacade mapperFacade;
 
     @Autowired
-    private MapperFacade mapperFacade;
+    public AddressServiceImpl(AddressDAO addressDAO, InvoiceDAO invoiceDAO, CustomerDAO customerDAO, MapperFacade mapperFacade){
+        this.addressDAO = addressDAO;
+        this.invoiceDAO = invoiceDAO;
+        this.customerDAO = customerDAO;
+        this.mapperFacade = mapperFacade;
+    }
 
 
     @Override

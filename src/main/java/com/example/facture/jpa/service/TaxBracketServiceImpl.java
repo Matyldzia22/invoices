@@ -15,14 +15,17 @@ import java.util.*;
 
 public class TaxBracketServiceImpl implements TaxBracketService {
 
-    @Autowired
+
     private TaxBracketDAO taxBracketDAO;
-
-    @Autowired
     private CustomerDAO customerDAO;
+    private MapperFacade mapperFacade;
 
     @Autowired
-    private MapperFacade mapperFacade;
+    public TaxBracketServiceImpl (TaxBracketDAO taxBracketDAO, CustomerDAO customerDAO, MapperFacade mapperFacade){
+        this.taxBracketDAO = taxBracketDAO;
+        this.customerDAO = customerDAO;
+        this.mapperFacade = mapperFacade;
+    }
 
     @Override
     public void saveTaxBracket(TaxBracketDTO taxBracketDTO) {

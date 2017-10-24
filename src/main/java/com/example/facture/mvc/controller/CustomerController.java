@@ -20,17 +20,19 @@ import java.util.List;
 public class CustomerController extends SpringBootServletInitializer {
 
 
-    @Autowired
+
     private PriceGroupService priceGroupService;
-
-    @Autowired
     private TypeOfCustomerService typeOfCustomerService;
-
-    @Autowired
     private CustomerService customerService;
+    private TaxBracketService taxBracketService;
 
     @Autowired
-    private TaxBracketService taxBracketService;
+    public CustomerController (PriceGroupService priceGroupService, TypeOfCustomerService typeOfCustomerService, CustomerService customerService, TaxBracketService taxBracketService){
+        this.priceGroupService = priceGroupService;
+        this.typeOfCustomerService = typeOfCustomerService;
+        this.customerService = customerService;
+        this.taxBracketService = taxBracketService;
+    }
 
 
     @RequestMapping(value = "/customer/name/{name}", method = RequestMethod.GET)
@@ -72,7 +74,7 @@ public class CustomerController extends SpringBootServletInitializer {
             return "addCustomer";
         }
         customerService.saveCustomer(customerDTO);
-        return "redirect:/customers";
+        return "redirect:/addAddress";
     }
 
 

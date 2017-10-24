@@ -26,20 +26,22 @@ import java.util.List;
 @Controller
 public class InvoiceController extends SpringBootServletInitializer {
 
-    @Autowired
+
     private InvoiceService invoiceService;
-
-    @Autowired
     private AddressService addressService;
-
-    @Autowired
     private CustomerService customerService;
-
-    @Autowired
     private ProductService productService;
+    private InvoiceItemService invoiceItemService;
 
     @Autowired
-    private InvoiceItemService invoiceItemService;
+    public InvoiceController (InvoiceService invoiceService, AddressService addressService, CustomerService customerService, ProductService productService, InvoiceItemService invoiceItemService){
+        this.invoiceService = invoiceService;
+        this.addressService = addressService;
+        this.customerService = customerService;
+        this.productService = productService;
+        this.invoiceItemService = invoiceItemService;
+
+    }
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)

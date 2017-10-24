@@ -15,14 +15,17 @@ import java.util.*;
 
 public class TypeOfCustomerServiceImpl implements TypeOfCustomerService {
 
-    @Autowired
+
     private TypeOfCustomerDAO typeOfCustomerDAO;
-
-    @Autowired
     private CustomerDAO customerDAO;
+    private MapperFacade mapperFacade;
 
     @Autowired
-    private MapperFacade mapperFacade;
+    public TypeOfCustomerServiceImpl (TypeOfCustomerDAO typeOfCustomerDAO, CustomerDAO customerDAO, MapperFacade mapperFacade){
+        this.typeOfCustomerDAO = typeOfCustomerDAO;
+        this.customerDAO = customerDAO;
+        this.mapperFacade = mapperFacade;
+    }
 
 
     @Override

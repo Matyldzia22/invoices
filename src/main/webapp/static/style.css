@@ -1,3 +1,29 @@
 .color2 {
     color: white;
 }
+
+
+.navbar.navbar-default {
+    background-color: firebrick;
+    font-family: Georgia;
+    font-size: large;
+
+
+}
+
+.col-form-label {
+    font-family: Georgia;
+}
+
+h3{
+    font-family: Georgia;
+}
+th{
+    font-family: Georgia;
+}
+td{
+    font-family: Verdana;
+
+}
+
+

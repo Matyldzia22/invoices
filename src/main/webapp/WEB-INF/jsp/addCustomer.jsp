@@ -7,6 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <link rel="stylesheet" type="text/css" href="<c:url value='/static/style.css' />">
 
     <title>New customer</title>
 </head>
@@ -15,47 +16,40 @@
 <nav class="navbar navbar-default" style="background-color: firebrick">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">Invoices</a>
+            <a class="navbar-brand" style="color: white" href="/">Invoices</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a href="/addInvoice">Add invoice</a></li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Invoice Items<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-
-                    <li><a href="/invoiceItems">Show all invoice items</a></li>
-                </ul>
-            </li>
-            <li class="dropdown active"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Customers<span class="caret"></span></a>
+            <li class="dropdown active"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Customers<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/addCustomer">Add new customer</a></li>
                     <li><a href="/customers">Show all customers</a></li>
                 </ul>
             </li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Address<span class="caret"></span></a>
+            <li class="dropdown"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Address<span class="caret"></span></a>
                 <ul class="dropdown-menu">
 
                     <li><a href="/address">Show all addresses</a></li>
                 </ul>
             </li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Products<span class="caret"></span></a>
+            <li class="dropdown"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Products<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/addProduct">Add new product</a></li>
                     <li><a href="/products">Show all products</a></li>
                 </ul>
             </li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Tax Brackets<span class="caret"></span></a>
+            <li class="dropdown"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Tax Brackets<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/addTax">Add new tax bracket</a></li>
                     <li><a href="/taxBrackets">Show all tax brackets</a></li>
                 </ul>
             </li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Type of Customers<span class="caret"></span></a>
+            <li class="dropdown"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Type of Customers<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/addType">Add new type</a></li>
                     <li><a href="/typeOfCustomers">Show all types</a></li>
                 </ul>
             </li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Price Groups<span class="caret"></span></a>
+            <li class="dropdown"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Price Groups<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/add">Add new group</a></li>
                     <li><a href="/priceGroups">Show all groups</a></li>
@@ -70,51 +64,59 @@
         <h3>Add new customer</h3>
         <div class="form-group">
 
-                <%--<label  class="col-form-label">FirstName</label>--%>
-            <form:input path="firstName" class="uk-width-1-1 uk-form-large"
+            <label class="col-form-label" style="width: 100px;">FirstName</label>
+            <form:errors path="firstName" cssClass="alert alert-danger" cssStyle="width: 250px;" element="div"/>
+            <form:input path="firstName"
                         type="text"
                         name='firstName'
-                        placeholder="firstName"/>
+                        cssClass="form-control"
+                        cssStyle="width: 200px;"/>
         </div>
         <div class="form-group">
 
-                <%--<label  class="col-form-label">LastName</label>--%>
-            <form:input path="lastName" class="uk-width-1-1 uk-form-large"
+            <label class="col-form-label" style="width: 100px;">LastName</label>
+            <form:errors path="lastName" cssClass="alert alert-danger" cssStyle="width: 250px;" element="div"/>
+            <form:input path="lastName"
                         type="text"
                         name='lasttName'
-                        placeholder="lastName"/>
+                        cssClass="form-control"
+                        cssStyle="width: 200px;"/>
         </div>
         <div class="form-group">
 
-                <%--<label  class="col-form-label">Name</label>--%>
-            <form:input path="name" class="uk-width-1-1 uk-form-large"
+            <label class="col-form-label" style="width: 100px;">Name</label>
+            <form:input path="name"
                         type="text"
                         name='name'
-                        placeholder="name"/>
+                        cssClass="form-control"
+                        cssStyle="width: 200px;"/>
         </div>
         <div class="form-group">
 
-                <%-- <label  class="col-form-label">NIP</label> --%>
-            <form:input path="nip" class="uk-width-1-1 uk-form-large"
+            <label class="col-form-label" style="width: 100px;">Nip</label>
+            <form:input path="nip"
                         type="text"
                         name='nip'
-                        placeholder="nip"/>
+                        cssClass="form-control"
+                        cssStyle="width: 200px;"/>
         </div>
         <div class="form-group">
 
-                <%--<label  class="col-form-label">phone-number</label> --%>
-            <form:input path="phoneNumber" class="uk-width-1-1 uk-form-large"
+            <label class="col-form-label" style="width: 100px;">Phone Number</label>
+            <form:input path="phoneNumber"
                         type="text"
                         name='phoneNumber'
-                        placeholder="phoneNumber"/>
+                        cssClass="form-control"
+                        cssStyle="width: 200px;"/>
         </div>
         <div class="form-group">
 
-                <%--<label  class="col-form-label">email</label> --%>
-            <form:input path="email" class="uk-width-1-1 uk-form-large"
-                        type="text"
+            <label class="col-form-label" style="width: 100px;">Email</label>
+            <form:input path="email"
+                        type="email"
                         name='email'
-                        placeholder="email"/>
+                        cssClass="form-control"
+                        cssStyle="width: 200px;"/>
         </div>
 
             <%--<label  class="col-form-label">price group</label> --%>

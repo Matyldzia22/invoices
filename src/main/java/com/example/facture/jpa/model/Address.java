@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class Address {
 
     @Column(name = "street")
     @NotNull
+    @Pattern(regexp = "[A-Za-z]+", message = "{invalid.pattern.street}")
     private String street;
 
     @Column(name = "number")
@@ -33,6 +35,7 @@ public class Address {
 
     @Column(name = "city")
     @NotNull
+    @Pattern(regexp = "[A-Za-z]+", message = "{invalid.pattern.city}")
     private String city;
 
     @Column(name = "postCode")

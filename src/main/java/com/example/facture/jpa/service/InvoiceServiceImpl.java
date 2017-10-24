@@ -15,20 +15,21 @@ import java.util.*;
 
 public class InvoiceServiceImpl implements InvoiceService {
 
-    @Autowired
+
     private InvoiceDAO invoiceDAO;
-
-    @Autowired
     private InvoiceItemDAO invoiceItemDAO;
-
-    @Autowired
     private AddressDAO addressDAO;
-
-    @Autowired
     private CustomerDAO customerDAO;
+    private MapperFacade mapperFacade;
 
     @Autowired
-    private MapperFacade mapperFacade;
+    public InvoiceServiceImpl (InvoiceDAO invoiceDAO, InvoiceItemDAO invoiceItemDAO, AddressDAO addressDAO, CustomerDAO customerDAO, MapperFacade mapperFacade){
+        this.invoiceDAO = invoiceDAO;
+        this.invoiceItemDAO = invoiceItemDAO;
+        this.addressDAO = addressDAO;
+        this.customerDAO = customerDAO;
+        this.mapperFacade = mapperFacade;
+    }
 
 
     @Override

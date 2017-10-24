@@ -15,23 +15,23 @@ import java.util.*;
 
 public class CustomerServiceImpl implements CustomerService {
 
-    @Autowired
+
     private CustomerDAO customerDAO;
-
-    @Autowired
     private InvoiceDAO invoiceDAO;
-
-    @Autowired
     private TaxBracketDAO taxBracketDAO;
-
-    @Autowired
     private PriceGroupDAO priceGroupDAO;
-
-    @Autowired
     private TypeOfCustomerDAO typeOfCustomerDAO;
+    private MapperFacade mapperFacade;
 
     @Autowired
-    private MapperFacade mapperFacade;
+    public CustomerServiceImpl(CustomerDAO customerDAO, InvoiceDAO invoiceDAO, TaxBracketDAO taxBracketDAO, PriceGroupDAO priceGroupDAO, TypeOfCustomerDAO typeOfCustomerDAO, MapperFacade mapperFacade){
+        this.customerDAO = customerDAO;
+        this.invoiceDAO = invoiceDAO;
+        this.taxBracketDAO = taxBracketDAO;
+        this.priceGroupDAO = priceGroupDAO;
+        this.typeOfCustomerDAO = typeOfCustomerDAO;
+        this.mapperFacade = mapperFacade;
+    }
 
     @Override
     public void saveCustomer(CustomerDTO customerDTO) {

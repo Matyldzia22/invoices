@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,8 @@ public class TypeOfCustomer {
 
     @Column(name = "name")
     @NotNull
+    @Pattern(regexp = "[A-Za-z]+", message = "{invalid.pattern.name}")
+
     private String name;
 
 

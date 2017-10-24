@@ -22,8 +22,12 @@ public class PriceGroupDAOImpl implements PriceGroupDAO {
     private static final String SELECT_A_FROM_PRICE_GROUP_A_WHERE_A_DISCOUNT_CUST_DISCOUNT = "Select a From PriceGroup a where a.discount = :custDiscount";
     private static final String FROM_CUSTOMER_C_JOIN_FETCH_C_PRICE_GROUP_P_WHERE_P_ID_ID = "FROM Customer c JOIN FETCH c.priceGroup p where p.id = :id";
 
-    @Autowired
+
     private SessionFactory sessionFactory;
+
+    public PriceGroupDAOImpl (SessionFactory sessionFactory){
+        this.sessionFactory = sessionFactory;
+    }
 
 
     @Override

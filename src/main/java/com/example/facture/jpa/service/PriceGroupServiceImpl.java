@@ -15,14 +15,17 @@ import java.util.*;
 
 public class PriceGroupServiceImpl implements PriceGroupService {
 
-    @Autowired
+
     private PriceGroupDAO priceGroupDAO;
-
-    @Autowired
     private CustomerDAO customerDAO;
+    private MapperFacade mapperFacade;
 
     @Autowired
-    private MapperFacade mapperFacade;
+    public PriceGroupServiceImpl(PriceGroupDAO priceGroupDAO, CustomerDAO customerDAO, MapperFacade mapperFacade){
+        this.priceGroupDAO = priceGroupDAO;
+        this.customerDAO = customerDAO;
+        this.mapperFacade = mapperFacade;
+    }
 
 
     @Override

@@ -15,14 +15,17 @@ import java.util.*;
 
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
+
     private ProductDAO productDAO;
-
-    @Autowired
     private InvoiceItemDAO invoiceItemDAO;
+    private MapperFacade mapperFacade;
 
     @Autowired
-    private MapperFacade mapperFacade;
+    public ProductServiceImpl (ProductDAO productDAO, InvoiceItemDAO invoiceItemDAO, MapperFacade mapperFacade){
+        this.productDAO = productDAO;
+        this.invoiceItemDAO = invoiceItemDAO;
+        this.mapperFacade = mapperFacade;
+    }
 
 
     @Override

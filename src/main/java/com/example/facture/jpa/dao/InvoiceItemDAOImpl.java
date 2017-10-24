@@ -1,5 +1,6 @@
 package com.example.facture.jpa.dao;
 
+import com.example.facture.jpa.dto.InvoiceItemDTO;
 import com.example.facture.jpa.model.*;
 
 import com.example.facture.jpa.model.InvoiceItem;
@@ -26,8 +27,12 @@ public class InvoiceItemDAOImpl implements InvoiceItemDAO {
     private static final String FROM_INVOICE_ITEM_S_WHERE_S_INVOICE_ID_IDINV_AND_S_PRODUCT_ID_IDPROD = "from InvoiceItem s where s.invoice.id = :idinv and s.product.id = :idprod";
     private static final String FROM_INVOICE_ITEM_S_WHERE_S_INVOICE_ID_IDINV = "from InvoiceItem s where s.invoice.id = :idinv";
     private static final String SELECT_ID_FROM_INVOICE_ITEM_WHERE_ID_SELECT_MAX_ID_FROM_INVOICE_ITEM = "SELECT(id) FROM InvoiceItem WHERE id = ( SELECT MAX(id) FROM InvoiceItem)";
-    @Autowired
+
     private SessionFactory sessionFactory;
+
+    public InvoiceItemDAOImpl (SessionFactory sessionFactory){
+        this.sessionFactory = sessionFactory;
+    }
 
 
     @Override

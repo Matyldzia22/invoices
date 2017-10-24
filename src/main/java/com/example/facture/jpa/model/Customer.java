@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,10 +27,12 @@ public class Customer {
 
     @Column(name = "firstName")
     @NotNull
+    @Pattern(regexp = "[A-Za-z]+", message = "{invalid.pattern.firsName}")
     private String firstName;
 
     @Column(name = "lastName")
     @NotNull
+    @Pattern(regexp = "[A-Za-z]+", message = "{invalid.pattern.lastName}")
     private String lastName;
 
     @Column(name = "email")

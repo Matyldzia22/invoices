@@ -7,6 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+    <link rel="stylesheet" type="text/css" href="<c:url value='/static/style.css' />">
     <title>New priceGroup</title>
 </head>
 
@@ -14,47 +15,46 @@
 <nav class="navbar navbar-default" style="background-color: firebrick">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">Invoices</a>
+            <a class="navbar-brand" style="color: white" href="/">Invoices</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a href="/addInvoice">Add invoice</a></li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Invoice Items<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-
-                    <li><a href="/invoiceItems">Show all invoice items</a></li>
-                </ul>
-            </li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Customers<span class="caret"></span></a>
+            <li class="dropdown"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Customers<span
+                    class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/addCustomer">Add new customer</a></li>
                     <li><a href="/customers">Show all customers</a></li>
                 </ul>
             </li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Address<span class="caret"></span></a>
+            <li class="dropdown"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Address<span
+                    class="caret"></span></a>
                 <ul class="dropdown-menu">
 
                     <li><a href="/address">Show all addresses</a></li>
                 </ul>
             </li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Products<span class="caret"></span></a>
+            <li class="dropdown"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Products<span
+                    class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/addProduct">Add new product</a></li>
                     <li><a href="/products">Show all products</a></li>
                 </ul>
             </li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Tax Brackets<span class="caret"></span></a>
+            <li class="dropdown"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Tax Brackets<span
+                    class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/addTax">Add new tax bracket</a></li>
                     <li><a href="/taxBrackets">Show all tax brackets</a></li>
                 </ul>
             </li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Type of Customers<span class="caret"></span></a>
+            <li class="dropdown"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Type of Customers<span
+                    class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/addType">Add new type</a></li>
                     <li><a href="/typeOfCustomers">Show all types</a></li>
                 </ul>
             </li>
-            <li class="dropdown active"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Price Groups<span class="caret"></span></a>
+            <li class="dropdown active"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Price Groups<span
+                    class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/add">Add new group</a></li>
                     <li><a href="/priceGroups">Show all groups</a></li>
@@ -65,31 +65,38 @@
 </nav>
 <form:form modelAttribute="priceGroup" method="POST" cssClass="table-bordered rounded" cssStyle="margin: 100px;">
 
-<div class="form-row" align="center">
-    <h3>Add new priceGroup</h3>
-    <div class="form-group">
+    <div class="form-row" align="center">
+        <h3>Add new priceGroup</h3>
 
-        <label  class="col-form-label">Discount</label>
-        <form:input path="discount" class="uk-width-1-1 uk-form-large"
-                    type="number"
-                    step="0.5"
-                    name='discount'
-                    placeholder="discount"/>
+        <div class="form-group">
+
+            <label class="col-form-label" style="width: 100px;">Name</label>
+            <form:errors path="name" cssClass="alert alert-danger" cssStyle="width: 250px;margin-right: 30px; float: right;" element="div"/>
+
+            <form:input path="name"
+                        type="text"
+                        name='name'
+                        cssStyle="width: 200px;"
+                        cssClass="form-control"
+            />
+        </div>
+        <div class="form-group">
+
+
+            <label class="col-form-label" style="width: 100px;">Discount</label>
+            <form:input path="discount"
+                        type="number"
+                        step="0.5"
+                        name='discount'
+                        cssStyle="width: 200px;"
+                        cssClass="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
     </div>
-    <div class="form-group">
-
-        <label class="col-form-label">Name</label>
-        <form:input path="name" class="uk-width-1-1 uk-form-large"
-                    type="text"
-                    name='name'
-                    placeholder="name"/>
-    </div>
-    <div class="form-group">
-    <button type="submit" class="btn btn-primary">Save</button>
-</div>
-</div>
-    </form:form>
-
+</form:form>
 
 
 </body>

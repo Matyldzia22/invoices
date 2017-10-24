@@ -43,6 +43,7 @@ public class CoreApplicationContext {
         return properties;
     }
 
+
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();

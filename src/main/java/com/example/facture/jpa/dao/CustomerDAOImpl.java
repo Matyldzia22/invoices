@@ -33,8 +33,13 @@ public class CustomerDAOImpl implements CustomerDAO {
     private static final String FROM_ADDRESS_C_JOIN_FETCH_C_CUSTOMER_P_WHERE_P_ID_ID = "FROM Address c JOIN FETCH c.customer p where p.id = :id";
     private static final String FROM_INVOICE_C_JOIN_FETCH_C_CUSTOMER_P_WHERE_P_ID_ID = "FROM Invoice c JOIN FETCH c.customer p where p.id = :id";
 
-    @Autowired
+
     private SessionFactory sessionFactory;
+
+    @Autowired
+    public CustomerDAOImpl (SessionFactory sessionFactory){
+        this.sessionFactory = sessionFactory;
+    }
 
 
     @Override

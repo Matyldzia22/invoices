@@ -30,8 +30,12 @@ public class ProductDAOImpl implements ProductDAO {
     private static final String SELECT_ID_FROM_PRODUCT_WHERE_ID_SELECT_MAX_ID_FROM_PRODUCT = "SELECT(id) FROM Product WHERE id = ( SELECT MAX(id) FROM Product)";
     private static final String SELECT_NETTO_PRICE_PRODUCTS = "SELECT ((c.bruttoPrice - ((c.bruttoPrice * c.vat))/100)) AS netto FROM Product c WHERE c.id =:id";
 
-    @Autowired
+
     private SessionFactory sessionFactory;
+
+    public ProductDAOImpl (SessionFactory sessionFactory){
+        this.sessionFactory = sessionFactory;
+    }
 
 
     @Override

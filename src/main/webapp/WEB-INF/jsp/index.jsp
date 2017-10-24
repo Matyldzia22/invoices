@@ -18,48 +18,47 @@
 <body>
 
 
-<nav class="navbar navbar-default" style="background-color: firebrick">
+<nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">Invoices</a>
+            <a class="navbar-brand" style="color: white" href="/">Invoices</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a href="/addInvoice">Add invoice</a></li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Customers<span
+            <li class="dropdown"><a  class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Customers<span
                     class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/addCustomer">Add new customer</a></li>
                     <li><a href="/customers">Show all customers</a></li>
                 </ul>
             </li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Address<span
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Address<span
                     class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/address">Show all addresses</a></li>
                 </ul>
             </li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Products<span
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Products<span
                     class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/addProduct">Add new product</a></li>
                     <li><a href="/products">Show all products</a></li>
                 </ul>
             </li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Tax Brackets<span
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Tax Brackets<span
                     class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/addTax">Add new tax bracket</a></li>
                     <li><a href="/taxBrackets">Show all tax brackets</a></li>
                 </ul>
             </li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Type of Customers<span
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Type of Customers<span
                     class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/addType">Add new type</a></li>
                     <li><a href="/typeOfCustomers">Show all types</a></li>
                 </ul>
             </li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Price Groups<span
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Price Groups<span
                     class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/add">Add new group</a></li>
@@ -74,9 +73,7 @@
     <table class="table">
         <thead>
         <tr>
-            <th>DELETE</th>
-            <th>DETAILS</th>
-            <th>ITEMS</th>
+            <th></th>
             <th>ID</th>
             <th>NUMBER</th>
             <th>CONFIRM DATE</th>
@@ -90,10 +87,15 @@
         <tbody>
         <c:forEach items="${invoices}" var="invoice">
             <tr>
-
-                <td><a href="/delete/invoice/${invoice.id}" class="btn btn-danger active" role="button" aria-pressed="true">DELETE</a></td>
-                <td><a href="/invoice/${invoice.id}">invoice details</a></td>
-                <td><a href="/${invoice.numberr}/invoiceItems/add">add items</a></td>
+                <td><div class="dropdown">
+                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">OPTIONS
+                        <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="/invoice/${invoice.id}">Invoice Details</a></li>
+                        <li><a href="/${invoice.numberr}/invoiceItems/add">Add items</a></li>
+                        <li><a href="/delete/invoice/${invoice.id}">Delete invoice</a></li>
+                    </ul>
+                </div></td>
                 <td>${invoice.id}</td>
                 <td>${invoice.numberr}</td>
                 <td>${invoice.confirmDate}</td>

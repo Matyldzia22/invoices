@@ -15,18 +15,19 @@ import java.util.*;
 
 public class InvoiceItemServiceImpl implements InvoiceItemService {
 
-    @Autowired
+
     private InvoiceItemDAO invoiceItemDAO;
-
-    @Autowired
     private InvoiceDAO invoiceDAO;
-
-    @Autowired
     private ProductDAO productDAO;
-
+    private MapperFacade mapperFacade;
 
     @Autowired
-    private MapperFacade mapperFacade;
+    public InvoiceItemServiceImpl(InvoiceItemDAO invoiceItemDAO, InvoiceDAO invoiceDAO, ProductDAO productDAO, MapperFacade mapperFacade){
+        this.invoiceItemDAO = invoiceItemDAO;
+        this.invoiceDAO = invoiceDAO;
+        this.productDAO = productDAO;
+        this.mapperFacade = mapperFacade;
+    }
 
 
     @Override

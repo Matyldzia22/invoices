@@ -9,6 +9,7 @@ import com.example.facture.jpa.model.PriceGroup;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 import static org.apache.taglibs.standard.functions.Functions.substring;
@@ -18,7 +19,9 @@ import static org.apache.taglibs.standard.functions.Functions.substring;
 public class CustomerDTO {
 
     private Long id;
+    @Pattern(regexp = "[A-Za-z]+", message = "FirstName is incorrect. Use only letters!")
     private String firstName;
+    @Pattern(regexp = "[A-Za-z]+", message = "LastName is incorrect. Use only letters!")
     private String lastName;
     private String email;
     private String nip;

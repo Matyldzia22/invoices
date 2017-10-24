@@ -30,8 +30,13 @@ public class AddressDAOImpl implements AddressDAO {
     private static final String FROM_INVOICE_C_JOIN_FETCH_C_ADDRESS_P_WHERE_P_ID_ID = "FROM Invoice c JOIN FETCH c.address p where p.id = :id";
 
 
-    @Autowired
+
     private SessionFactory sessionFactory;
+
+    @Autowired
+    public AddressDAOImpl(SessionFactory sessionFactory){
+        this.sessionFactory = sessionFactory;
+    }
 
 
     @Override

@@ -22,8 +22,13 @@ public class TaxBracketDAOImpl implements TaxBracketDAO {
     private static final String FROM_CUSTOMER_C_JOIN_FETCH_C_TAX_BRACKET_P_WHERE_P_ID_ID = "FROM Customer c JOIN FETCH c.taxBracket p where p.id = :id";
 
 
-    @Autowired
+
     private SessionFactory sessionFactory;
+
+    @Autowired
+    public TaxBracketDAOImpl (SessionFactory sessionFactory){
+        this.sessionFactory = sessionFactory;
+    }
 
 
     @Override

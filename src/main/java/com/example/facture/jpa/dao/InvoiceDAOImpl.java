@@ -37,8 +37,13 @@ public class InvoiceDAOImpl implements InvoiceDAO {
     private static final String SELECT_SUM_INVOICE_PRODUCTS_BY_INVOICE_NUMBER = "SELECT (SUM(c.nettoPrice * b.number))  - ((e.discount * (SUM(c.nettoPrice * b.number)))/100) AS suma FROM Invoice a JOIN Customer d ON a.customer.id = d.id JOIN PriceGroup e ON d.priceGroup.id = e.id JOIN InvoiceItem b ON a.id= b.invoice.id JOIN Product c ON c.id = b.product.id  WHERE a.numberr like:numberr GROUP BY e.discount";
     private static final String SELECT_SUM_INVOICE_PRODUCTS_BY_INVOICE_ID = "SELECT (SUM(c.nettoPrice * b.number))  - ((e.discount * (SUM(c.nettoPrice * b.number)))/100) AS suma FROM Invoice a JOIN Customer d ON a.customer.id = d.id JOIN PriceGroup e ON d.priceGroup.id = e.id  JOIN InvoiceItem b ON a.id= b.invoice.id  JOIN Product c ON c.id = b.product.id WHERE a.id =:id GROUP BY e.discount";
 
-    @Autowired
+
     private SessionFactory sessionFactory;
+
+    @Autowired
+    public InvoiceDAOImpl (SessionFactory sessionFactory){
+        this.sessionFactory = sessionFactory;
+    }
 
 
     @Override

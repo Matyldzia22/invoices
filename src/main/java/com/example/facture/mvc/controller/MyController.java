@@ -20,23 +20,23 @@ import java.util.List;
 public class MyController extends SpringBootServletInitializer {
 
 
-    @Autowired
+
     private AddressService addressService;
-
-    @Autowired
     private PriceGroupService priceGroupService;
-
-    @Autowired
     private TypeOfCustomerService typeOfCustomerService;
-
-    @Autowired
     private CustomerService customerService;
-
-    @Autowired
     private TaxBracketService taxBracketService;
+    private ProductService productService;
 
     @Autowired
-    private ProductService productService;
+    public MyController (AddressService addressService, PriceGroupService priceGroupService, TypeOfCustomerService typeOfCustomerService, CustomerService customerService, TaxBracketService taxBracketService, ProductService productService ){
+        this.addressService = addressService;
+        this.priceGroupService = priceGroupService;
+        this.typeOfCustomerService = typeOfCustomerService;
+        this.customerService = customerService;
+        this.taxBracketService = taxBracketService;
+        this.productService = productService;
+    }
 
 
     @RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
