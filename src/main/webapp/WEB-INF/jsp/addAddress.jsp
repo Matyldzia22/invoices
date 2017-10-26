@@ -39,7 +39,6 @@
             </li>
             <li class="dropdown"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Tax Brackets<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/addTax">Add new tax bracket</a></li>
                     <li><a href="/taxBrackets">Show all tax brackets</a></li>
                 </ul>
             </li>
@@ -69,8 +68,7 @@
 
 
             <label class="col-form-label" style="width: 100px;">Street</label>
-            <form:errors path="street" cssClass="alert alert-danger" cssStyle="width: 250px;margin-right: 30px; float: right;" element="div"/>
-
+            <form:errors path="street" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
             <form:input path="street"
                         type="text"
                         name='street'
@@ -80,6 +78,7 @@
         <div class="form-group">
 
             <label class="col-form-label" style="width: 100px;">Number</label>
+            <form:errors path="number" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
             <form:input path="number"
                         type="text"
                         name='number'
@@ -90,7 +89,7 @@
 
 
             <label class="col-form-label" style="width: 100px;">City</label>
-            <form:errors path="city" cssClass="alert alert-danger" cssStyle="width: 250px;" element="div"/>
+            <form:errors path="city" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
             <form:input path="city"
                         type="text"
                         name='city'
@@ -100,6 +99,7 @@
         <div class="form-group">
 
             <label class="col-form-label" style="width: 100px;">PostCode</label>
+            <form:errors path="postCode" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
             <form:input path="postCode"
                         type="text"
                         name='postCode'

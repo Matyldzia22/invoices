@@ -45,7 +45,6 @@
             <li class="dropdown"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Tax Brackets<span
                     class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/addTax">Add new tax bracket</a></li>
                     <li><a href="/taxBrackets">Show all tax brackets</a></li>
                 </ul>
             </li>
@@ -115,7 +114,6 @@
             />
         </div>
         <div class="form-group">
-            <label class="col-form-label" style="width: 100px;">Sum</label>
             <form:input path="sum"
                         type="hidden"
                         value="0"

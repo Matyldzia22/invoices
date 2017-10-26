@@ -43,7 +43,6 @@
             <li class="dropdown"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Tax Brackets<span
                     class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/addTax">Add new tax bracket</a></li>
                     <li><a href="/taxBrackets">Show all tax brackets</a></li>
                 </ul>
             </li>
@@ -71,6 +70,7 @@
         <div class="form-group">
 
             <label class="col-form-label" style="width: 100px;">Number</label>
+            <form:errors path="number" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
             <form:input path="number"
                         type="number"
                         step="1.0"
@@ -84,10 +84,7 @@
             <form:option value="0"> --SELECT--</form:option>
             <form:options items="${listOfProducts}" itemValue="id" path="product"></form:options>
         </form:select>
-       <%-- <form:select path="invoiceId" id="listOfInvoices">
-            <form:option value="0"> --SELECT--</form:option>
-            <form:options items="${listOfInvoices}" itemValue="id" path="invoice"></form:options>
-        </form:select> --%>
+        <form:errors path="productId" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
 
         <form:input path="invoiceId" value="${idInvoice}" type="hidden"/>
 

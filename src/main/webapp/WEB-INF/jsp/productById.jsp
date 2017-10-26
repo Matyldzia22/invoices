@@ -46,7 +46,6 @@
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Tax Brackets<span
                     class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/addTax">Add new tax bracket</a></li>
                     <li><a href="/taxBrackets">Show all tax brackets</a></li>
                 </ul>
             </li>

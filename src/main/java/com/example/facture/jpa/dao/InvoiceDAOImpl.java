@@ -24,7 +24,7 @@ import java.util.List;
 @CacheConfig(cacheNames = "invoice-cache")
 public class InvoiceDAOImpl implements InvoiceDAO {
 
-    private static final String SELECT_A_FROM_INVOICE_A = "Select a From Invoice a ORDER BY a.id";
+    private static final String SELECT_A_FROM_INVOICE_A = "Select a From Invoice a ORDER BY a.invoiceDate DESC ";
     private static final String SELECT_A_FROM_INVOICE_A_WHERE_A_NUMBER_LIKE_CUST_NUMBER = "Select a From Invoice a where a.numberr like :custNumber";
     private static final String SELECT_A_FROM_INVOICE_A_WHERE_A_SELLING_DATE_CUST_SELLING_DATE = "Select a From Invoice a where a.sellingDate = :custSellingDate";
     private static final String SELECT_A_FROM_INVOICE_A_WHERE_A_INVOICE_DATE_CUST_INVOICE_DATE = "Select a From Invoice a where a.invoiceDate = :custInvoiceDate";
@@ -34,8 +34,8 @@ public class InvoiceDAOImpl implements InvoiceDAO {
     private static final String FROM_INVOICE_S_WHERE_S_CUSTOMER_ID_IDCUST = "from Invoice s where s.customer.id = :idcust";
     private static final String FROM_INVOICE_ITEM_E_JOIN_FETCH_E_INVOICE_U_WHERE_U_ID_ID = "FROM InvoiceItem e JOIN FETCH e.invoice u where u.id = :id";
     private static final String SELECT_ID_FROM_INVOICE_WHERE_ID_SELECT_MAX_ID_FROM_INVOICE = "SELECT(id) FROM Invoice WHERE id = ( SELECT MAX(id) FROM Invoice)";
-    private static final String SELECT_SUM_INVOICE_PRODUCTS_BY_INVOICE_NUMBER = "SELECT (SUM(c.nettoPrice * b.number))  - ((e.discount * (SUM(c.nettoPrice * b.number)))/100) AS suma FROM Invoice a JOIN Customer d ON a.customer.id = d.id JOIN PriceGroup e ON d.priceGroup.id = e.id JOIN InvoiceItem b ON a.id= b.invoice.id JOIN Product c ON c.id = b.product.id  WHERE a.numberr like:numberr GROUP BY e.discount";
-    private static final String SELECT_SUM_INVOICE_PRODUCTS_BY_INVOICE_ID = "SELECT (SUM(c.nettoPrice * b.number))  - ((e.discount * (SUM(c.nettoPrice * b.number)))/100) AS suma FROM Invoice a JOIN Customer d ON a.customer.id = d.id JOIN PriceGroup e ON d.priceGroup.id = e.id  JOIN InvoiceItem b ON a.id= b.invoice.id  JOIN Product c ON c.id = b.product.id WHERE a.id =:id GROUP BY e.discount";
+    private static final String SELECT_SUM_INVOICE_PRODUCTS_BY_INVOICE_NUMBER = "SELECT (SUM(c.bruttoPrice * b.number))  - ((e.discount * (SUM(c.bruttoPrice * b.number)))/100) AS suma FROM Invoice a JOIN Customer d ON a.customer.id = d.id JOIN PriceGroup e ON d.priceGroup.id = e.id JOIN InvoiceItem b ON a.id= b.invoice.id JOIN Product c ON c.id = b.product.id  WHERE a.numberr like:numberr GROUP BY e.discount";
+    private static final String SELECT_SUM_INVOICE_PRODUCTS_BY_INVOICE_ID = "SELECT (SUM(c.bruttoPrice * b.number))  - ((e.discount * (SUM(c.bruttoPrice * b.number)))/100) AS suma FROM Invoice a JOIN Customer d ON a.customer.id = d.id JOIN PriceGroup e ON d.priceGroup.id = e.id  JOIN InvoiceItem b ON a.id= b.invoice.id  JOIN Product c ON c.id = b.product.id WHERE a.id =:id GROUP BY e.discount";
 
 
     private SessionFactory sessionFactory;

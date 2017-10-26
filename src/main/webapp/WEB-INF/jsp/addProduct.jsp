@@ -41,7 +41,6 @@
             <li class="dropdown"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Tax Brackets<span
                     class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/addTax">Add new tax bracket</a></li>
                     <li><a href="/taxBrackets">Show all tax brackets</a></li>
                 </ul>
             </li>
@@ -69,14 +68,18 @@
         <h3>Add new product</h3>
         <div class="form-group">
             <label class="col-form-label" style="width: 100px;">Name</label>
+            <form:errors path="name" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
             <form:input path="name"
                         type="text"
                         name='name'
+                        pattern="[A-Za-z]+"
+                        title="Name is incorrect. Use only letters!"
                         cssStyle="width: 200px;"
                         cssClass="form-control"/>
         </div>
         <div class="form-group">
             <label class="col-form-label" style="width: 100px;">Brutto Price</label>
+            <form:errors path="bruttoPrice" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
             <form:input path="bruttoPrice"
                         type="number"
                         min="0.00"
@@ -88,8 +91,9 @@
 
         <div class="form-group">
             <label class="col-form-label" style="width: 100px;">Vat</label>
+            <form:errors path="vat" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
             <form:input path="vat"
-                        type="numeric"
+                        type="number"
                         name='vat'
                         cssStyle="width: 200px;"
                         cssClass="form-control"

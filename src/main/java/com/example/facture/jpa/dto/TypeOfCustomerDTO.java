@@ -3,6 +3,8 @@ package com.example.facture.jpa.dto;
 import com.example.facture.jpa.model.Customer;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Pattern;
 import java.util.List;
@@ -12,7 +14,7 @@ import java.util.List;
 public class TypeOfCustomerDTO {
 
     private Long id;
-    @Pattern(regexp = "[A-Za-z]+", message = "Name is incorrect. Use only letters!")
+    @NotBlank
     private String name;
     private List<Customer> customers;
 

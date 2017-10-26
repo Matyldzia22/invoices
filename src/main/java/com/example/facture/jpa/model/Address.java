@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
@@ -25,21 +26,19 @@ public class Address {
     private Long id;
 
     @Column(name = "street")
-    @NotNull
-    @Pattern(regexp = "[A-Za-z]+", message = "{invalid.pattern.street}")
+    @NotBlank
     private String street;
 
     @Column(name = "number")
-    @NotNull
+    @NotBlank
     private String number;
 
     @Column(name = "city")
-    @NotNull
-    @Pattern(regexp = "[A-Za-z]+", message = "{invalid.pattern.city}")
+    @NotBlank
     private String city;
 
     @Column(name = "postCode")
-    @NotNull
+    @NotBlank
     private String postCode;
 
 

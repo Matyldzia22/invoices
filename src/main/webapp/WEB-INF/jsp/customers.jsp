@@ -10,7 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="<c:url value='/static/style.css' />">
-    <title>PriceGroups</title>
+    <title>Customers</title>
 </head>
 
 <body>
@@ -39,7 +39,6 @@
             </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Tax Brackets<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/addTax">Add new tax bracket</a></li>
                     <li><a href="/taxBrackets">Show all tax brackets</a></li>
                 </ul>
             </li>
@@ -85,7 +84,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="/customer/name/${customer.name}">Customer Details</a></li>
                         <li><a href="/${customer.name}/address/add">Add Address</a></li>
-                        <li><a href="/${customer.name}/invoice/add">Add New Invoice</a></li>
+                        <c:if test="${customer.addresses.size() != 0}" >  <li><a href="/${customer.name}/invoice/add">Add New Invoice</a></li></c:if>
                     </ul>
                 </div></td>
                 <td>${customer.id}</td>

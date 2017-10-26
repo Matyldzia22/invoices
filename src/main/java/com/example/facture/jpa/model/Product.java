@@ -12,6 +12,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Getter;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 @NoArgsConstructor
@@ -25,7 +27,7 @@ public class Product {
     private Long id;
 
     @Column(name = "name")
-    @NotNull
+    @NotBlank
     private String name;
 
     @Column(name = "netto_price")
@@ -34,6 +36,7 @@ public class Product {
 
     @Column(name = "vat")
     @NotNull
+    @Range(min=5,max=27)
     private int vat;
 
     @Column(name = "brutto_price")

@@ -15,6 +15,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Getter;
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @NoArgsConstructor
@@ -28,9 +29,7 @@ public class TypeOfCustomer {
     private Long id;
 
     @Column(name = "name")
-    @NotNull
-    @Pattern(regexp = "[A-Za-z]+", message = "{invalid.pattern.name}")
-
+    @NotBlank
     private String name;
 
 

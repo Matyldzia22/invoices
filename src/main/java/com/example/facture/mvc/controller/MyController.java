@@ -1,6 +1,10 @@
 package com.example.facture.mvc.controller;
 
 
+import com.example.facture.jpa.Validator.PriceGroupValidator;
+import com.example.facture.jpa.Validator.ProductValidator;
+import com.example.facture.jpa.Validator.TaxBracketValidator;
+import com.example.facture.jpa.Validator.TypeOfCustomerValidator;
 import com.example.facture.jpa.dto.*;
 import com.example.facture.jpa.model.*;
 import com.example.facture.jpa.service.*;
@@ -27,20 +31,28 @@ public class MyController extends SpringBootServletInitializer {
     private CustomerService customerService;
     private TaxBracketService taxBracketService;
     private ProductService productService;
+    private ProductValidator productValidator;
+    private PriceGroupValidator priceGroupValidator;
+    private TypeOfCustomerValidator typeOfCustomerValidator;
+    private TaxBracketValidator taxBracketValidator;
 
     @Autowired
-    public MyController (AddressService addressService, PriceGroupService priceGroupService, TypeOfCustomerService typeOfCustomerService, CustomerService customerService, TaxBracketService taxBracketService, ProductService productService ){
+    public MyController (AddressService addressService, PriceGroupService priceGroupService, TypeOfCustomerService typeOfCustomerService, CustomerService customerService, TaxBracketService taxBracketService, ProductService productService, ProductValidator productValidator, PriceGroupValidator priceGroupValidator, TypeOfCustomerValidator typeOfCustomerValidator, TaxBracketValidator taxBracketValidator){
         this.addressService = addressService;
         this.priceGroupService = priceGroupService;
         this.typeOfCustomerService = typeOfCustomerService;
         this.customerService = customerService;
         this.taxBracketService = taxBracketService;
         this.productService = productService;
+        this.productValidator = productValidator;
+        this.priceGroupValidator = priceGroupValidator;
+        this.typeOfCustomerValidator = typeOfCustomerValidator;
+        this.taxBracketValidator = taxBracketValidator;
     }
 
 
     @RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
-    public String displayProduct(@PathVariable("id") Long id, @Valid ProductDTO productDTO, ModelMap model) {
+    public String displayProduct(@PathVariable("id") Long id,  ProductDTO productDTO, ModelMap model) {
 
 
         model.addAttribute("product", productService.getProductById(id));
@@ -102,6 +114,7 @@ public class MyController extends SpringBootServletInitializer {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addPriceGropu(@ModelAttribute("priceGroup") @Valid PriceGroupDTO priceGroupDTO, BindingResult bindingResult) throws IOException {
+        priceGroupValidator.validate(priceGroupDTO, bindingResult);
         if (bindingResult.hasErrors()) {
             return "addNewPriceGroup";
         }
@@ -110,7 +123,7 @@ public class MyController extends SpringBootServletInitializer {
     }
 
     @GetMapping(value = "/delete/product/{id}")
-    public String deleteProduct(@ModelAttribute("product") @Valid ProductDTO productDTO, @PathVariable("id") Long id) throws IOException {
+    public String deleteProduct(@ModelAttribute("product")  ProductDTO productDTO, @PathVariable("id") Long id) throws IOException {
 
         productService.deleteProduct(productDTO);
         return "redirect:/products";
@@ -125,6 +138,7 @@ public class MyController extends SpringBootServletInitializer {
 
     @RequestMapping(value = "/addTax", method = RequestMethod.POST)
     public String addTaxBracket(@ModelAttribute("taxBracket") @Valid TaxBracketDTO taxBracketDTO, BindingResult bindingResult) throws IOException {
+        taxBracketValidator.validate(taxBracketDTO, bindingResult);
         if (bindingResult.hasErrors()) {
             return "addNewTaxBracket";
         }
@@ -141,6 +155,7 @@ public class MyController extends SpringBootServletInitializer {
 
     @RequestMapping(value = "/addType", method = RequestMethod.POST)
     public String addTypeOfCustomer(@ModelAttribute("typeOfCustomer") @Valid TypeOfCustomerDTO typeOfCustomerDTO, BindingResult bindingResult) throws IOException {
+        typeOfCustomerValidator.validate(typeOfCustomerDTO, bindingResult);
         if (bindingResult.hasErrors()) {
             return "addTypeOfCustomer";
         }
@@ -165,8 +180,11 @@ public class MyController extends SpringBootServletInitializer {
     @RequestMapping(value = "/{name}/address/add", method = RequestMethod.POST)
 
     public String postAddCustomerAddress(@ModelAttribute("address") @Valid AddressDTO addressDTO,
-                                         BindingResult bindingResult, @PathVariable("name") String name) {
+                                         BindingResult bindingResult, @PathVariable("name") String name, Model model) {
         if (bindingResult.hasErrors()) {
+            CustomerDTO cust = customerService.getCustomerByName(name);
+            long id = cust.getId();
+            model.addAttribute("idCustomer", id);
             return "addAddress";
         }
         addressService.saveAddress(addressDTO);
@@ -204,7 +222,7 @@ public class MyController extends SpringBootServletInitializer {
 
     @RequestMapping(value = "/addProduct", method = RequestMethod.POST)
     public String addProduct(@ModelAttribute("product") @Valid ProductDTO productDTO, BindingResult bindingResult) throws IOException {
-
+        productValidator.validate(productDTO, bindingResult);
         if (bindingResult.hasErrors()) {
             return "addProduct";
         }

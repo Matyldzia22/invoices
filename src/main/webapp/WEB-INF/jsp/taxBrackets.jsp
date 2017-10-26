@@ -39,7 +39,6 @@
             </li>
             <li class="dropdown active"><a class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Tax Brackets<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/addTax">Add new tax bracket</a></li>
                     <li><a href="/taxBrackets">Show all tax brackets</a></li>
                 </ul>
             </li>
@@ -71,7 +70,7 @@
         <c:forEach items="${taxBrackets}" var="taxBracket">
             <tr>
                 <td>${taxBracket.id}</td>
-                <td>${taxBracket.number}</td>
+                <td>${taxBracket.number}%</td>
             </tr>
         </c:forEach>
         </tbody>

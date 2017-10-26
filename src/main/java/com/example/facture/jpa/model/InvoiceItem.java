@@ -12,6 +12,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Getter;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 @NoArgsConstructor
@@ -26,6 +28,7 @@ public class InvoiceItem {
 
     @Column(name = "number")
     @NotNull
+    @Range(min=1)
     private int number;
 
 

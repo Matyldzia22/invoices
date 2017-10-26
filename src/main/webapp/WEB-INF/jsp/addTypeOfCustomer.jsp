@@ -37,7 +37,6 @@
             </li>
             <li class="dropdown"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Tax Brackets<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/addTax">Add new tax bracket</a></li>
                     <li><a href="/taxBrackets">Show all tax brackets</a></li>
                 </ul>
             </li>
@@ -63,7 +62,7 @@
         <div class="form-group">
 
             <label class="col-form-label" style="width: 100px;">Name</label>
-            <form:errors path="name" cssClass="alert alert-danger" cssStyle="width: 250px;margin-right: 30px; float: right;" element="div"/>
+            <form:errors path="name" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
 
             <form:input path="name"
                         type="text"

@@ -1,6 +1,7 @@
 package com.example.facture.mvc.controller;
 
 
+import com.example.facture.jpa.Validator.InvoiceValidator;
 import com.example.facture.jpa.dto.*;
 import com.example.facture.jpa.model.*;
 import com.example.facture.jpa.service.*;
@@ -32,14 +33,16 @@ public class InvoiceController extends SpringBootServletInitializer {
     private CustomerService customerService;
     private ProductService productService;
     private InvoiceItemService invoiceItemService;
+    private InvoiceValidator invoiceValidator;
 
     @Autowired
-    public InvoiceController (InvoiceService invoiceService, AddressService addressService, CustomerService customerService, ProductService productService, InvoiceItemService invoiceItemService){
+    public InvoiceController (InvoiceService invoiceService, AddressService addressService, CustomerService customerService, ProductService productService, InvoiceItemService invoiceItemService,InvoiceValidator invoiceValidator){
         this.invoiceService = invoiceService;
         this.addressService = addressService;
         this.customerService = customerService;
         this.productService = productService;
         this.invoiceItemService = invoiceItemService;
+        this.invoiceValidator = invoiceValidator;
 
     }
 
@@ -52,7 +55,7 @@ public class InvoiceController extends SpringBootServletInitializer {
 
 
     @RequestMapping(value = "/invoice/{id}", method = RequestMethod.GET)
-    public String displayInvoice(@PathVariable("id") Long id, @Valid InvoiceDTO invoiceDTO, ModelMap model) {
+    public String displayInvoice(@PathVariable("id") Long id,  InvoiceDTO invoiceDTO, ModelMap model) {
 
         List<InvoiceItem> listOfInvoiceItems = invoiceService.getInvoiceItems(invoiceService.getInvoiceById(id));
 
@@ -70,14 +73,14 @@ public class InvoiceController extends SpringBootServletInitializer {
 
     }
     @GetMapping(value = "/delete/invoice/{id}")
-    public String deleteInvoice(@ModelAttribute("invoice") @Valid InvoiceDTO invoiceDTO, @PathVariable("id") Long id) throws IOException {
+    public String deleteInvoice(@ModelAttribute("invoice") InvoiceDTO invoiceDTO, @PathVariable("id") Long id) throws IOException {
 
 invoiceService.deleteInvoice(invoiceDTO);
         return "redirect:/";
     }
 
     @RequestMapping(value = "/invoice/number/{numberr}", method = RequestMethod.GET)
-    public String displayInvoiceByNumber(@PathVariable("numberr") String numberr, @Valid InvoiceDTO invoiceDTO, ModelMap model) {
+    public String displayInvoiceByNumber(@PathVariable("numberr") String numberr, InvoiceDTO invoiceDTO, ModelMap model) {
 
         List<InvoiceItem> listOfInvoiceItems = invoiceService.getInvoiceItems(invoiceService.getInvoiceByNumberrr(numberr));
         model.addAttribute("listOfInvoiceItems", listOfInvoiceItems);
@@ -116,9 +119,17 @@ invoiceService.deleteInvoice(invoiceDTO);
 
     @RequestMapping(value = "/{name}/invoice/add", method = RequestMethod.POST)
 
-    public String postAddCustomerInvoice(@ModelAttribute("invoice") @Valid InvoiceDTO invoiceDTO,
-                                         BindingResult bindingResult, @PathVariable("name") String name) {
+    public String postAddCustomerInvoice(@ModelAttribute("invoice") @Valid  InvoiceDTO invoiceDTO,
+                                         BindingResult bindingResult, @PathVariable("name") String name, Model model) {
+        //invoiceValidator.validate(invoiceDTO, bindingResult);
+
         if (bindingResult.hasErrors()) {
+            CustomerDTO cust = customerService.getCustomerByName(name);
+            long id = cust.getId();
+            List<Address> addresses = customerService.getAddresses(customerService.getCustomerByNamee(name));
+            model.addAttribute("listOfAddresses", addresses);
+            model.addAttribute("idCustomer", id);
+
             return "addCustomerInvoice";
         }
         invoiceService.saveInvoice(invoiceDTO);
@@ -204,8 +215,14 @@ invoiceService.deleteInvoice(invoiceDTO);
     @RequestMapping(value = "/{numberr}/invoiceItems/add", method = RequestMethod.POST)
 
     public String postAddInvoiceItemsInvoice(@ModelAttribute("invoiceItem") @Valid InvoiceItemDTO invoiceItemDTO,
-                                             BindingResult bindingResult, @PathVariable("numberr") String numberr) {
+                                             BindingResult bindingResult, @PathVariable("numberr") String numberr, Model model) {
         if (bindingResult.hasErrors()) {
+            InvoiceDTO invo = invoiceService.getInvoiceByNumber(numberr);
+            long id = invo.getId();
+            List<Product> listOfProducts = productService.getAllProductss();
+            model.addAttribute("listOfProducts", listOfProducts);
+            model.addAttribute("idInvoice", id);
+
             return "addInvoiceItem";
         }
         invoiceItemService.saveInvoiceItem(invoiceItemDTO);

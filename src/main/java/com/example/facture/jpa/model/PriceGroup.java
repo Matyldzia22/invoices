@@ -13,6 +13,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Getter;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 @NoArgsConstructor
@@ -27,11 +29,11 @@ public class PriceGroup {
 
     @Column(name = "discount")
     @NotNull
+    @Range(min=1,max=100)
     private int discount;
 
     @Column(name = "name")
-    @NotNull
-    @Pattern(regexp = "[A-Za-z]+", message = "{invalid.pattern.name}")
+    @NotBlank
     private String name;
 
 

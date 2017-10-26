@@ -9,10 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Getter;
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @NoArgsConstructor
@@ -26,29 +28,27 @@ public class Customer {
     private Long id;
 
     @Column(name = "firstName")
-    @NotNull
-    @Pattern(regexp = "[A-Za-z]+", message = "{invalid.pattern.firsName}")
+    @NotBlank
     private String firstName;
 
     @Column(name = "lastName")
-    @NotNull
-    @Pattern(regexp = "[A-Za-z]+", message = "{invalid.pattern.lastName}")
+    @NotBlank
     private String lastName;
 
     @Column(name = "email")
-    @NotNull
+    @NotBlank
     private String email;
 
     @Column(name = "nip")
-    @NotNull
+    @NotBlank
     private String nip;
 
     @Column(name = "phoneNumber")
-    @NotNull
+    @NotBlank
     private String phoneNumber;
 
     @Column(name = "name")
-    @NotNull
+    @NotBlank
     private String name;
 
 

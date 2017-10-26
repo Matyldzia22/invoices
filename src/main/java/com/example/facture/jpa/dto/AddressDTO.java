@@ -5,6 +5,7 @@ import com.example.facture.jpa.model.Invoice;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Pattern;
 import java.util.List;
@@ -14,11 +15,13 @@ import java.util.List;
 public class AddressDTO {
 
     private Long id;
-    @Pattern(regexp = "[A-Za-z]+", message = "Street is incorrect. Use only letters!")
+    @NotBlank
     private String street;
+    @NotBlank
     private String number;
-    @Pattern(regexp = "[A-Za-z]+", message = "City is incorrect. Use only letters!")
+    @NotBlank
     private String city;
+    @NotBlank
     private String postCode;
     private long customerId;
     private List<Invoice> invoices;

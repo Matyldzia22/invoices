@@ -45,7 +45,6 @@
             <li class="dropdown"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Tax Brackets<span
                     class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/addTax">Add new tax bracket</a></li>
                     <li><a href="/taxBrackets">Show all tax brackets</a></li>
                 </ul>
             </li>
@@ -74,6 +73,7 @@
         <div class="form-group">
 
             <label class="col-form-label" style="width: 100px;">Number</label>
+            <form:errors path="numberr" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
             <form:input path="numberr"
                         type="text"
                         name='numberr'
@@ -83,6 +83,7 @@
         <div class="form-group">
 
             <label class="col-form-label" style="width: 100px;">Confirm Date</label>
+            <form:errors path="confirmDate" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
             <form:input path="confirmDate"
                         type="text"
                         name='confirmDate'
@@ -94,6 +95,7 @@
         <div class="form-group">
 
             <label class="col-form-label" style="width: 100px;">Selling Date</label>
+            <form:errors path="sellingDate" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
             <form:input path="sellingDate"
                         type="text"
                         name='sellingDate'
@@ -106,6 +108,7 @@
         <div class="form-group">
 
             <label class="col-form-label" style="width: 100px;">Invoice Date</label>
+            <form:errors path="invoiceDate" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
             <form:input path="invoiceDate"
                         type="text"
                         name='invoiceDate'
@@ -115,8 +118,6 @@
             />
         </div>
         <div class="form-group">
-            <label class="col-form-label" style="width: 100px;">Sum</label>
-
             <form:input path="sum"
                         type="hidden"
                         value="0"
@@ -131,6 +132,7 @@
             <form:option value="0"> --SELECT--</form:option>
             <form:options items="${listOfAddresses}" itemValue="id" path="address"></form:options>
         </form:select>
+        <form:errors path="addressId" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
         <form:input path="customerId" value="${idCustomer}" type="hidden"/>
 
 

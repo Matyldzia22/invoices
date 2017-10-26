@@ -39,7 +39,6 @@
             </li>
             <li class="dropdown"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Tax Brackets<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/addTax">Add new tax bracket</a></li>
                     <li><a href="/taxBrackets">Show all tax brackets</a></li>
                 </ul>
             </li>
@@ -65,26 +64,32 @@
         <div class="form-group">
 
             <label class="col-form-label" style="width: 100px;">FirstName</label>
-            <form:errors path="firstName" cssClass="alert alert-danger" cssStyle="width: 250px;" element="div"/>
+            <form:errors path="firstName" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
             <form:input path="firstName"
                         type="text"
                         name='firstName'
+                        pattern="[A-Za-z]+"
+                        title="FirstName is incorrect. Use only letters!"
                         cssClass="form-control"
                         cssStyle="width: 200px;"/>
         </div>
         <div class="form-group">
 
             <label class="col-form-label" style="width: 100px;">LastName</label>
-            <form:errors path="lastName" cssClass="alert alert-danger" cssStyle="width: 250px;" element="div"/>
+            <form:errors path="lastName" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
             <form:input path="lastName"
                         type="text"
+                        pattern="[A-Za-z]+"
                         name='lasttName'
+                        title="LastName is incorrect.Use only letters!"
                         cssClass="form-control"
                         cssStyle="width: 200px;"/>
         </div>
         <div class="form-group">
 
             <label class="col-form-label" style="width: 100px;">Name</label>
+            <form:errors path="name" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
+
             <form:input path="name"
                         type="text"
                         name='name'
@@ -94,24 +99,32 @@
         <div class="form-group">
 
             <label class="col-form-label" style="width: 100px;">Nip</label>
+            <form:errors path="nip" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
             <form:input path="nip"
                         type="text"
                         name='nip'
+                        pattern="(\d{10}|\d{3}-\d{3}-\d{2}-\d{2})"
+                        title="You should input 10 numbers!"
                         cssClass="form-control"
                         cssStyle="width: 200px;"/>
         </div>
         <div class="form-group">
 
             <label class="col-form-label" style="width: 100px;">Phone Number</label>
+            <form:errors path="phoneNumber" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
+
             <form:input path="phoneNumber"
                         type="text"
                         name='phoneNumber'
+                        pattern="[0-9]{7}([0-9]{2})?"
+                        title="Phone Number is incorrect!"
                         cssClass="form-control"
                         cssStyle="width: 200px;"/>
         </div>
         <div class="form-group">
 
             <label class="col-form-label" style="width: 100px;">Email</label>
+            <form:errors path="email" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
             <form:input path="email"
                         type="email"
                         name='email'
@@ -119,35 +132,31 @@
                         cssStyle="width: 200px;"/>
         </div>
 
-            <%--<label  class="col-form-label">price group</label> --%>
-        <form:select path="priceGroupId" id="listOfGroups">
+        <label class="col-form-label" style="width: 100px;">Price Group</label>
+        <form:select path="priceGroupId" id="listOfGroups" name="select1">
             <form:option value="0"> --SELECT--</form:option>
             <form:options items="${listOfGroups}" itemValue="id" path="priceGroup"></form:options>
         </form:select>
+        <form:errors path="priceGroupId" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
+        <label class="col-form-label" style="width: 100px;">Tax Bracket</label>
         <form:select path="taxBracketId" id="listOfTaxBrackets">
             <form:option value="0"> --SELECT--</form:option>
             <form:options items="${listOfBrackets}" itemValue="id" path="taxBracket"></form:options>
         </form:select>
+        <form:errors path="taxBracketId" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
+        <label class="col-form-label" style="width: 100px;">Type of Customer</label>
         <form:select path="typeOfCustomerId" id="listOfTypes">
             <form:option value="0"> --SELECT--</form:option>
             <form:options items="${listOfTypes}" itemValue="id" path="typeOfCustomer"></form:options>
 
-
         </form:select>
+        <form:errors path="typeOfCustomerId" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
 
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Save</button>
         </div>
     </div>
 </form:form>
-<div class="form-group" id="demo"></div>
-
-<script type="text/javascript">
-    function myFunction() {
-
-        document.getElementById("demo").innerHTML = '<html><body><div>Your code</div></body></html>';
-    }
-</script>
 
 </body>
 </html>

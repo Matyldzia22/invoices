@@ -3,6 +3,7 @@ package com.example.facture.jpa.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bouncycastle.asn1.cms.TimeStampedData;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 import sun.util.calendar.LocalGregorianCalendar;
 
@@ -30,7 +31,7 @@ public class Invoice {
     private Long id;
 
     @Column(name = "number")
-    @NotNull
+    @NotBlank
     private String numberr;
 
     @Column(name = "sellingdate")

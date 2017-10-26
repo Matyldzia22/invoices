@@ -8,7 +8,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
     <link rel="stylesheet" type="text/css" href="<c:url value='/static/style.css' />">
-    <title>New priceGroup</title>
+    <title>New Tax Bracket</title>
 </head>
 
 <body>
@@ -32,7 +32,6 @@
             </li>
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Products<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/addProduct">Add new product</a></li>
                     <li><a href="/products">Show all products</a></li>
                 </ul>
             </li>
@@ -64,6 +63,7 @@
         <div class="form-group">
 
             <label class="col-form-label" style="width: 100px;">Number</label>
+            <form:errors path="number" cssClass="alert alert-danger" cssStyle="width: 150px;" element="div"/>
             <form:radiobutton path="number" value="18" label="18%" />
             <form:radiobutton path="number" value="32" label="32%" />
         </div>

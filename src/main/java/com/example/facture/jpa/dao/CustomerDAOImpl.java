@@ -20,7 +20,7 @@ import java.util.List;
 @CacheConfig(cacheNames = "customer-cache")
 public class CustomerDAOImpl implements CustomerDAO {
 
-    private static final String SELECT_A_FROM_CUSTOMER_A = "Select a From Customer a";
+    private static final String SELECT_A_FROM_CUSTOMER_A = "Select a From Customer a ORDER BY a.lastName";
     private static final String SELECT_A_FROM_CUSTOMER_A_WHERE_A_NAME_LIKE_CUST_NAME = "Select a From Customer a where a.name like :custName";
     private static final String SELECT_A_FROM_CUSTOMER_A_WHERE_A_FIRST_NAME_LIKE_CUST_FIRST_NAME = "Select a From Customer a where a.firstName like :custFirstName";
     private static final String SELECT_A_FROM_CUSTOMER_A_WHERE_A_LAST_NAME_LIKE_CUST_LAST_NAME = "Select a From Customer a where a.lastName like :custLastName";
