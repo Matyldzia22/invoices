@@ -259,6 +259,11 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
+    public double getInvoiceItemsSum(Long id) {
+        return invoiceDAO.getInvoiceItemsSum(id);
+    }
+
+    @Override
     public double getSuma(String numberr) {
         return invoiceDAO.getSuma(numberr);
     }

@@ -69,6 +69,7 @@ public class InvoiceController extends SpringBootServletInitializer {
         if (listOfInvoiceItems.size() > 0) {
 
             model.addAttribute("sum", invoiceService.getSum(id));
+            model.addAttribute("sumka", invoiceService.getInvoiceItemsSum(id));
 
             invoiceService.updateInvoiceFrom(invoiceDTO);
         }

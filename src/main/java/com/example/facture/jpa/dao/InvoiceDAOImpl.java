@@ -36,6 +36,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
     private static final String SELECT_ID_FROM_INVOICE_WHERE_ID_SELECT_MAX_ID_FROM_INVOICE = "SELECT(id) FROM Invoice WHERE id = ( SELECT MAX(id) FROM Invoice)";
     private static final String SELECT_SUM_INVOICE_PRODUCTS_BY_INVOICE_NUMBER = "SELECT (SUM(c.bruttoPrice * b.number))  - ((e.discount * (SUM(c.bruttoPrice * b.number)))/100) AS suma FROM Invoice a JOIN Customer d ON a.customer.id = d.id JOIN PriceGroup e ON d.priceGroup.id = e.id JOIN InvoiceItem b ON a.id= b.invoice.id JOIN Product c ON c.id = b.product.id  WHERE a.numberr like:numberr GROUP BY e.discount";
     private static final String SELECT_SUM_INVOICE_PRODUCTS_BY_INVOICE_ID = "SELECT (SUM(c.bruttoPrice * b.number))  - ((e.discount * (SUM(c.bruttoPrice * b.number)))/100) AS suma FROM Invoice a JOIN Customer d ON a.customer.id = d.id JOIN PriceGroup e ON d.priceGroup.id = e.id  JOIN InvoiceItem b ON a.id= b.invoice.id  JOIN Product c ON c.id = b.product.id WHERE a.id =:id GROUP BY e.discount";
+    private static final String SELECT_SUM_INVOICEITEMS_BY_INVOICE_ID = "SELECT (SUM(c.bruttoPrice * b.number))  AS suma FROM Invoice a JOIN Customer d ON a.customer.id = d.id  JOIN InvoiceItem b ON a.id= b.invoice.id  JOIN Product c ON c.id = b.product.id WHERE a.id =:id ";
 
 
     private SessionFactory sessionFactory;
@@ -106,6 +107,17 @@ public class InvoiceDAOImpl implements InvoiceDAO {
     public double getSum(long id) {
         Session session = sessionFactory.getCurrentSession();
         Query q = session.createQuery(SELECT_SUM_INVOICE_PRODUCTS_BY_INVOICE_ID);
+        q.setParameter("id", id);
+
+
+        return (double) q.getSingleResult();
+    }
+
+    @Override
+    @Cacheable
+    public double getInvoiceItemsSum(long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Query q = session.createQuery(SELECT_SUM_INVOICEITEMS_BY_INVOICE_ID);
         q.setParameter("id", id);
 
 
