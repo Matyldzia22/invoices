@@ -28,13 +28,15 @@ public class CustomerController extends SpringBootServletInitializer {
     private TypeOfCustomerService typeOfCustomerService;
     private CustomerService customerService;
     private CustomerValidator customerValidator;
+    private TypeOfAddressService typeOfAddressService;
 
     @Autowired
-    public CustomerController(PriceGroupService priceGroupService, TypeOfCustomerService typeOfCustomerService, CustomerService customerService, CustomerValidator customerValidator) {
+    public CustomerController(PriceGroupService priceGroupService, TypeOfAddressService typeOfAddressService, TypeOfCustomerService typeOfCustomerService, CustomerService customerService, CustomerValidator customerValidator) {
         this.priceGroupService = priceGroupService;
         this.typeOfCustomerService = typeOfCustomerService;
         this.customerService = customerService;
         this.customerValidator = customerValidator;
+        this.typeOfAddressService = typeOfAddressService;
     }
 
 
@@ -61,6 +63,7 @@ public class CustomerController extends SpringBootServletInitializer {
     public String addCustomer(Model model) {
         List<PriceGroup> listOfGroups = priceGroupService.getAllPriceGroupss();
         List<TypeOfCustomer> listOfTypes = typeOfCustomerService.getAllTypeOfCustomerss();
+
         model.addAttribute("customer", new CustomerDTO());
         model.addAttribute("listOfGroups", listOfGroups);
         model.addAttribute("listOfTypes", listOfTypes);
@@ -81,6 +84,8 @@ public class CustomerController extends SpringBootServletInitializer {
             return "addCustomer";
         }
         customerService.saveCustomer(customerDTO);
+
+
         return "redirect:/customers";
     }
 

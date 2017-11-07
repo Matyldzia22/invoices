@@ -48,9 +48,7 @@ public class Invoice {
     private double sum;
 
     @Column(name = "confirmdate")
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
-    @NotNull
+
     private Date confirmDate;
 
 

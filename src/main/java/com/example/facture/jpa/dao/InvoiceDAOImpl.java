@@ -69,6 +69,14 @@ public class InvoiceDAOImpl implements InvoiceDAO {
         session.saveOrUpdate(invoice);
     }
 
+    @Override
+    @CachePut
+    public void updateFrom(Invoice invoice) {
+        Session session = sessionFactory.getCurrentSession();
+         session.createQuery("UPDATE Invoice u SET u.confirmDate = (CURRENT_DATE)",Invoice.class);
+
+    }
+
 
     @Override
     @Cacheable
@@ -102,6 +110,17 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 
 
         return (double) q.getSingleResult();
+    }
+
+    @Override
+    @Cacheable
+    public Date getConfirmDate(long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Query q = session.createQuery("SELECT (CURRENT_TIMESTAMP) AS confirmDatee FROM Invoice u WHERE u.id =:id ");
+        q.setParameter("id", id);
+
+
+        return (Date) q.getSingleResult();
     }
 
     @Override

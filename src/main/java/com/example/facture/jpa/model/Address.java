@@ -44,7 +44,7 @@ public class Address {
     private String postCode;
 
     @NotNull
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
     private Date dataFrom;
 
     private Date dataTo;

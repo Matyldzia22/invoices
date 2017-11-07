@@ -66,5 +66,9 @@ public interface InvoiceService {
 
     void updateInvoiceFromNumber(InvoiceDTO invoiceDTO);
 
+    void updateFrom(InvoiceDTO invoiceDTO);
+
+
+
 
 }

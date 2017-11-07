@@ -84,7 +84,13 @@
                    aria-pressed="true">PDF</a></td>
             <td th:text=" ${invoice.id}"></td>
             <td th:text="${invoice.numberr}"></td>
-            <td th:text="${invoice.confirmDate}"></td>
+            <li th:if ="${invoice.confirmDate == null}">
+            <td><a th:href="@{/update/invoice/{id}(id=${invoice.id})}"  class="btn btn-success active" role="button" name="invoice.confirmDate" th:value="${#dates.format(#dates.createNow() , 'yyyy-MM-dd hh:mm')}"
+                   aria-pressed="true">SEND</a></td> </li>
+            <li th:if ="${invoice.confirmDate != null}">
+                <td th:text="${invoice.confirmDate}"></td>
+            </li>
+
             <td th:text="${invoice.sellingDate}"></td>
             <td th:text="${invoice.invoiceDate}"></td>
             <td th:text="${sum}"></td>
@@ -106,21 +112,24 @@
             </thead>
 
             <tbody>
-            <div th:with="sum=${0}" hidden="hidden">
+            <div th:with="suma=${0}" hidden="hidden">
                     
                 <tr th:each="invoiceItem: ${listOfInvoiceItems}">
-                    <div th:with="sum=${sum + (invoiceItem.product.bruttoPrice * invoiceItem.number)}" hidden="hidden">
+                    <div th:with="suma=${suma + (invoiceItem.product.bruttoPrice * invoiceItem.number)}" hidden="hidden">
                          
                         <td th:text="${invoiceItem.product.name}"> product name</td>
                         <td th:text="${invoiceItem.product.nettoPrice}">netto price</td>
                         <td th:text="${invoiceItem.number}">number</td>
                         <td th:text="${invoiceItem.product.vat}">vat</td>
                         <td th:text="${invoiceItem.product.bruttoPrice}">brutto price</td>
-                        <td th:text="${sum}"></td>
+                        <td th:text="${suma}"></td>
                     </div>
 
-                        
+                       <td th:text="${suma+ (invoiceItem.product.bruttoPrice * invoiceItem.number)}"></td>  
                 </tr>
+
+
+
             </div>
 
             </tbody>
