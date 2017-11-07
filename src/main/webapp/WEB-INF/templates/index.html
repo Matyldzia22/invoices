@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Invoices</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </link>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="/static/style.css" rel="stylesheet">
+    </link>
+
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" style="color: white" href="/">Invoices</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Customers<span
+                    class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/addCustomer">Add new customer</a></li>
+                    <li><a href="/customers">Show all customers</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Address<span
+                    class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/address">Show all addresses</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Products<span
+                    class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/addProduct">Add new product</a></li>
+                    <li><a href="/products">Show all products</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Type of
+                Customers<span
+                        class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/addType">Add new type</a></li>
+                    <li><a href="/typeOfCustomers">Show all types</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Price
+                Groups<span
+                        class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/add">Add new group</a></li>
+                    <li><a href="/priceGroups">Show all groups</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th></th>
+            <th>ID</th>
+            <th>NUMBER</th>
+            <th>CONFIRM DATE</th>
+            <th>SELLING DATE</th>
+            <th>INVOICE DATE</th>
+            <th>SUM</th>
+            <th>CUSTOMER NAME</th>
+            <th>CUSTOMER NIP</th>
+        </tr>
+        </thead>
+
+        <tbody>
+            
+        <tr th:each="invoice: ${invoices}">
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                        OPTIONS
+                        <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="@{/invoice/{id}(id=${invoice.id})}">Invoice Details</a></li>
+                        <li><a th:href="@{/{number}/invoiceItems/add(number=${invoice.numberr})}">Add items</a></li>
+
+                    </ul>
+                </div>
+            </td>
+                    
+            <td th:text="${invoice.id}"> id</td>
+                    
+            <td th:text="${invoice.numberr}">number</td>
+            <td th:text="${invoice.confirmDate}">confirmDate</td>
+            <td th:text="${invoice.sellingDate}">sellingDate</td>
+            <td th:text="${invoice.invoiceDate}">invoiceDate</td>
+            <td th:text="${invoice.sum}">sum</td>
+            <td th:text="${invoice.customer.name}">customer name</td>
+            <td th:text="${invoice.customer.nip}">customer nip</td>
+                
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>

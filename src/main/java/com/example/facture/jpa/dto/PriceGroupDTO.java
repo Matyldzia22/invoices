@@ -18,7 +18,7 @@ public class PriceGroupDTO {
 
     private Long id;
     @NotNull
-    @Range(min=1,max=100)
+    @Range(min = 1, max = 100)
     private int discount;
     private Invoice invoice;
     @NotBlank

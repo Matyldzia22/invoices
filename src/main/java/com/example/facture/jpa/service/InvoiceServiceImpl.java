@@ -23,7 +23,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     private MapperFacade mapperFacade;
 
     @Autowired
-    public InvoiceServiceImpl (InvoiceDAO invoiceDAO, InvoiceItemDAO invoiceItemDAO, AddressDAO addressDAO, CustomerDAO customerDAO, MapperFacade mapperFacade){
+    public InvoiceServiceImpl(InvoiceDAO invoiceDAO, InvoiceItemDAO invoiceItemDAO, AddressDAO addressDAO, CustomerDAO customerDAO, MapperFacade mapperFacade) {
         this.invoiceDAO = invoiceDAO;
         this.invoiceItemDAO = invoiceItemDAO;
         this.addressDAO = addressDAO;

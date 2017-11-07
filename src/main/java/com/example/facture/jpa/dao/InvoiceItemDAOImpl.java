@@ -30,7 +30,7 @@ public class InvoiceItemDAOImpl implements InvoiceItemDAO {
 
     private SessionFactory sessionFactory;
 
-    public InvoiceItemDAOImpl (SessionFactory sessionFactory){
+    public InvoiceItemDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
@@ -122,6 +122,5 @@ public class InvoiceItemDAOImpl implements InvoiceItemDAO {
                 .setParameter("idprod", productId)
                 .getResultList();
     }
-
 
 }

@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>New customer invoice</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </link>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/js/bootstrap-select.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/css/bootstrap-select.min.css">
+    </link>
+    <link href="/static/style.css" rel="stylesheet">
+    </link>
+
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" style="color: white" href="/">Invoices</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Customers<span
+                    class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/addCustomer">Add new customer</a></li>
+                    <li><a href="/customers">Show all customers</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Address<span
+                    class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/address">Show all addresses</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Products<span
+                    class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/addProduct">Add new product</a></li>
+                    <li><a href="/products">Show all products</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Type of
+                Customers<span
+                        class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/addType">Add new type</a></li>
+                    <li><a href="/typeOfCustomers">Show all types</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Price
+                Groups<span
+                        class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/add">Add new group</a></li>
+                    <li><a href="/priceGroups">Show all groups</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<form th:object="${invoice}" th:action="@{/{name}/invoice/add(name=${name})}" method="post"
+      class="table-bordered rounded"
+      style="margin: 100px;">
+    <div class="form-row" align="center">
+        <h3>Add New Invoice</h3>
+
+        <div class="form-group">
+
+            <label class="col-form-label" style="width: 100px;">Number</label>
+            <div class="alert alert-danger" th:if="${#fields.hasErrors('numberr')}" style="width: 150px;">
+                <p th:if="${#fields.hasErrors('numberr')}" th:errors="*{numberr}"></p>
+            </div>
+            <input
+                    type="text"
+                    name='numberr'
+                    style="width: 200px;"
+                    class="form-control"
+                    th:field="*{numberr}"/>
+        </div>
+        <div class="form-group">
+
+            <label class="col-form-label" style="width: 100px;">Confirm Date</label>
+            <div class="alert alert-danger" th:if="${#fields.hasErrors('confirmDate')}" style="width: 150px;">
+                <p th:if="${#fields.hasErrors('confirmDate')}" th:errors="*{confirmDate}"></p>
+            </div>
+            <input
+                    type="text"
+                    name='confirmDate'
+                    placeholder="rr-mm-dd hh-mm"
+                    style="width: 200px;"
+                    class="form-control"
+                    th:field="*{confirmDate}"/>
+        </div>
+        <div class="form-group">
+
+            <label class="col-form-label" style="width: 100px;">Selling Date</label>
+            <div class="alert alert-danger" th:if="${#fields.hasErrors('sellingDate')}" style="width: 150px;">
+                <p th:if="${#fields.hasErrors('sellingDate')}" th:errors="*{sellingDate}"></p>
+            </div>
+            <input
+                    type="text"
+                    name='sellingDate'
+                    placeholder="rr-mm-dd hh-mm"
+                    style="width: 200px;"
+                    class="form-control"
+                    th:field="*{sellingDate}"/>
+        </div>
+        <div class="form-group">
+
+            <label class="col-form-label" style="width: 100px;">Invoice Date</label>
+            <div class="alert alert-danger" th:if="${#fields.hasErrors('invoiceDate')}" style="width: 150px;">
+                <p th:if="${#fields.hasErrors('invoiceDate')}" th:errors="*{invoiceDate}"></p>
+            </div>
+            <input
+                    type="text"
+                    name='invoiceDate'
+                    placeholder="rr-mm-dd hh-mm"
+                    style="width: 200px;"
+                    class="form-control"
+                    th:field="*{invoiceDate}"/>
+        </div>
+        <div class="form-group">
+
+            <input
+                    type="hidden"
+                    name="sum"
+                    title="sum"
+                    value="0"
+            />
+        </div>
+        <div class="form-group">
+            <label class="col-form-label" style="width: 100px; display: block;">Address</label>
+
+        <select th:field="*{addressId}" title="Please select address" class="selectpicker"
+                data-live-search="true"
+                data-dropup-auto="false" style="width: 200px;">
+            <optgroup label="">
+                <option value="0">Please select address</option>
+            </optgroup>
+            <option th:each="address: ${listOfAddresses}" th:text="${address.number} + ' ' + ${address.street} + ', ' + ${address.city}"
+                    th:value="${address.id}">
+            </option>
+        </select>
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('addressId')}" style="width: 150px;">
+            <p th:if="${#fields.hasErrors('addressId')}" th:errors="*{addressId}"></p>
+        </div>
+        </div>
+        <input type="hidden" th:value="${idCustomer}" name="customerId" />
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" style="margin-top: 50px;">Save</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

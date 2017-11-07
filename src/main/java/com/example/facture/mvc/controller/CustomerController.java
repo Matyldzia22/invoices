@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import javax.validation.Validator;
 import java.io.IOException;
@@ -23,18 +24,16 @@ import java.util.List;
 public class CustomerController extends SpringBootServletInitializer {
 
 
-
     private PriceGroupService priceGroupService;
     private TypeOfCustomerService typeOfCustomerService;
     private CustomerService customerService;
-    private TaxBracketService taxBracketService;
     private CustomerValidator customerValidator;
+
     @Autowired
-    public CustomerController (PriceGroupService priceGroupService, TypeOfCustomerService typeOfCustomerService, CustomerService customerService, TaxBracketService taxBracketService, CustomerValidator customerValidator){
+    public CustomerController(PriceGroupService priceGroupService, TypeOfCustomerService typeOfCustomerService, CustomerService customerService, CustomerValidator customerValidator) {
         this.priceGroupService = priceGroupService;
         this.typeOfCustomerService = typeOfCustomerService;
         this.customerService = customerService;
-        this.taxBracketService = taxBracketService;
         this.customerValidator = customerValidator;
     }
 
@@ -62,11 +61,9 @@ public class CustomerController extends SpringBootServletInitializer {
     public String addCustomer(Model model) {
         List<PriceGroup> listOfGroups = priceGroupService.getAllPriceGroupss();
         List<TypeOfCustomer> listOfTypes = typeOfCustomerService.getAllTypeOfCustomerss();
-        List<TaxBracket> listOfBrackets = taxBracketService.getAllTaxBracketss();
         model.addAttribute("customer", new CustomerDTO());
         model.addAttribute("listOfGroups", listOfGroups);
         model.addAttribute("listOfTypes", listOfTypes);
-        model.addAttribute("listOfBrackets", listOfBrackets);
 
 
         return "addCustomer";
@@ -78,10 +75,9 @@ public class CustomerController extends SpringBootServletInitializer {
         if (bindingResult.hasErrors()) {
             List<PriceGroup> listOfGroups = priceGroupService.getAllPriceGroupss();
             List<TypeOfCustomer> listOfTypes = typeOfCustomerService.getAllTypeOfCustomerss();
-            List<TaxBracket> listOfBrackets = taxBracketService.getAllTaxBracketss();
             model.addAttribute("listOfGroups", listOfGroups);
             model.addAttribute("listOfTypes", listOfTypes);
-            model.addAttribute("listOfBrackets", listOfBrackets);
+
             return "addCustomer";
         }
         customerService.saveCustomer(customerDTO);

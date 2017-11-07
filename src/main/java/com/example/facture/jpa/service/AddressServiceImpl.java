@@ -18,14 +18,16 @@ public class AddressServiceImpl implements AddressService {
 
     private AddressDAO addressDAO;
     private InvoiceDAO invoiceDAO;
+    private TypeOfAddressDAO typeOfAddressDAO;
     private CustomerDAO customerDAO;
     private MapperFacade mapperFacade;
 
     @Autowired
-    public AddressServiceImpl(AddressDAO addressDAO, InvoiceDAO invoiceDAO, CustomerDAO customerDAO, MapperFacade mapperFacade){
+    public AddressServiceImpl(AddressDAO addressDAO, InvoiceDAO invoiceDAO, CustomerDAO customerDAO, TypeOfAddressDAO typeOfAddressDAO, MapperFacade mapperFacade) {
         this.addressDAO = addressDAO;
         this.invoiceDAO = invoiceDAO;
         this.customerDAO = customerDAO;
+        this.typeOfAddressDAO = typeOfAddressDAO;
         this.mapperFacade = mapperFacade;
     }
 
@@ -34,6 +36,8 @@ public class AddressServiceImpl implements AddressService {
     public void saveAddress(AddressDTO addressDTO) {
         Address address = mapperFacade.map(addressDTO, Address.class);
         addCustomer2Address(address, customerDAO.getById(addressDTO.getCustomerId()));
+        addTypeOfAddress2Address(address, typeOfAddressDAO.getById(addressDTO.getTypeOfAddressId()));
+
 
         addressDAO.save(address);
     }
@@ -77,6 +81,7 @@ public class AddressServiceImpl implements AddressService {
         return addresses;
     }
 
+    @Override
     public void addInvoice2Address(Address address, Invoice invoice) {
         if (invoice.getAddress() != address) {
             invoice.setAddress(address);
@@ -106,6 +111,34 @@ public class AddressServiceImpl implements AddressService {
             invoices2.remove(invoice);
             address.setInvoices(invoices2);
             addressDAO.update(address);
+        }
+    }
+
+    @Override
+    public void addTypeOfAddress2Address(Address address, TypeOfAddress typeOfAddress) {
+        if (address.getTypeOfAddress() != typeOfAddress) {
+            address.setTypeOfAddress(typeOfAddress);
+            addressDAO.update(address);
+        }
+        List<Address> addresses = typeOfAddressDAO.getAddresses(typeOfAddress);
+        if (!addresses.contains(address)) {
+            addresses.add(address);
+            typeOfAddress.setAddresses(addresses);
+            typeOfAddressDAO.update(typeOfAddress);
+        }
+    }
+
+    @Override
+    public void deleteTypeOfAddressFromAddress(Address address, TypeOfAddress typeOfAddress) {
+        if (address.getTypeOfAddress() == typeOfAddress) {
+            address.setTypeOfAddress(null);
+            addressDAO.update(address);
+        }
+        List<Address> addresses = typeOfAddressDAO.getAddresses(typeOfAddress);
+        if (addresses.contains(address)) {
+            addresses.remove(address);
+            typeOfAddress.setAddresses(addresses);
+            typeOfAddressDAO.update(typeOfAddress);
         }
     }
 

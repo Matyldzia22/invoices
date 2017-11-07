@@ -18,7 +18,7 @@ public class PriceGroupValidator implements Validator {
     private PriceGroupService priceGroupService;
 
     @Autowired
-    public PriceGroupValidator(PriceGroupService priceGroupService){
+    public PriceGroupValidator(PriceGroupService priceGroupService) {
         this.priceGroupService = priceGroupService;
     }
 
@@ -30,7 +30,7 @@ public class PriceGroupValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         PriceGroupDTO priceGroupDTO = (PriceGroupDTO) target;
-        List<PriceGroupDTO>priceGrouptList = priceGroupService.getAllPriceGroups();
+        List<PriceGroupDTO> priceGrouptList = priceGroupService.getAllPriceGroups();
         for (PriceGroupDTO priceGroups : priceGrouptList) {
             if (priceGroups.getName().equals(priceGroupDTO.getName())) {
                 errors.rejectValue("name", "", "Name of price group already exist");

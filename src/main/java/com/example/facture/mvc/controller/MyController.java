@@ -3,20 +3,27 @@ package com.example.facture.mvc.controller;
 
 import com.example.facture.jpa.Validator.PriceGroupValidator;
 import com.example.facture.jpa.Validator.ProductValidator;
-import com.example.facture.jpa.Validator.TaxBracketValidator;
 import com.example.facture.jpa.Validator.TypeOfCustomerValidator;
 import com.example.facture.jpa.dto.*;
 import com.example.facture.jpa.model.*;
 import com.example.facture.jpa.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 
@@ -24,52 +31,30 @@ import java.util.List;
 public class MyController extends SpringBootServletInitializer {
 
 
-
     private AddressService addressService;
     private PriceGroupService priceGroupService;
     private TypeOfCustomerService typeOfCustomerService;
+    private TypeOfAddressService typeOfAddressService;
     private CustomerService customerService;
-    private TaxBracketService taxBracketService;
     private ProductService productService;
     private ProductValidator productValidator;
     private PriceGroupValidator priceGroupValidator;
     private TypeOfCustomerValidator typeOfCustomerValidator;
-    private TaxBracketValidator taxBracketValidator;
 
     @Autowired
-    public MyController (AddressService addressService, PriceGroupService priceGroupService, TypeOfCustomerService typeOfCustomerService, CustomerService customerService, TaxBracketService taxBracketService, ProductService productService, ProductValidator productValidator, PriceGroupValidator priceGroupValidator, TypeOfCustomerValidator typeOfCustomerValidator, TaxBracketValidator taxBracketValidator){
+    public MyController(AddressService addressService, PriceGroupService priceGroupService, TypeOfAddressService typeOfAddressService, TypeOfCustomerService typeOfCustomerService, CustomerService customerService, ProductService productService, ProductValidator productValidator, PriceGroupValidator priceGroupValidator, TypeOfCustomerValidator typeOfCustomerValidator) {
         this.addressService = addressService;
         this.priceGroupService = priceGroupService;
+        this.typeOfAddressService = typeOfAddressService;
         this.typeOfCustomerService = typeOfCustomerService;
         this.customerService = customerService;
-        this.taxBracketService = taxBracketService;
         this.productService = productService;
         this.productValidator = productValidator;
         this.priceGroupValidator = priceGroupValidator;
         this.typeOfCustomerValidator = typeOfCustomerValidator;
-        this.taxBracketValidator = taxBracketValidator;
-    }
-
-
-    @RequestMapping(value = "/product/{id}", method = RequestMethod.GET)
-    public String displayProduct(@PathVariable("id") Long id,  ProductDTO productDTO, ModelMap model) {
-
-
-        model.addAttribute("product", productService.getProductById(id));
-        model.addAttribute("netto", productService.getNettoPrice(id));
-
-        productService.updateProductAuto(productDTO);
-
-        return "productById";
 
     }
 
-
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public String test(ModelMap model) {
-
-        return "test";
-    }
 
     @RequestMapping(value = "/priceGroups", method = RequestMethod.GET)
     public String priceGroups(ModelMap model) {
@@ -86,16 +71,10 @@ public class MyController extends SpringBootServletInitializer {
     }
 
 
-    @RequestMapping(value = "/taxBrackets", method = RequestMethod.GET)
-    public String taxBrackets(ModelMap model) {
-        model.addAttribute("taxBrackets", taxBracketService.getAllTaxBrackets());
-        return "taxBrackets";
-    }
-
     @RequestMapping(value = "/address", method = RequestMethod.GET)
     public String hello(ModelMap model) {
         model.addAttribute("addresses", addressService.getAllAddresses());
-        return "hello";
+        return "addresses";
     }
 
     @RequestMapping(value = "/typeOfCustomers", method = RequestMethod.GET)
@@ -123,28 +102,12 @@ public class MyController extends SpringBootServletInitializer {
     }
 
     @GetMapping(value = "/delete/product/{id}")
-    public String deleteProduct(@ModelAttribute("product")  ProductDTO productDTO, @PathVariable("id") Long id) throws IOException {
+    public String deleteProduct(@ModelAttribute("product") ProductDTO productDTO, @PathVariable("id") Long id) throws IOException {
 
         productService.deleteProduct(productDTO);
         return "redirect:/products";
     }
 
-    @GetMapping(value = "/addTax")
-    public String addTaxBracket(Model model) {
-
-        model.addAttribute("taxBracket", new TaxBracketDTO());
-        return "addNewTaxBracket";
-    }
-
-    @RequestMapping(value = "/addTax", method = RequestMethod.POST)
-    public String addTaxBracket(@ModelAttribute("taxBracket") @Valid TaxBracketDTO taxBracketDTO, BindingResult bindingResult) throws IOException {
-        taxBracketValidator.validate(taxBracketDTO, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return "addNewTaxBracket";
-        }
-        taxBracketService.saveTaxBracket(taxBracketDTO);
-        return "redirect:/taxBrackets";
-    }
 
     @GetMapping(value = "/addType")
     public String addTypeOfCustomer(Model model) {
@@ -169,9 +132,10 @@ public class MyController extends SpringBootServletInitializer {
 
         CustomerDTO cust = customerService.getCustomerByName(name);
         long id = cust.getId();
+        List<TypeOfAddress> listOfAddresTypes = typeOfAddressService.getAllTypeOfAddressess();
 
         model.addAttribute("address", new AddressDTO());
-
+        model.addAttribute("listOfAddressTypes", listOfAddresTypes);
         model.addAttribute("idCustomer", id);
 
         return "addAddress";
@@ -184,31 +148,18 @@ public class MyController extends SpringBootServletInitializer {
         if (bindingResult.hasErrors()) {
             CustomerDTO cust = customerService.getCustomerByName(name);
             long id = cust.getId();
+
+            List<TypeOfAddress> listOfAddresTypes = typeOfAddressService.getAllTypeOfAddressess();
             model.addAttribute("idCustomer", id);
+            model.addAttribute("listOfAddressTypes", listOfAddresTypes);
+
+
+
             return "addAddress";
         }
         addressService.saveAddress(addressDTO);
         return String.format("redirect:/customer/name/%s", name);
-    }
 
-
-    @GetMapping(value = "/addAddress")
-    public String addAddress(Model model) {
-        List<Customer> listOfCustomers = customerService.getAllCustomerss();
-        model.addAttribute("address", new AddressDTO());
-        model.addAttribute("listOfCustomers", listOfCustomers);
-        return "addAddress";
-    }
-
-    @RequestMapping(value = "/addAddress", method = RequestMethod.POST)
-    public String addAddress(@ModelAttribute("address") @Valid AddressDTO addressDTO, BindingResult bindingResult, String customerId) throws IOException {
-        //if (bindingResult.hasErrors()) {
-        //  return "addAddress";
-        //}
-
-
-        addressService.saveAddress(addressDTO);
-        return "redirect:/address";
     }
 
 
@@ -233,6 +184,3 @@ public class MyController extends SpringBootServletInitializer {
 
 
 }
-
-
-

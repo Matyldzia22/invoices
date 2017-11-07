@@ -21,7 +21,7 @@ public class InvoiceValidator implements Validator {
 
     private InvoiceService invoiceService;
 
-    public InvoiceValidator (InvoiceService invoiceService){
+    public InvoiceValidator(InvoiceService invoiceService) {
         this.invoiceService = invoiceService;
     }
 
@@ -32,7 +32,7 @@ public class InvoiceValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-       InvoiceDTO invoiceDTO = (InvoiceDTO) target;
+        InvoiceDTO invoiceDTO = (InvoiceDTO) target;
         List<InvoiceDTO> invoiceList = invoiceService.getAllInvoices();
         for (InvoiceDTO invoicee : invoiceList) {
             if (invoicee.getNumberr().equals(invoiceDTO.getNumberr())) {

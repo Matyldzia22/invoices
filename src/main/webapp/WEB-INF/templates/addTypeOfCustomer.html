@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Add New Price Group</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </link>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="/static/style.css" rel="stylesheet">
+    </link>
+
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" style="color: white" href="/">Invoices</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Customers<span
+                    class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/addCustomer">Add new customer</a></li>
+                    <li><a href="/customers">Show all customers</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Address<span
+                    class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/address">Show all addresses</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Products<span
+                    class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/addProduct">Add new product</a></li>
+                    <li><a href="/products">Show all products</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Type of
+                Customers<span
+                        class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/addType">Add new type</a></li>
+                    <li><a href="/typeOfCustomers">Show all types</a></li>
+                </ul>
+            </li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" style="color: white" href="#">Price
+                Groups<span
+                        class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/add">Add new group</a></li>
+                    <li><a href="/priceGroups">Show all groups</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<form th:object="${typeOfCustomer}" th:action="@{/addType}" method="post" class="table-bordered rounded"
+      style="margin: 100px;">
+    <div class="form-row" align="center">
+        <h3>Add New Type Of Customer</h3>
+
+        <div class="form-group">
+
+            <label class="col-form-label" style="width: 100px;">Name</label>
+            <div class="alert alert-danger" th:if="${#fields.hasErrors('name')}" style="width: 150px;">
+                <p th:if="${#fields.hasErrors('name')}"  th:errors="*{name}"></p>
+            </div>
+            <input
+                    title="name"
+                    type="text"
+                    name='name'
+                    style="width: 200px;"
+                    class="form-control"
+                    th:field="*{name}"/>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

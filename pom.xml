@@ -31,6 +31,7 @@
 		<jstl.version>1.2</jstl.version>
 		<cglib.version>2.2.2</cglib.version>
 		<sitemesh.version>2.4.2</sitemesh.version>
+		<thymeleaf.version>2.1.4.RELEASE</thymeleaf.version>
 
 
 	</properties>
@@ -214,6 +215,16 @@
 			<artifactId>cglib-nodep</artifactId>
 			<version>${cglib.version}</version>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf</artifactId>
+			<version>${thymeleaf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf-spring4</artifactId>
+			<version>${thymeleaf.version}</version>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>

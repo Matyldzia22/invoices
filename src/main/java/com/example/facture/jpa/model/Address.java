@@ -1,10 +1,8 @@
 package com.example.facture.jpa.model;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
@@ -12,11 +10,15 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor
 @Table(name = "address")
+@EqualsAndHashCode(exclude={"customer", "typeOfAddress"})
+
 @Data
 public class Address {
 
@@ -41,7 +43,11 @@ public class Address {
     @NotBlank
     private String postCode;
 
+    @NotNull
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private Date dataFrom;
 
+    private Date dataTo;
 
 
     @ManyToOne(cascade = {CascadeType.MERGE})
@@ -51,9 +57,12 @@ public class Address {
     @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
     private List<Invoice> invoices = new ArrayList<>();
 
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "type_of_address_id")
+    private TypeOfAddress typeOfAddress;
+
     @Override
-    public String toString()
-    {
+    public String toString() {
         return String.format("Address[%s %s]", street, city);
     }
 

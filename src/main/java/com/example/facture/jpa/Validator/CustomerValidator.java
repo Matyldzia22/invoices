@@ -19,7 +19,7 @@ public class CustomerValidator implements Validator {
     private CustomerService customerService;
 
     @Autowired
-    public CustomerValidator(CustomerService customerService){
+    public CustomerValidator(CustomerService customerService) {
         this.customerService = customerService;
     }
 
@@ -35,8 +35,7 @@ public class CustomerValidator implements Validator {
         for (CustomerDTO customerr : customerList) {
             if (customerr.getNip().equals(customerDTO.getNip())) {
                 errors.rejectValue("nip", "", "Nip already exist");
-            }
-            else if (customerr.getName().equals(customerDTO.getName())) {
+            } else if (customerr.getName().equals(customerDTO.getName())) {
                 errors.rejectValue("name", "", "Name already exist");
             }
         }

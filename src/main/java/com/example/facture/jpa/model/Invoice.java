@@ -1,7 +1,6 @@
 package com.example.facture.jpa.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.bouncycastle.asn1.cms.TimeStampedData;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,11 +15,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import lombok.Setter;
-import lombok.Getter;
-
 @Entity
 @NoArgsConstructor
+@EqualsAndHashCode(exclude={"customer", "address"})
 @Table(name = "invoice")
 @Data
 public class Invoice {
@@ -36,13 +33,13 @@ public class Invoice {
 
     @Column(name = "sellingdate")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern="yyyy-MM-dd hh:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
     @NotNull
     private Date sellingDate;
 
     @Column(name = "invoicedate")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern="yyyy-MM-dd hh:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
     @NotNull
     private Date invoiceDate;
 
@@ -52,7 +49,7 @@ public class Invoice {
 
     @Column(name = "confirmdate")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern="yyyy-MM-dd hh:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
     @NotNull
     private Date confirmDate;
 
@@ -70,8 +67,7 @@ public class Invoice {
     private Address address;
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return String.format("Invoice[%d, %s]", id, numberr);
     }
 

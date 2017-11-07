@@ -24,10 +24,10 @@ public class MapperConfiguration extends ConfigurableMapper {
         factory.classMap(PriceGroup.class, PriceGroupDTO.class)
                 .byDefault()
                 .register();
-        factory.classMap(TaxBracket.class, TaxBracketDTO.class)
+        factory.classMap(TypeOfCustomer.class, TypeOfCustomerDTO.class)
                 .byDefault()
                 .register();
-        factory.classMap(TypeOfCustomer.class, TypeOfCustomerDTO.class)
+        factory.classMap(TypeOfAddress.class, TypeOfAddressDTO.class)
                 .byDefault()
                 .register();
 

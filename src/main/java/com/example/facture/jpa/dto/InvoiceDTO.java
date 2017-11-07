@@ -26,19 +26,19 @@ public class InvoiceDTO {
     @NotBlank
     private String numberr;
     @NotNull
-    @DateTimeFormat(pattern="yyyy-MM-dd hh:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
     private Date sellingDate;
     @NotNull
-    @DateTimeFormat(pattern="yyyy-MM-dd hh:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
     private Date invoiceDate;
     @NotNull
     private double sum;
     @NotNull
-    @DateTimeFormat(pattern="yyyy-MM-dd hh:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
     private Date confirmDate;
     private Customer customer;
     private Address address;
-    @Range(min=1, message = "Please select address!")
+    @Range(min = 1, message = "Please select address!")
     private long addressId;
     private long customerId;
     private AddressDTO address2;

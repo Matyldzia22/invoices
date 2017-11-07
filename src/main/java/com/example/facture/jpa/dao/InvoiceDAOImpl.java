@@ -41,7 +41,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
     private SessionFactory sessionFactory;
 
     @Autowired
-    public InvoiceDAOImpl (SessionFactory sessionFactory){
+    public InvoiceDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
@@ -197,6 +197,5 @@ public class InvoiceDAOImpl implements InvoiceDAO {
                 .setParameter("idcust", customerId)
                 .getResultList();
     }
-
 
 }

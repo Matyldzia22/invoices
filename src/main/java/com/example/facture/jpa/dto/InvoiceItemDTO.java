@@ -15,13 +15,14 @@ public class InvoiceItemDTO {
 
     private Long id;
     @NotNull
-    @Range(min=1, message = "Please select a number!")
+    @Range(min = 1, message = "Please select a number!")
     private int number;
     private long invoiceId;
     @NotNull
-    @Range(min=1, message = "Please select a product!")
+    @Range(min = 1, message = "Please select a product!")
     private long productId;
-    private InvoiceDTO invoice;
+    private InvoiceDTO invoice2;
     private ProductDTO product;
+    private Invoice invoice;
 
 }

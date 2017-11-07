@@ -37,5 +37,4 @@ public interface InvoiceDAO extends BaseDAO<Invoice, Long> {
 
     double getSuma(String numberr);
 
-
 }

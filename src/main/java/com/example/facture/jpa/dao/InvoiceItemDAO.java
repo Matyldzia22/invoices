@@ -20,5 +20,4 @@ public interface InvoiceItemDAO extends BaseDAO<InvoiceItem, Long> {
 
     long getInvId();
 
-
 }

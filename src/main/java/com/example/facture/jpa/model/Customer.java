@@ -10,14 +10,12 @@ import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.Getter;
+import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @NoArgsConstructor
+@EqualsAndHashCode(exclude={"priceGroup", "typeOfCustomer"})
 @Table(name = "customer")
 @Data
 public class Customer {
@@ -26,14 +24,6 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
-    @Column(name = "firstName")
-    @NotBlank
-    private String firstName;
-
-    @Column(name = "lastName")
-    @NotBlank
-    private String lastName;
 
     @Column(name = "email")
     @NotBlank
@@ -57,10 +47,6 @@ public class Customer {
     private PriceGroup priceGroup;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "tax_bracket_id")
-    private TaxBracket taxBracket;
-
-    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "type_of_customer_id")
     private TypeOfCustomer typeOfCustomer;
 
@@ -72,8 +58,7 @@ public class Customer {
     private List<Address> addresses = new ArrayList<>();
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return String.format("Customer[%d]", id);
     }
 }

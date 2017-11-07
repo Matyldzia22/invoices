@@ -44,21 +44,24 @@
                     <li><a href="/products">Show all products</a></li>
                 </ul>
             </li>
-            <li class="dropdown"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Tax Brackets<span
-                    class="caret"></span></a>
+            <li class="dropdown"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Tax
+                Brackets<span
+                        class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/taxBrackets">Show all tax brackets</a></li>
                 </ul>
             </li>
-            <li class="dropdown"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Type of Customers<span
-                    class="caret"></span></a>
+            <li class="dropdown"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Type of
+                Customers<span
+                        class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/addType">Add new type</a></li>
                     <li><a href="/typeOfCustomers">Show all types</a></li>
                 </ul>
             </li>
-            <li class="dropdown"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Price Groups<span
-                    class="caret"></span></a>
+            <li class="dropdown"><a class="dropdown-toggle" style="color: white" data-toggle="dropdown" href="#">Price
+                Groups<span
+                        class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/add">Add new group</a></li>
                     <li><a href="/priceGroups">Show all groups</a></li>
@@ -86,7 +89,8 @@
 
         <tr modelAttribute="invoice">
             <td></td>
-            <td><a href="/downloadPDF/${invoice.id}"class="btn btn-primary btn-sm active" role="button" aria-pressed="true">PDF</a></td>
+            <td><a href="/downloadPDF/${invoice.id}" class="btn btn-primary btn-sm active" role="button"
+                   aria-pressed="true">PDF</a></td>
             <td>${invoice.id}</td>
             <td>${invoice.numberr}</td>
             <td>${invoice.confirmDate}</td>

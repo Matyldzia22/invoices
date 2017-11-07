@@ -16,6 +16,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.ResourceBundleViewResolver;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 @Configuration
 @EnableWebMvc
@@ -25,13 +28,38 @@ import org.springframework.web.servlet.view.ResourceBundleViewResolver;
 public class MVCApplicationContext extends WebMvcConfigurerAdapter {
 
 
-    @Bean
+   /**
+   // @Bean
     public InternalResourceViewResolver getInternalResourceViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         resolver.setPrefix("/WEB-INF/jsp/");
         resolver.setSuffix(".jsp");
         resolver.setViewClass(JstlView.class);
         return resolver;
+    }
+    **/
+
+   @Bean(name ="templateResolver")
+   public ServletContextTemplateResolver getTemplateResolver() {
+       ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
+       templateResolver.setPrefix("/WEB-INF/templates/");
+       templateResolver.setSuffix(".html");
+       templateResolver.setTemplateMode("XHTML");
+       return templateResolver;
+   }
+
+    @Bean(name ="templateEngine")
+    public SpringTemplateEngine getTemplateEngine() {
+        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        templateEngine.setTemplateResolver(getTemplateResolver());
+        return templateEngine;
+    }
+
+    @Bean(name="viewResolver")
+    public ThymeleafViewResolver getViewResolver(){
+        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+        viewResolver.setTemplateEngine(getTemplateEngine());
+        return viewResolver;
     }
 
     @Bean

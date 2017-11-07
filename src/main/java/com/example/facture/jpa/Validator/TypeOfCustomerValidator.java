@@ -20,7 +20,7 @@ public class TypeOfCustomerValidator implements Validator {
     private TypeOfCustomerService typeOfCustomerService;
 
     @Autowired
-    public TypeOfCustomerValidator(TypeOfCustomerService typeOfCustomerService){
+    public TypeOfCustomerValidator(TypeOfCustomerService typeOfCustomerService) {
         this.typeOfCustomerService = typeOfCustomerService;
     }
 

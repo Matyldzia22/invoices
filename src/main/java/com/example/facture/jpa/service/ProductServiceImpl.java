@@ -21,7 +21,7 @@ public class ProductServiceImpl implements ProductService {
     private MapperFacade mapperFacade;
 
     @Autowired
-    public ProductServiceImpl (ProductDAO productDAO, InvoiceItemDAO invoiceItemDAO, MapperFacade mapperFacade){
+    public ProductServiceImpl(ProductDAO productDAO, InvoiceItemDAO invoiceItemDAO, MapperFacade mapperFacade) {
         this.productDAO = productDAO;
         this.invoiceItemDAO = invoiceItemDAO;
         this.mapperFacade = mapperFacade;

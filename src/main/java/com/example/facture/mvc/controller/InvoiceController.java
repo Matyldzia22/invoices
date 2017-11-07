@@ -6,6 +6,7 @@ import com.example.facture.jpa.dto.*;
 import com.example.facture.jpa.model.*;
 import com.example.facture.jpa.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
@@ -16,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.validation.Valid;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -36,7 +38,7 @@ public class InvoiceController extends SpringBootServletInitializer {
     private InvoiceValidator invoiceValidator;
 
     @Autowired
-    public InvoiceController (InvoiceService invoiceService, AddressService addressService, CustomerService customerService, ProductService productService, InvoiceItemService invoiceItemService,InvoiceValidator invoiceValidator){
+    public InvoiceController(InvoiceService invoiceService, AddressService addressService, CustomerService customerService, ProductService productService, InvoiceItemService invoiceItemService, InvoiceValidator invoiceValidator) {
         this.invoiceService = invoiceService;
         this.addressService = addressService;
         this.customerService = customerService;
@@ -50,12 +52,13 @@ public class InvoiceController extends SpringBootServletInitializer {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(ModelMap model) {
         model.addAttribute("invoices", invoiceService.getAllInvoices());
+
         return "index";
     }
 
 
     @RequestMapping(value = "/invoice/{id}", method = RequestMethod.GET)
-    public String displayInvoice(@PathVariable("id") Long id,  InvoiceDTO invoiceDTO, ModelMap model) {
+    public String displayInvoice(@PathVariable("id") Long id, InvoiceDTO invoiceDTO, ModelMap model) {
 
         List<InvoiceItem> listOfInvoiceItems = invoiceService.getInvoiceItems(invoiceService.getInvoiceById(id));
 
@@ -69,13 +72,14 @@ public class InvoiceController extends SpringBootServletInitializer {
 
             invoiceService.updateInvoiceFrom(invoiceDTO);
         }
-        return "invoiceByNumber";
+        return "invoiceById";
 
     }
+
     @GetMapping(value = "/delete/invoice/{id}")
     public String deleteInvoice(@ModelAttribute("invoice") InvoiceDTO invoiceDTO, @PathVariable("id") Long id) throws IOException {
 
-invoiceService.deleteInvoice(invoiceDTO);
+        invoiceService.deleteInvoice(invoiceDTO);
         return "redirect:/";
     }
 
@@ -92,14 +96,7 @@ invoiceService.deleteInvoice(invoiceDTO);
 
             invoiceService.updateInvoiceFromNumber(invoiceDTO);
         }
-        return "invoiceByNumb";
-    }
-
-
-    @RequestMapping(value = "/invoiceItems", method = RequestMethod.GET)
-    public String invoiceItems(ModelMap model) {
-        model.addAttribute("invoiceItems", invoiceItemService.getAllInvoiceItems());
-        return "invoiceItems";
+        return "invoiceByNumber";
     }
 
 
@@ -119,9 +116,9 @@ invoiceService.deleteInvoice(invoiceDTO);
 
     @RequestMapping(value = "/{name}/invoice/add", method = RequestMethod.POST)
 
-    public String postAddCustomerInvoice(@ModelAttribute("invoice") @Valid  InvoiceDTO invoiceDTO,
+    public String postAddCustomerInvoice(@ModelAttribute("invoice") @Valid InvoiceDTO invoiceDTO,
                                          BindingResult bindingResult, @PathVariable("name") String name, Model model) {
-        //invoiceValidator.validate(invoiceDTO, bindingResult);
+        invoiceValidator.validate(invoiceDTO, bindingResult);
 
         if (bindingResult.hasErrors()) {
             CustomerDTO cust = customerService.getCustomerByName(name);
@@ -134,60 +131,6 @@ invoiceService.deleteInvoice(invoiceDTO);
         }
         invoiceService.saveInvoice(invoiceDTO);
         return String.format("redirect:/customer/name/%s", name);
-    }
-
-
-    @GetMapping(value = "/addInvoiceItem")
-    public String addInvoiceItem(Model model) {
-        List<Product> listOfProducts = productService.getAllProductss();
-        List<Invoice> listOfInvoices = invoiceService.getAllInvoicess();
-        List<Customer> listOfCustomers = customerService.getAllCustomerss();
-        List<Address> listOfAddresses = addressService.getAllAddressess();
-        model.addAttribute("invoiceItem", new InvoiceItemDTO());
-        model.addAttribute("listOfProducts", listOfProducts);
-        model.addAttribute("listOfInvoices", listOfInvoices);
-        model.addAttribute("invoice", new InvoiceDTO());
-        model.addAttribute("listOfCustomers", listOfCustomers);
-        model.addAttribute("listOfAddresses", listOfAddresses);
-
-        return "addInvoiceItem";
-    }
-
-
-    @RequestMapping(value = "/addInvoiceItem", method = RequestMethod.POST)
-    public String addInvoiceItem(@ModelAttribute("invoiceItem") @Valid InvoiceItemDTO invoiceItemDTO, BindingResult bindingResult) throws IOException {
-        if (bindingResult.hasErrors()) {
-            return "addInvoiceItem";
-        }
-        invoiceItemService.saveInvoiceItem(invoiceItemDTO);
-        return "redirect:/invoiceItems";
-    }
-
-
-    @GetMapping(value = "/addInvoice")
-    public String addInvoice(Model model) {
-
-
-        List<Product> pr = productService.getAllProductss();
-        List<Invoice> in = invoiceService.getAllInvoicess();
-
-        List<Customer> listOfCustomers = customerService.getAllCustomerss();
-        List<Address> listOfAddresses = addressService.getAllAddressess();
-        model.addAttribute("invoice", new InvoiceDTO());
-        model.addAttribute("listOfCustomers", listOfCustomers);
-        model.addAttribute("listOfAddresses", listOfAddresses);
-
-        return "addInvoice";
-    }
-
-
-    @RequestMapping(value = "/addInvoice", method = RequestMethod.POST)
-    public String addInvoice(@ModelAttribute("invoice") @Valid InvoiceDTO invoiceDTO, BindingResult bindingResult) throws IOException {
-        if (bindingResult.hasErrors()) {
-            return "addInvoice";
-        }
-        invoiceService.saveInvoice(invoiceDTO);
-        return "redirect:/";
     }
 
 
@@ -231,11 +174,12 @@ invoiceService.deleteInvoice(invoiceDTO);
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         sdf.setLenient(true);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
         binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
     }
+
 
     @RequestMapping(value = "/downloadPDF/{id}", method = RequestMethod.GET)
     public ModelAndView downloadPDFById(@PathVariable("id") Long id, Model model) {

@@ -9,15 +9,13 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.Getter;
+import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 
 @Entity
 @NoArgsConstructor
+
 @Table(name = "price_group")
 @Data
 public class PriceGroup {
@@ -29,7 +27,7 @@ public class PriceGroup {
 
     @Column(name = "discount")
     @NotNull
-    @Range(min=1,max=100)
+    @Range(min = 1, max = 100)
     private int discount;
 
     @Column(name = "name")
@@ -41,8 +39,7 @@ public class PriceGroup {
     private List<Customer> customers = new ArrayList<>();
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return String.format("PriceGroup[%s]", name);
     }
 

@@ -22,10 +22,9 @@ public class TypeOfCustomerDAOImpl implements TypeOfCustomerDAO {
     private static final String FROM_CUSTOMER_C_JOIN_FETCH_C_TYPE_OF_CUSTOMER_P_WHERE_P_ID_ID = "FROM Customer c JOIN FETCH c.typeOfCustomer p where p.id = :id";
 
 
-
     private SessionFactory sessionFactory;
 
-    public TypeOfCustomerDAOImpl (SessionFactory sessionFactory){
+    public TypeOfCustomerDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 

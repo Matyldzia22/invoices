@@ -45,8 +45,6 @@ public class PDFBuilder extends AbstractITextPdfView {
         Phrase c = new Phrase();
 
 
-
-
         p.add("Sprzedawca :");
         p.add(glue);
         p.add("Nabywca :");
@@ -55,17 +53,15 @@ public class PDFBuilder extends AbstractITextPdfView {
         a.add(inv.getCustomer().getName());
         b.add("Aleje Jerozolimskie 5, 80-20 Warszawa");
         b.add(glue);
-        b.add(inv.getAddress().getStreet() + " "+ inv.getAddress().getNumber()+","+inv.getAddress().getPostCode()+" "+ inv.getAddress().getCity());
+        b.add(inv.getAddress().getStreet() + " " + inv.getAddress().getNumber() + "," + inv.getAddress().getPostCode() + " " + inv.getAddress().getCity());
         c.add("NIP: 768-354-88-00");
         c.add(glue);
-        c.add("NIP: "+ inv.getCustomer().getNip());
+        c.add("NIP: " + inv.getCustomer().getNip());
         table10.addCell(p);
         table10.addCell(a);
         table10.addCell(b);
         table10.addCell(c);
         doc.add(table10);
-
-
 
 
         PdfPTable table = new PdfPTable(5);
@@ -139,17 +135,11 @@ public class PDFBuilder extends AbstractITextPdfView {
             tablee.addCell(String.valueOf(aItem.getProduct().getBruttoPrice()));
             tablee.addCell(String.valueOf(aItem.getProduct().getNettoPrice()));
             tablee.addCell(String.valueOf(aItem.getNumber()));
-            tablee.addCell(String.valueOf(aItem.getProduct().getVat())+'%');
+            tablee.addCell(String.valueOf(aItem.getProduct().getVat()) + '%');
 
 
         }
         doc.add(tablee);
-
-
-
-
-
-
 
 
     }

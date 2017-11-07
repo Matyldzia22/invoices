@@ -21,7 +21,6 @@ public interface CustomerService {
 
     CustomerDTO getCustomerByName(String name);
 
-    CustomerDTO getCustomerByLastName(String lastName);
 
     CustomerDTO getCustomerByNip(String nip);
 
@@ -31,10 +30,6 @@ public interface CustomerService {
 
     void deleteInvoiceFromCustomer(Customer customer, Invoice invoice);
 
-    void addTaxBracket2Customer(Customer customer, TaxBracket taxBracket);
-
-    void deleteTaxBracketFromCustomer(Customer customer, TaxBracket taxBracket);
-
     void addTypeOfCustomer2Customer(Customer customer, TypeOfCustomer typeOfCustomer);
 
     void deleteTypeOfCustomerFromCustomer(Customer customer, TypeOfCustomer typeOfCustomer);
@@ -43,7 +38,7 @@ public interface CustomerService {
 
     void deletePriceGroupFromCustomer(Customer customer, PriceGroup priceGroup);
 
-    List<Customer> getCustomers(long priceGroupId, long taxBracketId, long typeOfCustomerId);
+    List<Customer> getCustomers(long priceGroupId, long typeOfCustomerId);
 
     List<Invoice> getInvoices(Customer customer);
 

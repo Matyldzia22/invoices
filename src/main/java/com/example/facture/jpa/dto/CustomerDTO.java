@@ -3,7 +3,6 @@ package com.example.facture.jpa.dto;
 import com.example.facture.jpa.model.Invoice;
 import com.example.facture.jpa.model.Address;
 import com.example.facture.jpa.model.TypeOfCustomer;
-import com.example.facture.jpa.model.TaxBracket;
 import com.example.facture.jpa.model.PriceGroup;
 
 import lombok.Data;
@@ -25,10 +24,6 @@ public class CustomerDTO {
 
     private Long id;
     @NotBlank
-    private String firstName;
-    @NotBlank
-    private String lastName;
-    @NotBlank
     private String email;
     @NotBlank
     private String nip;
@@ -36,17 +31,13 @@ public class CustomerDTO {
     private String phoneNumber;
     @NotBlank
     private String name;
-    @Range(min=1, message = "Please select a type of customer!")
+    @Range(min = 1, message = "Please select a type of customer!")
     private long typeOfCustomerId;
-    @Range(min=1, message = "Please select a price group!")
+    @Range(min = 1, message = "Please select a price group!")
     private long priceGroupId;
-    @Range(min=1, message = "Please select a tax bracket!")
-    private long taxBracketId;
     private PriceGroup priceGroup;
-    private TaxBracket taxBracket;
     private TypeOfCustomer typeOfCustomer;
     private PriceGroupDTO priceGroup2;
-    private TaxBracketDTO taxBracket2;
     private TypeOfCustomerDTO typeOfCustomer2;
     private List<Invoice> invoices;
     private List<Address> addresses;

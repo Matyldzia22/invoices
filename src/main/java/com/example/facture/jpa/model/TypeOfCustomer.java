@@ -37,8 +37,7 @@ public class TypeOfCustomer {
     private List<Customer> customers = new ArrayList<>();
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return String.format("TypeOfCustomer[%s]", name);
     }
 

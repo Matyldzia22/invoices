@@ -29,6 +29,10 @@ public interface AddressService {
 
     void deleteInvoiceFromAddress(Address address, Invoice invoice);
 
+    void addTypeOfAddress2Address(Address address, TypeOfAddress typeOfAddress);
+
+    void deleteTypeOfAddressFromAddress(Address address, TypeOfAddress typeOfAddress);
+
     void addCustomer2Address(Address address, Customer customer);
 
     void deleteCustomerFromAddress(Address address, Customer customer);

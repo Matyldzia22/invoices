@@ -8,15 +8,13 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.Getter;
+import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 
 @Entity
 @NoArgsConstructor
+@EqualsAndHashCode(exclude={"product", "invoice"})
 @Table(name = "invoiceitem")
 @Data
 public class InvoiceItem {
@@ -28,7 +26,7 @@ public class InvoiceItem {
 
     @Column(name = "number")
     @NotNull
-    @Range(min=1)
+    @Range(min = 1)
     private int number;
 
 

@@ -21,7 +21,7 @@ public class TypeOfCustomerServiceImpl implements TypeOfCustomerService {
     private MapperFacade mapperFacade;
 
     @Autowired
-    public TypeOfCustomerServiceImpl (TypeOfCustomerDAO typeOfCustomerDAO, CustomerDAO customerDAO, MapperFacade mapperFacade){
+    public TypeOfCustomerServiceImpl(TypeOfCustomerDAO typeOfCustomerDAO, CustomerDAO customerDAO, MapperFacade mapperFacade) {
         this.typeOfCustomerDAO = typeOfCustomerDAO;
         this.customerDAO = customerDAO;
         this.mapperFacade = mapperFacade;

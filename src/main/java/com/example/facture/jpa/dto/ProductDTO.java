@@ -21,7 +21,7 @@ public class ProductDTO {
     private String name;
     @NotNull
     private double nettoPrice;
-    @Range(min=5,max=27)
+    @Range(min = 5, max = 27)
     @NotNull
     private int vat;
     @DecimalMin("0.1")

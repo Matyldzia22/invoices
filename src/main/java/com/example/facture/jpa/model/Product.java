@@ -36,7 +36,7 @@ public class Product {
 
     @Column(name = "vat")
     @NotNull
-    @Range(min=5,max=27)
+    @Range(min = 5, max = 27)
     private int vat;
 
     @Column(name = "brutto_price")
@@ -48,8 +48,7 @@ public class Product {
     private List<InvoiceItem> invoiceItems = new ArrayList<>();
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return String.format("Product[%s]", name);
     }
 

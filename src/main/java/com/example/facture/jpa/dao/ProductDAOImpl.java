@@ -33,7 +33,7 @@ public class ProductDAOImpl implements ProductDAO {
 
     private SessionFactory sessionFactory;
 
-    public ProductDAOImpl (SessionFactory sessionFactory){
+    public ProductDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 

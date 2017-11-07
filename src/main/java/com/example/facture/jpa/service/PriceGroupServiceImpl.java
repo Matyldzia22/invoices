@@ -21,7 +21,7 @@ public class PriceGroupServiceImpl implements PriceGroupService {
     private MapperFacade mapperFacade;
 
     @Autowired
-    public PriceGroupServiceImpl(PriceGroupDAO priceGroupDAO, CustomerDAO customerDAO, MapperFacade mapperFacade){
+    public PriceGroupServiceImpl(PriceGroupDAO priceGroupDAO, CustomerDAO customerDAO, MapperFacade mapperFacade) {
         this.priceGroupDAO = priceGroupDAO;
         this.customerDAO = customerDAO;
         this.mapperFacade = mapperFacade;

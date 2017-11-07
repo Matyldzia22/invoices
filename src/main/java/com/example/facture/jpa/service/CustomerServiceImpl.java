@@ -18,16 +18,14 @@ public class CustomerServiceImpl implements CustomerService {
 
     private CustomerDAO customerDAO;
     private InvoiceDAO invoiceDAO;
-    private TaxBracketDAO taxBracketDAO;
     private PriceGroupDAO priceGroupDAO;
     private TypeOfCustomerDAO typeOfCustomerDAO;
     private MapperFacade mapperFacade;
 
     @Autowired
-    public CustomerServiceImpl(CustomerDAO customerDAO, InvoiceDAO invoiceDAO, TaxBracketDAO taxBracketDAO, PriceGroupDAO priceGroupDAO, TypeOfCustomerDAO typeOfCustomerDAO, MapperFacade mapperFacade){
+    public CustomerServiceImpl(CustomerDAO customerDAO, InvoiceDAO invoiceDAO, PriceGroupDAO priceGroupDAO, TypeOfCustomerDAO typeOfCustomerDAO, MapperFacade mapperFacade) {
         this.customerDAO = customerDAO;
         this.invoiceDAO = invoiceDAO;
-        this.taxBracketDAO = taxBracketDAO;
         this.priceGroupDAO = priceGroupDAO;
         this.typeOfCustomerDAO = typeOfCustomerDAO;
         this.mapperFacade = mapperFacade;
@@ -38,7 +36,6 @@ public class CustomerServiceImpl implements CustomerService {
 
         Customer customer = mapperFacade.map(customerDTO, Customer.class);
         addPriceGroup2Customer(customer, priceGroupDAO.getById(customerDTO.getPriceGroupId()));
-        addTaxBracket2Customer(customer, taxBracketDAO.getById(customerDTO.getTaxBracketId()));
         addTypeOfCustomer2Customer(customer, typeOfCustomerDAO.getById(customerDTO.getTypeOfCustomerId()));
 
         customerDAO.save(customer);
@@ -89,10 +86,6 @@ public class CustomerServiceImpl implements CustomerService {
         return mapperFacade.map(customerDAO.getCustomerByName(name), CustomerDTO.class);
     }
 
-    @Override
-    public CustomerDTO getCustomerByLastName(String lastName) {
-        return mapperFacade.map(customerDAO.getCustomerByFirstName(lastName), CustomerDTO.class);
-    }
 
     @Override
     public CustomerDTO getCustomerByEmail(String email) {
@@ -141,33 +134,6 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
-    @Override
-    public void addTaxBracket2Customer(Customer customer, TaxBracket taxBracket) {
-        if (customer.getTaxBracket() != taxBracket) {
-            customer.setTaxBracket(taxBracket);
-            customerDAO.update(customer);
-        }
-        List<Customer> customers = taxBracketDAO.getCustomers(taxBracket);
-        if (!customers.contains(customer)) {
-            customers.add(customer);
-            taxBracket.setCustomers(customers);
-            taxBracketDAO.update(taxBracket);
-        }
-    }
-
-    @Override
-    public void deleteTaxBracketFromCustomer(Customer customer, TaxBracket taxBracket) {
-        if (customer.getTaxBracket() == taxBracket) {
-            customer.setTaxBracket(null);
-            customerDAO.update(customer);
-        }
-        List<Customer> customers = taxBracketDAO.getCustomers(taxBracket);
-        if (customers.contains(customer)) {
-            customers.remove(customer);
-            taxBracket.setCustomers(customers);
-            taxBracketDAO.update(taxBracket);
-        }
-    }
 
     @Override
     public void addPriceGroup2Customer(Customer customer, PriceGroup priceGroup) {
@@ -226,8 +192,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> getCustomers(long priceGroupId, long taxBracketId, long typeOfCustomerId) {
-        return customerDAO.getCustomers(priceGroupId, taxBracketId, typeOfCustomerId);
+    public List<Customer> getCustomers(long priceGroupId, long typeOfCustomerId) {
+        return customerDAO.getCustomers(priceGroupId, typeOfCustomerId);
     }
 
     @Override

@@ -14,5 +14,4 @@ public interface PriceGroupDAO extends BaseDAO<PriceGroup, Long> {
 
     List<Customer> getCustomers(PriceGroup priceGroup);
 
-
 }
