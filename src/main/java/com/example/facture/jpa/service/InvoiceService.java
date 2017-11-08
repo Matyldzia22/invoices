@@ -62,6 +62,8 @@ public interface InvoiceService {
 
     double getInvoiceItemsSum(Long id);
 
+    double getInvoiceItemsSumm(String numberr);
+
     double getSuma(String numberr);
 
     void updateInvoiceFrom(InvoiceDTO invoiceDTO);

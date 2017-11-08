@@ -18,6 +18,8 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -57,6 +59,23 @@ public class InvoiceController extends SpringBootServletInitializer {
     }
 
 
+    @RequestMapping(value = "/pdfError", method = RequestMethod.GET)
+    public String pdfError() {
+        return "pdfError";
+    }
+
+
+    @RequestMapping(value = "/updateError", method = RequestMethod.GET)
+    public String updateError() {
+        return "updateError";
+    }
+
+    @RequestMapping(value = "/confirmError", method = RequestMethod.GET)
+    public String confirmError() {
+        return "confirmError";
+    }
+
+
     @RequestMapping(value = "/invoice/{id}", method = RequestMethod.GET)
     public String displayInvoice(@PathVariable("id") Long id, InvoiceDTO invoiceDTO, ModelMap model) {
 
@@ -77,6 +96,15 @@ public class InvoiceController extends SpringBootServletInitializer {
 
     }
 
+    @RequestMapping(value="/search")
+    public ModelAndView Search(@RequestParam(value = "searchTerm", required = false) String pSearchTerm, HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mav = new ModelAndView("search");
+
+        mav.addObject("searchTerm", pSearchTerm);
+        mav.addObject("searchResult", invoiceService.getInvoiceByNumberrr(pSearchTerm));
+
+        return mav;
+    }
     @GetMapping(value = "/delete/invoice/{id}")
     public String deleteInvoice(@ModelAttribute("invoice") InvoiceDTO invoiceDTO, @PathVariable("id") Long id) throws IOException {
 
@@ -88,11 +116,18 @@ public class InvoiceController extends SpringBootServletInitializer {
     public String updateInvoice(@ModelAttribute("invoice") InvoiceDTO invoiceDTO, @PathVariable("id") Long id) throws IOException {
 
         if (invoiceService.getInvoiceById(id).getConfirmDate() == null) {
+            if (invoiceService.getInvoiceItems(invoiceService.getInvoiceById(id)).size() != 0) {
 
-            invoiceService.updateFrom(invoiceDTO);
-            return "redirect:/";
+
+                invoiceService.updateFrom(invoiceDTO);
+                return "redirect:/";
+
+            } else {
+                return "redirect:/updateError";
+            }
+
         } else {
-            return String.format("redirect:/invoice/%d", id);
+            return "redirect:/confirmError";
         }
     }
 
@@ -105,6 +140,7 @@ public class InvoiceController extends SpringBootServletInitializer {
 
         if (listOfInvoiceItems.size() > 0) {
             model.addAttribute("sum", invoiceService.getSuma(numberr));
+            model.addAttribute("sumka", invoiceService.getInvoiceItemsSumm(numberr));
 
 
             invoiceService.updateInvoiceFromNumber(invoiceDTO);
@@ -148,8 +184,7 @@ public class InvoiceController extends SpringBootServletInitializer {
             }
             invoiceService.saveInvoice(invoiceDTO);
             return String.format("redirect:/customer/name/%s", name);
-        }
-        else{
+        } else {
             return "redirect:/customers";
         }
     }
@@ -189,7 +224,9 @@ public class InvoiceController extends SpringBootServletInitializer {
             if (bindingResult.hasErrors()) {
                 InvoiceDTO invo = invoiceService.getInvoiceByNumber(numberr);
                 long id = invo.getId();
-                List<Product> listOfProducts = productService.getAllProductss();
+
+                List<Product> listOfProducts =  productService.getAllProductss();
+
                 model.addAttribute("listOfProducts", listOfProducts);
                 model.addAttribute("idInvoice", id);
 
@@ -197,7 +234,8 @@ public class InvoiceController extends SpringBootServletInitializer {
             }
             invoiceItemService.saveInvoiceItem(invoiceItemDTO);
 
-            return String.format("redirect:/invoice/number/%s", numberr);
+            return String.format("redirect:/invoice/%d", invoiceService.getInvoiceByNumber(numberr).getId());
+
         } else {
             return "redirect:/";
         }
@@ -223,16 +261,24 @@ public class InvoiceController extends SpringBootServletInitializer {
     @RequestMapping(value = "/downloadPDF/{id}", method = RequestMethod.GET)
     public ModelAndView downloadPDFById(@PathVariable("id") Long id, Model model) {
 
-        List<InvoiceItem> listOfInvoiceItems = invoiceService.getInvoiceItems(invoiceService.getInvoiceById(id));
+
+        if (invoiceService.getInvoiceById(id).getConfirmDate() != null) {
+
+            List<InvoiceItem> listOfInvoiceItems = invoiceService.getInvoiceItems(invoiceService.getInvoiceById(id));
+            if (listOfInvoiceItems.size() != 0) {
 
 
-        model.addAttribute("listOfInvoiceItems", listOfInvoiceItems);
-        model.addAttribute("listInvoices", invoiceService.getInvoiceById(id));
+                model.addAttribute("listOfInvoiceItems", listOfInvoiceItems);
+                model.addAttribute("listInvoices", invoiceService.getInvoiceById(id));
+
+                return new ModelAndView("pdfView", "listInvoices", invoiceService.getInvoiceById(id));
 
 
-        return new ModelAndView("pdfView", "listInvoices", invoiceService.getInvoiceById(id));
-
+            } else {
+                return new ModelAndView("redirect:" + "/pdfError");
+            }
+        } else {
+            return new ModelAndView("redirect:" + "/pdfError");
+        }
     }
-
-
 }

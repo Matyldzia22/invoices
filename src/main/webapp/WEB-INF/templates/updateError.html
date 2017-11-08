@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add New Price Group</title>
+    <title>Error</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -60,29 +60,12 @@
     </div>
 </nav>
 
-<form th:object="${typeOfCustomer}" th:action="@{/addType}" method="post" class="table-bordered rounded"
-      style="margin: 100px;">
-    <div class="form-row" align="center">
-        <h3>Add New Type Of Customer</h3>
+<div class="container">
 
-        <div class="form-group">
+    <h3 style="color: red; font-family: Georgia;align-items: center;">If you want to confirm your invoice, you should add some invoice items !</h3>
 
-            <label class="col-form-label" style="width: 100px;">Name</label>
-            <div class="alert alert-danger" th:if="${#fields.hasErrors('name')}" style="width: 150px;">
-                <p th:if="${#fields.hasErrors('name')}"  th:errors="*{name}"></p>
-            </div>
-            <input
-                    title="name"
-                    type="text"
-                    name='name'
-                    style="width: 200px;"
-                    class="form-control"
-                    th:field="*{name}"/>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary" style="margin-top: 50px;">Save</button>
-        </div>
-    </div>
-</form>
+    <input type="button" class="btn btn-info" value="Back" onclick="window.location.href='/'"/>
+
+</div>
 </body>
 </html>

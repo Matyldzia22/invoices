@@ -37,6 +37,8 @@ public interface InvoiceDAO extends BaseDAO<Invoice, Long> {
 
     double getInvoiceItemsSum(long id);
 
+    double getInvoiceItemsSumm(String numberr);
+
     double getSuma(String numberr);
 
     void updateFrom(Invoice invoice);

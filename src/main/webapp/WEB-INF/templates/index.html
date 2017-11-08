@@ -57,6 +57,10 @@
                 </ul>
             </li>
         </ul>
+        <form th:action="@{/search/{searchTerm}(searchTerm=${})}" class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search"/>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
     </div>
 </nav>
 
@@ -86,15 +90,16 @@
                         <span class="caret"></span></button>
                     <ul class="dropdown-menu">
                         <li><a th:href="@{/invoice/{id}(id=${invoice.id})}">Invoice Details</a></li>
-                        <li th:if ="${invoice.confirmDate == null}">
+                        <li th:if="${invoice.confirmDate == null}">
                         <li><a th:href="@{/{number}/invoiceItems/add(number=${invoice.numberr})}">Add items</a></li>
-                    </li>
+                        </li>
 
                     </ul>
                 </div>
             </td>
                     
-            <td th:text="${invoice.id}"> id</td>       
+            <td th:text="${invoice.id}"> id</td>
+                   
             <td th:text="${invoice.numberr}">number</td>
             <td th:text="${invoice.confirmDate}">confirmDate</td>
             <td th:text="${invoice.sellingDate}">sellingDate</td>
