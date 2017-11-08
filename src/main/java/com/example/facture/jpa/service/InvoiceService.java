@@ -60,11 +60,17 @@ public interface InvoiceService {
 
     double getSum(Long id);
 
+    double getInvoiceItemsSum(Long id);
+
     double getSuma(String numberr);
 
     void updateInvoiceFrom(InvoiceDTO invoiceDTO);
 
     void updateInvoiceFromNumber(InvoiceDTO invoiceDTO);
+
+    void updateFrom(InvoiceDTO invoiceDTO);
+
+
 
 
 }

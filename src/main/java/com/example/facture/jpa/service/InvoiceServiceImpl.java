@@ -49,6 +49,14 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
+    public void updateFrom(InvoiceDTO invoiceDTO) {
+        Invoice invoice2 = invoiceDAO.getById(invoiceDTO.getId());
+        invoice2.setConfirmDate(invoiceDAO.getConfirmDate(invoiceDTO.getId()));
+
+        invoiceDAO.update(invoice2);
+    }
+
+    @Override
     public void updateInvoiceFrom(InvoiceDTO invoiceDTO) {
         Invoice inv = invoiceDAO.getById(invoiceDTO.getId());
         inv.setSum(invoiceDAO.getSum(invoiceDTO.getId()));
@@ -248,6 +256,11 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public double getSum(Long id) {
         return invoiceDAO.getSum(id);
+    }
+
+    @Override
+    public double getInvoiceItemsSum(Long id) {
+        return invoiceDAO.getInvoiceItemsSum(id);
     }
 
     @Override

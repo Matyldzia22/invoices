@@ -69,6 +69,7 @@ public class InvoiceController extends SpringBootServletInitializer {
         if (listOfInvoiceItems.size() > 0) {
 
             model.addAttribute("sum", invoiceService.getSum(id));
+            model.addAttribute("sumka", invoiceService.getInvoiceItemsSum(id));
 
             invoiceService.updateInvoiceFrom(invoiceDTO);
         }
@@ -81,6 +82,18 @@ public class InvoiceController extends SpringBootServletInitializer {
 
         invoiceService.deleteInvoice(invoiceDTO);
         return "redirect:/";
+    }
+
+    @GetMapping(value = "/update/invoice/{id}")
+    public String updateInvoice(@ModelAttribute("invoice") InvoiceDTO invoiceDTO, @PathVariable("id") Long id) throws IOException {
+
+        if (invoiceService.getInvoiceById(id).getConfirmDate() == null) {
+
+            invoiceService.updateFrom(invoiceDTO);
+            return "redirect:/";
+        } else {
+            return String.format("redirect:/invoice/%d", id);
+        }
     }
 
     @RequestMapping(value = "/invoice/number/{numberr}", method = RequestMethod.GET)
@@ -102,15 +115,18 @@ public class InvoiceController extends SpringBootServletInitializer {
 
     @GetMapping("/{name}/invoice/add")
     public String displayAddInvoiceCustomer(@PathVariable("name") String name, Model model) {
+        if (customerService.getCustomerByName(name).getAddresses().size() != 0) {
+            CustomerDTO cust = customerService.getCustomerByName(name);
+            long id = cust.getId();
+            List<Address> addresses = customerService.getAddresses(customerService.getCustomerByNamee(name));
+            model.addAttribute("invoice", new InvoiceDTO());
+            model.addAttribute("listOfAddresses", addresses);
+            model.addAttribute("idCustomer", id);
 
-        CustomerDTO cust = customerService.getCustomerByName(name);
-        long id = cust.getId();
-        List<Address> addresses = customerService.getAddresses(customerService.getCustomerByNamee(name));
-        model.addAttribute("invoice", new InvoiceDTO());
-        model.addAttribute("listOfAddresses", addresses);
-        model.addAttribute("idCustomer", id);
-
-        return "addCustomerInvoice";
+            return "addCustomerInvoice";
+        } else {
+            return "redirect:/customers";
+        }
     }
 
 
@@ -118,62 +134,85 @@ public class InvoiceController extends SpringBootServletInitializer {
 
     public String postAddCustomerInvoice(@ModelAttribute("invoice") @Valid InvoiceDTO invoiceDTO,
                                          BindingResult bindingResult, @PathVariable("name") String name, Model model) {
-        invoiceValidator.validate(invoiceDTO, bindingResult);
+        if (customerService.getCustomerByName(name).getAddresses().size() != 0) {
+            invoiceValidator.validate(invoiceDTO, bindingResult);
 
-        if (bindingResult.hasErrors()) {
-            CustomerDTO cust = customerService.getCustomerByName(name);
-            long id = cust.getId();
-            List<Address> addresses = customerService.getAddresses(customerService.getCustomerByNamee(name));
-            model.addAttribute("listOfAddresses", addresses);
-            model.addAttribute("idCustomer", id);
+            if (bindingResult.hasErrors()) {
+                CustomerDTO cust = customerService.getCustomerByName(name);
+                long id = cust.getId();
+                List<Address> addresses = customerService.getAddresses(customerService.getCustomerByNamee(name));
+                model.addAttribute("listOfAddresses", addresses);
+                model.addAttribute("idCustomer", id);
 
-            return "addCustomerInvoice";
+                return "addCustomerInvoice";
+            }
+            invoiceService.saveInvoice(invoiceDTO);
+            return String.format("redirect:/customer/name/%s", name);
         }
-        invoiceService.saveInvoice(invoiceDTO);
-        return String.format("redirect:/customer/name/%s", name);
+        else{
+            return "redirect:/customers";
+        }
     }
 
 
     @GetMapping("/{numberr}/invoiceItems/add")
     public String displayAddInvoiceItemsInvoice(@PathVariable("numberr") String numberr, Model model) {
 
-        InvoiceDTO inv = invoiceService.getInvoiceByNumber(numberr);
-        long id = inv.getId();
+        if (invoiceService.getInvoiceByNumber(numberr).getConfirmDate() == null) {
 
-        List<Product> listOfProducts = productService.getAllProductss();
-        List<Invoice> listOfInvoices = invoiceService.getAllInvoicess();
-        List<Customer> listOfCustomers = customerService.getAllCustomerss();
-        List<Address> listOfAddresses = addressService.getAllAddressess();
-        model.addAttribute("invoiceItem", new InvoiceItemDTO());
-        model.addAttribute("listOfProducts", listOfProducts);
-        model.addAttribute("listOfInvoices", listOfInvoices);
+            InvoiceDTO inv = invoiceService.getInvoiceByNumber(numberr);
+            long id = inv.getId();
+
+            List<Product> listOfProducts = productService.getAllProductss();
+            List<Invoice> listOfInvoices = invoiceService.getAllInvoicess();
+            List<Customer> listOfCustomers = customerService.getAllCustomerss();
+            List<Address> listOfAddresses = addressService.getAllAddressess();
+            model.addAttribute("invoiceItem", new InvoiceItemDTO());
+            model.addAttribute("listOfProducts", listOfProducts);
+            model.addAttribute("listOfInvoices", listOfInvoices);
 
 
-        model.addAttribute("invoiceItem", new InvoiceItemDTO());
-        model.addAttribute("idInvoice", id);
+            model.addAttribute("invoiceItem", new InvoiceItemDTO());
+            model.addAttribute("idInvoice", id);
 
-        return "addInvoiceItem";
+            return "addInvoiceItem";
+        } else {
+            return "redirect:/";
+        }
     }
 
     @RequestMapping(value = "/{numberr}/invoiceItems/add", method = RequestMethod.POST)
 
     public String postAddInvoiceItemsInvoice(@ModelAttribute("invoiceItem") @Valid InvoiceItemDTO invoiceItemDTO,
                                              BindingResult bindingResult, @PathVariable("numberr") String numberr, Model model) {
-        if (bindingResult.hasErrors()) {
-            InvoiceDTO invo = invoiceService.getInvoiceByNumber(numberr);
-            long id = invo.getId();
-            List<Product> listOfProducts = productService.getAllProductss();
-            model.addAttribute("listOfProducts", listOfProducts);
-            model.addAttribute("idInvoice", id);
+        if (invoiceService.getInvoiceByNumber(numberr).getConfirmDate() == null) {
+            if (bindingResult.hasErrors()) {
+                InvoiceDTO invo = invoiceService.getInvoiceByNumber(numberr);
+                long id = invo.getId();
+                List<Product> listOfProducts = productService.getAllProductss();
+                model.addAttribute("listOfProducts", listOfProducts);
+                model.addAttribute("idInvoice", id);
 
-            return "addInvoiceItem";
+                return "addInvoiceItem";
+            }
+            invoiceItemService.saveInvoiceItem(invoiceItemDTO);
+
+            return String.format("redirect:/invoice/number/%s", numberr);
+        } else {
+            return "redirect:/";
         }
-        invoiceItemService.saveInvoiceItem(invoiceItemDTO);
-        return String.format("redirect:/invoice/number/%s", numberr);
     }
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        sdf.setLenient(true);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
+        binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+    }
+
+    @InitBinder
+    public void initBinderr(WebDataBinder binder) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         sdf.setLenient(true);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));

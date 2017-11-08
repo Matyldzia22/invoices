@@ -34,7 +34,7 @@ public class AddressDTO {
     private long typeOfAddressId;
     @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private Calendar dataFrom;
+    private Date dataFrom;
 
 
     private Date dataTo;

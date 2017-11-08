@@ -106,9 +106,9 @@
             <th>vat</th>
         </tr>
         </thead>
-        <c:set var="sum" value="${0}"/>
+        <c:set var="suma" value="${0}"/>
         <c:forEach items="${listOfInvoiceItems}" var="invoiceItem">
-            <c:set var="sum" value="${sum + (invoiceItem.product.bruttoPrice * invoiceItem.number)}"/>
+            <c:set var="suma" value="${suma + (invoiceItem.product.bruttoPrice * invoiceItem.number)}"/>
             <tr>
                 <td></td>
                 <td>${invoiceItem.product.name}</td>
@@ -118,7 +118,7 @@
                 <td>${invoiceItem.product.vat}%</td>
             </tr>
         </c:forEach>
-        <td>${sum}</td>
+        <td>${suma}</td>
         <thead>
         <tr>
             <th>CUSTOMER</th>

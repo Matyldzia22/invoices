@@ -86,14 +86,15 @@
                         <span class="caret"></span></button>
                     <ul class="dropdown-menu">
                         <li><a th:href="@{/invoice/{id}(id=${invoice.id})}">Invoice Details</a></li>
+                        <li th:if ="${invoice.confirmDate == null}">
                         <li><a th:href="@{/{number}/invoiceItems/add(number=${invoice.numberr})}">Add items</a></li>
+                    </li>
 
                     </ul>
                 </div>
             </td>
                     
-            <td th:text="${invoice.id}"> id</td>
-                    
+            <td th:text="${invoice.id}"> id</td>       
             <td th:text="${invoice.numberr}">number</td>
             <td th:text="${invoice.confirmDate}">confirmDate</td>
             <td th:text="${invoice.sellingDate}">sellingDate</td>

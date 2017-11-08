@@ -33,8 +33,6 @@ public class InvoiceDTO {
     private Date invoiceDate;
     @NotNull
     private double sum;
-    @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
     private Date confirmDate;
     private Customer customer;
     private Address address;
