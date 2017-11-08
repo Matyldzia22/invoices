@@ -37,6 +37,9 @@ public class InvoiceDAOImpl implements InvoiceDAO {
     private static final String SELECT_SUM_INVOICE_PRODUCTS_BY_INVOICE_NUMBER = "SELECT (SUM(c.bruttoPrice * b.number))  - ((e.discount * (SUM(c.bruttoPrice * b.number)))/100) AS suma FROM Invoice a JOIN Customer d ON a.customer.id = d.id JOIN PriceGroup e ON d.priceGroup.id = e.id JOIN InvoiceItem b ON a.id= b.invoice.id JOIN Product c ON c.id = b.product.id  WHERE a.numberr like:numberr GROUP BY e.discount";
     private static final String SELECT_SUM_INVOICE_PRODUCTS_BY_INVOICE_ID = "SELECT (SUM(c.bruttoPrice * b.number))  - ((e.discount * (SUM(c.bruttoPrice * b.number)))/100) AS suma FROM Invoice a JOIN Customer d ON a.customer.id = d.id JOIN PriceGroup e ON d.priceGroup.id = e.id  JOIN InvoiceItem b ON a.id= b.invoice.id  JOIN Product c ON c.id = b.product.id WHERE a.id =:id GROUP BY e.discount";
     private static final String SELECT_SUM_INVOICEITEMS_BY_INVOICE_ID = "SELECT (SUM(c.bruttoPrice * b.number))  AS suma FROM Invoice a JOIN Customer d ON a.customer.id = d.id  JOIN InvoiceItem b ON a.id= b.invoice.id  JOIN Product c ON c.id = b.product.id WHERE a.id =:id ";
+    private static final String SELECT_CURRENT_TIMESTAMP_AS_CONFIRM_DATEE_FROM_INVOICE_U_WHERE_U_ID_ID = "SELECT (CURRENT_TIMESTAMP) AS confirmDatee FROM Invoice u WHERE u.id =:id";
+    private static final String UPDATE_INVOICE_U_SET_U_CONFIRM_DATE_CURRENT_DATE = "UPDATE Invoice u SET u.confirmDate = (CURRENT_DATE)";
+    private static final String SELECT_SUM_INVOICEITEMS_BY_INVOICE_NUMBERR = "SELECT (SUM(c.bruttoPrice * b.number))  AS suma FROM Invoice a JOIN Customer d ON a.customer.id = d.id  JOIN InvoiceItem b ON a.id= b.invoice.id  JOIN Product c ON c.id = b.product.id WHERE a.numberr like :numberr ";
 
 
     private SessionFactory sessionFactory;
@@ -74,7 +77,7 @@ public class InvoiceDAOImpl implements InvoiceDAO {
     @CachePut
     public void updateFrom(Invoice invoice) {
         Session session = sessionFactory.getCurrentSession();
-         session.createQuery("UPDATE Invoice u SET u.confirmDate = (CURRENT_DATE)",Invoice.class);
+         session.createQuery(UPDATE_INVOICE_U_SET_U_CONFIRM_DATE_CURRENT_DATE,Invoice.class);
 
     }
 
@@ -126,9 +129,20 @@ public class InvoiceDAOImpl implements InvoiceDAO {
 
     @Override
     @Cacheable
+    public double getInvoiceItemsSumm(String numberr) {
+        Session session = sessionFactory.getCurrentSession();
+        Query q = session.createQuery(SELECT_SUM_INVOICEITEMS_BY_INVOICE_NUMBERR);
+        q.setParameter("numberr", numberr);
+
+
+        return (double) q.getSingleResult();
+    }
+
+    @Override
+    @Cacheable
     public Date getConfirmDate(long id) {
         Session session = sessionFactory.getCurrentSession();
-        Query q = session.createQuery("SELECT (CURRENT_TIMESTAMP) AS confirmDatee FROM Invoice u WHERE u.id =:id ");
+        Query q = session.createQuery(SELECT_CURRENT_TIMESTAMP_AS_CONFIRM_DATEE_FROM_INVOICE_U_WHERE_U_ID_ID);
         q.setParameter("id", id);
 
 

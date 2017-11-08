@@ -84,17 +84,15 @@
                    aria-pressed="true">PDF</a></td>
             <td th:text=" ${invoice.id}"></td>
             <td th:text="${invoice.numberr}"></td>
-            <li th:if="${invoice.confirmDate == null}">
+            <li type="none" th:if="${invoice.confirmDate == null}">
                 <td><a th:href="@{/update/invoice/{id}(id=${invoice.id})}" class="btn btn-success active" role="button"
                        name="invoice.confirmDate" th:value="${#dates.format(#dates.createNow() , 'yyyy-MM-dd hh:mm')}"
-                       aria-pressed="true">SEND</a></td>
+                       aria-pressed="true">CONFIRM</a></td>
             </li>
-            <li th:if="${invoice.confirmDate != null}">
+            <li type="none" th:if="${invoice.confirmDate != null}">
                 <td th:text="${invoice.confirmDate}"></td>
             </li>
-
             <td th:text="${invoice.sellingDate}"></td>
-
             <td th:text="${invoice.invoiceDate}"></td>
             <td th:text="${sum}"></td>
         </tr>
@@ -107,7 +105,7 @@
             <tr>
                 <th>name</th>
                 <th>netto price</th>
-                <th>number</th>
+                <th>quantity</th>
                 <th>vat</th>
                 <th>brutto price</th>
                 <th>sum</th>
@@ -123,7 +121,7 @@
                          
                         <td th:text="${invoiceItem.product.name}"> product name</td>
                         <td th:text="${invoiceItem.product.nettoPrice}">netto price</td>
-                        <td th:text="${invoiceItem.number}">number</td>
+                        <td th:text="${invoiceItem.number}">quantity</td>
                         <td th:text="${invoiceItem.product.vat}">vat</td>
                         <td th:text="${invoiceItem.product.bruttoPrice}">brutto price</td>
                         <td th:text="${suma}"></td>

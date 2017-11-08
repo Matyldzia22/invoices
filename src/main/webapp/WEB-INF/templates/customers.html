@@ -87,7 +87,7 @@
                     <ul class="dropdown-menu">
                         <li><a th:href="@{/customer/name/{name}(name=${customer.name})}">Customer Details</a></li>
                         <li><a th:href="@{/{name}/address/add(name=${customer.name})}">Add Address</a></li>
-                        <li th:if ="${customer.addresses.size() != 0}">
+                        <li type="none" th:if ="${customer.addresses.size() != 0}">
                             <li><a th:href="@{/{name}/invoice/add(name=${customer.name})}">Add New Invoice</a></li>
                         </li>
                     </ul>

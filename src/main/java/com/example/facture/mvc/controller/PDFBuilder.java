@@ -30,6 +30,7 @@ public class PDFBuilder extends AbstractITextPdfView {
         Invoice inv = (Invoice) model.get("listInvoices");
         List<InvoiceItem> item = (List<InvoiceItem>) model.get("listOfInvoiceItems");
 
+
         Font bigfont = new Font(Font.FontFamily.HELVETICA, 14);
         bigfont.setColor(BaseColor.BLACK);
 
@@ -129,6 +130,7 @@ public class PDFBuilder extends AbstractITextPdfView {
         celll.setPhrase(new Phrase("VAT", smallfont));
         tablee.addCell(celll);
 
+
         for (InvoiceItem aItem : item) {
 
             tablee.addCell(aItem.getProduct().getName());
@@ -139,6 +141,7 @@ public class PDFBuilder extends AbstractITextPdfView {
 
 
         }
+
         doc.add(tablee);
 
 
